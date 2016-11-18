@@ -12,10 +12,12 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -42,7 +44,10 @@ import java.util.logging.Logger;
 public class ChurchDetails extends AppCompatActivity {
 Bundle extras;
     String ChurchID;
-    AsyncTask getChurchDetails,getMassTimings;
+    AsyncTask getChurchDetails,getMassTimings,getExtraDetails;
+    Typeface typeQuicksand;
+    Typeface typeSegoe;
+    Typeface typeBLKCHCRY;
     TextView churchName;
     TextView town;
     TextView address;
@@ -64,6 +69,7 @@ Bundle extras;
     RelativeLayout massLayout;
     TextView sundayLabel,mondayLabel,tuesdayLabel, wednesdayLabel, thursdayLabel,fridayLabel,saturdayLabel;
     TextView sundayTiming,mondayTiming,tuesdayTiming,wednesdayTiming,thursdayTiming,fridayTiming,saturdayTiming;
+    LinearLayout extraDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,16 +86,18 @@ Bundle extras;
         aboutLayout=(RelativeLayout)findViewById(R.id.aboutLayout);
         contactLayout=(RelativeLayout)findViewById(R.id.contactLayout);
         massLayout=(RelativeLayout) findViewById(R.id.massLayout);
+        extraDetails=(LinearLayout) findViewById(R.id.extra_items);
 
         priestLayout.setVisibility(View.INVISIBLE);
         contactLayout.setVisibility(View.INVISIBLE);
         massLayout.setVisibility(View.GONE);
+        extraDetails.setVisibility(View.GONE);
         //fonts-------------------------------
         activityScrollView=(ScrollView)findViewById(R.id.activity_scrollview);
         activityScrollView.setVisibility(View.GONE);
-        Typeface typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
-        Typeface typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
-        Typeface typeBLKCHCRY = Typeface.createFromAsset(getAssets(),"fonts/blackchancery.ttf");
+        typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
+        typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
+        typeBLKCHCRY = Typeface.createFromAsset(getAssets(),"fonts/blackchancery.ttf");
 
         churchName=(TextView)findViewById(R.id.activity_head);
         town=(TextView)findViewById(R.id.town);
@@ -324,6 +332,7 @@ Bundle extras;
                             .load(getResources().getString(R.string.url) +imageURLString.substring((imageURLString).indexOf("img")))
                             .placeholder(R.drawable.my_church_sample)
                             .thumbnail(0.1f)
+                            .crossFade()
                             .into(churchImage)
                     ;
                 }
@@ -377,7 +386,9 @@ Bundle extras;
                 if(!priestURLStringString.equals("null")){
                     Glide.with(ChurchDetails.this)
                             .load(getResources().getString(R.string.url) +priestURLStringString.substring((priestURLStringString).indexOf("img")))
+                            .placeholder(R.drawable.priest)
                             .thumbnail(0.1f)
+                            .crossFade()
                             .into(priestImage)
                     ;
                 }
@@ -568,7 +579,6 @@ Bundle extras;
                 massLayout.setVisibility(View.GONE);
             }
             else {
-                massLayout.setVisibility(View.VISIBLE);
 
                 setTimingsToTextViews(sunday,sundayTiming,sundayLabel);
                 setTimingsToTextViews(monday,mondayTiming,mondayLabel);
@@ -579,29 +589,166 @@ Bundle extras;
                 setTimingsToTextViews(saturday,saturdayTiming,saturdayLabel);
 
 
-                Animation fromBottom = AnimationUtils.loadAnimation(ChurchDetails.this, R.anim.fade_in_from_bottom);
-                massLayout.startAnimation(fromBottom);
+                final Animation fromBottom = AnimationUtils.loadAnimation(ChurchDetails.this, R.anim.fade_in_from_bottom);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        massLayout.setVisibility(View.VISIBLE);
+                        massLayout.startAnimation(fromBottom);
+                    }
+                },1000);
+            }
+            getExtraDetails=new GetExtraDetails().execute();
+        }
+
+        private void setTimingsToTextViews(ArrayList<String> timings, TextView timingsDisplay, TextView dayLabel){
+            //To set mass timings to corresponding text views
+            String dayTimings="";
+            for(int i=0;i<timings.size();i++) {
+                if (i==0)
+                {
+                    dayTimings = timings.get(0);
+                }
+                else
+                {
+                    dayTimings = dayTimings+", "+timings.get(i);
+                }
+            }
+            if(!dayTimings.equals(""))
+                timingsDisplay.setText(dayTimings);
+            else {
+                dayLabel.setVisibility(View.GONE);
+                timingsDisplay.setVisibility(View.GONE);
             }
         }
     }
-    public void setTimingsToTextViews(ArrayList<String> timings, TextView timingsDisplay, TextView dayLabel){
-        //To set mass timings to corresponding text views
-        String dayTimings="";
-        for(int i=0;i<timings.size();i++) {
-            if (i==0)
-            {
-                dayTimings = timings.get(0);
-            }
-            else
-            {
-                dayTimings = dayTimings+", "+timings.get(i);
-            }
+    public class GetExtraDetails extends AsyncTask<Void , Void, Void> {
+        int status;StringBuilder sb;
+        String strJson, postData;
+        JSONArray jsonArray;
+        String msg;
+        boolean pass=false;
+        ArrayList<String[]> extraDetailsArrayList=new ArrayList<>();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //----------encrypting ---------------------------
+            // usernameString=cryptography.Encrypt(usernameString);
         }
-        if(!dayTimings.equals(""))
-            timingsDisplay.setText(dayTimings);
-        else {
-            dayLabel.setVisibility(View.GONE);
-            timingsDisplay.setVisibility(View.GONE);
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetChurchExtraDetails";
+            HttpURLConnection c = null;
+            try {
+                postData =  "{\"ChurchID\":\"" + ChurchID+ "\"}";
+                URL u = new URL(url);
+                c = (HttpURLConnection) u.openConnection();
+                c.setRequestMethod("POST");
+                c.setRequestProperty("Content-type", "application/json; charset=utf-16");
+                c.setRequestProperty("Content-length", Integer.toString(postData.length()));
+                c.setDoInput(true);
+                c.setDoOutput(true);
+                c.setUseCaches(false);
+                c.setConnectTimeout(10000);
+                c.setReadTimeout(10000);
+                DataOutputStream wr = new DataOutputStream(c.getOutputStream());
+                wr.writeBytes(postData);
+                wr.flush();
+                wr.close();
+                status = c.getResponseCode();
+                switch (status) {
+                    case 200:
+                    case 201: BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                        sb = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line).append("\n");
+                        }
+                        br.close();
+                        int a=sb.indexOf("[");
+                        int b=sb.lastIndexOf("]");
+                        strJson=sb.substring(a, b + 1);
+                        //   strJson=cryptography.Decrypt(strJson);
+                        strJson="{\"JSON\":" + strJson.replace("\\\"","\"").replace("\\\\","\\") + "}";
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                msg=ex.getMessage();
+            } finally {
+                if (c != null) {
+                    try {
+                        c.disconnect();
+                    } catch (Exception ex) {
+                        Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                        msg=ex.getMessage();
+                    }
+                }
+            }
+            if(strJson!=null)
+            {try {
+                JSONObject jsonRootObject = new JSONObject(strJson);
+                jsonArray = jsonRootObject.optJSONArray("JSON");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    msg=jsonObject.optString("Message");
+                    pass=jsonObject.optBoolean("Flag",true);
+                    String[] data=new String[4];
+                    data[0]=jsonObject.optString("ID");
+                    data[1]=jsonObject.optString("Caption");
+                    data[2]=jsonObject.optString("Description");
+                    data[3]=jsonObject.optString("URL");
+                    extraDetailsArrayList.add(data);
+                }
+            } catch (Exception ex) {
+                msg=ex.getMessage();
+            }}
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if(!pass) {
+                massLayout.setVisibility(View.GONE);
+            }
+            else {
+
+                extraDetails.setVisibility(View.VISIBLE);
+               for (int i=0;i<extraDetailsArrayList.size();i++){
+                   final View extraItemCard=getLayoutInflater().inflate(R.layout.church_extra_detail_item, null);
+                   TextView title=(TextView)extraItemCard.findViewById(R.id.extra_detail_label);
+                   ImageView image=(ImageView)extraItemCard.findViewById(R.id.detail_image);
+                   TextView description=(TextView)extraItemCard.findViewById(R.id.extra_details);
+                   title.setTypeface(typeQuicksand);
+                   description.setTypeface(typeSegoe);
+
+                   title.setText(extraDetailsArrayList.get(i)[1]);
+                   description.setText(extraDetailsArrayList.get(i)[2]);
+                   if(!extraDetailsArrayList.get(i)[3].equals("null")){
+                           Glide.with(ChurchDetails.this)
+                                   .load(getResources().getString(R.string.url) +extraDetailsArrayList.get(i)[3].substring((extraDetailsArrayList.get(i)[3]).indexOf("img")))
+                                   .placeholder(R.drawable.church)
+                                   .thumbnail(0.1f)
+                                   .into(image)
+                           ;
+                   }
+                   else {
+                       image.setVisibility(View.GONE);
+                   }
+                   extraItemCard.setVisibility(View.INVISIBLE);
+                   extraDetails.addView(extraItemCard);
+                   final Animation fromBottom = AnimationUtils.loadAnimation(ChurchDetails.this, R.anim.fade_in_from_bottom);
+                   Handler handler = new Handler();
+                   handler.postDelayed(new Runnable() {
+                       @Override
+                       public void run() {
+                           extraItemCard.setVisibility(View.VISIBLE);
+                           extraItemCard.startAnimation(fromBottom);
+                       }
+                   },(i+1)*1000);
+               }
+            }
         }
     }
     public boolean isOnline() {

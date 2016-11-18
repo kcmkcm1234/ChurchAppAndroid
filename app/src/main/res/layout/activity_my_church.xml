@@ -8,7 +8,7 @@
     tools:context="com.tech.thrithvam.churchapp.MyChurch"
     android:background="@drawable/sky_bg">
     <TextView
-        android:text="My Church"
+        android:text="@string/my_church"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -28,7 +28,7 @@
         android:id="@+id/my_church_image"
         android:scaleType="centerCrop"/>
     <TextView
-        android:text="St. Thomas Cathedral Church"
+        android:text="@string/church_name"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                     android:textSize="16sp"
                     android:textColor="#673AB7"
                     android:layout_centerVertical="true"
-                    android:text="Notices"
+                    android:text="@string/notices"
                     android:layout_toRightOf="@+id/imageView"
                     android:layout_toEndOf="@+id/imageView" />
                 </RelativeLayout>
@@ -136,7 +136,7 @@
                     android:textSize="16sp"
                     android:layout_centerVertical="true"
                     android:textColor="#00BCD4"
-                    android:text="Events"
+                    android:text="@string/events"
                     android:layout_toRightOf="@+id/imageevent"
                     android:layout_toEndOf="@+id/imageevent" />
                     </RelativeLayout>
@@ -176,7 +176,7 @@
                     android:textSize="16sp"
                     android:layout_centerVertical="true"
                     android:textColor="#E91E63"
-                    android:text="Family Units"
+                    android:text="@string/family_units"
                     android:layout_toRightOf="@+id/imagefamily"
                     android:layout_toEndOf="@+id/imagefamily" />
                     </RelativeLayout>
@@ -213,7 +213,7 @@
                     android:textSize="16sp"
                     android:textColor="#795548"
                     android:layout_centerVertical="true"
-                    android:text="Gallery"
+                    android:text="@string/gallery"
                     android:layout_toRightOf="@+id/imagegallery"
                     android:layout_toEndOf="@+id/imagegallery" />
                     </RelativeLayout>
@@ -254,7 +254,7 @@
                     android:textSize="16sp"
                     android:layout_centerVertical="true"
                     android:textColor="#8BC34A"
-                    android:text="Timings"
+                    android:text="@string/timings"
                     android:layout_toRightOf="@+id/imagetiming"
                     android:layout_toEndOf="@+id/imagetiming" />
                     </RelativeLayout>
@@ -291,7 +291,7 @@
                     android:textSize="16sp"
                     android:textColor="#607D8B"
                     android:layout_centerVertical="true"
-                    android:text="About"
+                    android:text="@string/about"
                     android:layout_toRightOf="@+id/imageabout"
                     android:layout_toEndOf="@+id/imageabout" />
                     </RelativeLayout>
@@ -300,7 +300,7 @@
         </TableRow>
     </TableLayout>
     <TextView
-        android:text="Change my church✏"
+        android:text="@string/change_my_church"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -33,7 +33,7 @@
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
             android:padding="10dp"
-            android:hint="Search by town/church"
+            android:hint="@string/search_by_town_church"
             android:textColorHint="@color/edit_text"
             android:gravity="center"
             android:maxLength="100"
@@ -55,7 +55,7 @@
             android:layout_alignBottom="@+id/searchView" />
 
         <TextView
-            android:text="View all towns"
+            android:text="@string/view_all_towns"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:gravity="center"
-            android:text="Novenas"
+            android:text="@string/novenas"
             android:id="@+id/novenasText"
             android:textSize="18sp"
             android:textColor="@android:color/white"
@@ -142,7 +142,7 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="10"
-                android:text="My Church"/>
+                android:text="@string/my_church"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
@@ -169,7 +169,7 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="10"
-                android:text="Near By Churches"/>
+                android:text="@string/nearby_churches"/>
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -8,7 +8,7 @@
     tools:context="com.tech.thrithvam.churchapp.ChurchDetails"
     android:background="@drawable/sky_bg_full">
     <TextView
-        android:text="Church Name"
+        android:text="@string/church_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -60,7 +60,7 @@
         android:background="@drawable/gradient_to_black"
         android:layout_alignTop="@+id/town" />
     <TextView
-        android:text="Brief description about the church"
+        android:text="Town"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
         android:maxLines="1"
         android:ellipsize="end"/>
     <TextView
-        android:text="Address and contact information of the church"
+        android:text="Address"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="About"
+            android:text="@string/about"
             android:layout_marginTop="5dp"
             android:id="@+id/about_label"
             android:textColor="@color/primary_text"
@@ -104,7 +104,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet, pro ea autem paulo. Cu justo labore expetenda per, eam fabellas neglegentur an, sit no sonet saepe oporteat. Idque maiorum corpora te vim, facete aliquam salutatus qui te, eleifend tincidunt concludaturque per at. Duis posse qualisque has cu, nobis oblique at quo. Eos ei albucius molestie comprehensam, ius in veri commune singulis, autem decore accusamus at sea."
+            android:text="About Details"
             android:id="@+id/about"
             android:layout_below="@id/about_label"
             android:textColor="@color/primary_text"
@@ -113,12 +113,14 @@
             android:maxLines="5"
             android:ellipsize="end"/>
         <TextView
-            android:text="View more"
+            android:text="@string/view_more"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginRight="7dp"
+            android:layout_marginEnd="7dp"
             android:layout_below="@id/about"
             android:textSize="12sp"
             android:textColor="@color/colorAccent"/>
@@ -136,7 +138,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Priest"
+                    android:text="@string/priest"
                     android:layout_marginTop="5dp"
                     android:id="@+id/priest_label"
                     android:textColor="@color/primary_text"
@@ -151,7 +153,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    android:text="@string/name"
                     android:textSize="12sp"
                     android:textColor="@color/secondary_text"
                     android:layout_toRightOf="@+id/priest_image"
@@ -161,7 +163,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Priest Name"
+                    android:text="@string/priest_name"
                     android:textSize="14sp"
                     android:textColor="@color/primary_text"
                     android:layout_toRightOf="@+id/priest_image"
@@ -173,7 +175,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Parish"
+                    android:text="@string/parish"
                     android:textSize="12sp"
                     android:textColor="@color/secondary_text"
                     android:layout_toRightOf="@+id/priest_image"
@@ -195,7 +197,7 @@
                 <TextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Mobile"
+                    android:text="@string/mobile"
                     android:textSize="12sp"
                     android:textColor="@color/secondary_text"
                     android:layout_toRightOf="@+id/priest_image"
@@ -218,7 +220,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date of Ordination"
+            android:text="@string/date_of_ordination"
             android:textSize="12sp"
             android:textColor="@color/secondary_text"
             android:id="@+id/date_of_ordination_label"
@@ -243,7 +245,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="About"
+                    android:text="@string/about"
                     android:textSize="12sp"
                     android:textColor="@color/secondary_text"
                     android:layout_toRightOf="@+id/priest_image"
@@ -264,15 +266,17 @@
                     android:ellipsize="end"/>
 
         <TextView
-                    android:text="View more"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="7dp"
-                    android:textSize="12sp"
-                    android:layout_below="@+id/priest_about"
-                    android:textColor="@color/colorAccent"/>
+            android:text="@string/view_more"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="7dp"
+            android:layout_marginEnd="7dp"
+            android:layout_below="@id/priest_about"
+            android:textSize="12sp"
+            android:textColor="@color/colorAccent"/>
 
 
 
@@ -290,7 +294,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Contact"
+                    android:text="@string/contact"
                     android:layout_marginTop="5dp"
                     android:id="@+id/contact_label"
                     android:textColor="@color/primary_text"
@@ -299,7 +303,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Church Address"
+                    android:text="@string/church_address"
                     android:textSize="12sp"
                     android:textColor="@color/secondary_text"
                     android:layout_below="@+id/contact_label"
@@ -315,7 +319,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Phone"
+                    android:text="@string/phone"
                     android:textSize="12sp"
                     android:textColor="@color/secondary_text"
                     android:layout_below="@+id/church_address"
@@ -356,7 +360,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="View Church in map"
+                android:text="@string/view_church_in_map"
                 android:textSize="14sp"
                 android:textColor="@color/colorAccent"
                 android:id="@+id/map_label"
@@ -378,7 +382,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mass Timings"
+                    android:text="@string/mass_timings"
                     android:layout_marginTop="5dp"
                     android:id="@+id/mass_label"
                     android:textColor="@color/primary_text"
@@ -388,7 +392,7 @@
                    android:layout_width="100dp"
                    android:layout_height="wrap_content"
                    android:layout_below="@id/mass_label"
-                   android:text="Sunday"
+                   android:text="@string/sunday"
                    android:textColor="@color/primary_text"
                    android:id="@+id/sunday_label"/>
 
@@ -407,7 +411,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/sunday_timings"
-                    android:text="Monday"
+                    android:text="@string/monday"
                     android:textColor="@color/primary_text"
                     android:id="@+id/monday_label"/>
 
@@ -426,7 +430,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/monday_timings"
-                    android:text="Tuesday"
+                    android:text="@string/tuesday"
                     android:textColor="@color/primary_text"
                     android:id="@+id/tuesday_label"/>
                 <TextView
@@ -444,7 +448,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tuesday_timings"
-                    android:text="Wednesday"
+                    android:text="@string/wednesday"
                     android:textColor="@color/primary_text"
                     android:id="@+id/wednesday_label"/>
                 <TextView
@@ -462,7 +466,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/wednesday_timings"
-                    android:text="Thursday"
+                    android:text="@string/thursday"
                     android:textColor="@color/primary_text"
                     android:id="@+id/thursday_label"/>
                 <TextView
@@ -480,7 +484,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/thursday_timings"
-                    android:text="Friday"
+                    android:text="@string/friday"
                     android:textColor="@color/primary_text"
                     android:id="@+id/friday_label"/>
                 <TextView
@@ -498,7 +502,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/friday_timings"
-                    android:text="Saturday"
+                    android:text="@string/saturday"
                     android:textColor="@color/primary_text"
                     android:id="@+id/saturday_label"/>
                 <TextView
@@ -511,8 +515,27 @@
                     android:layout_toRightOf="@+id/saturday_label"
                     android:layout_toEndOf="@+id/saturday_label"
                     android:layout_marginTop="5dp"/>
-
+        <TextView
+            android:text="@string/novenas"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="7dp"
+            android:layout_marginEnd="7dp"
+            android:textSize="12sp"
+            android:layout_below="@+id/saturday_timings"
+            android:textColor="@color/colorAccent"/>
     </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/massLayout"
+                android:id="@+id/extra_items">
+            </LinearLayout>
+
 </RelativeLayout>
     </ScrollView>
 
