@@ -1,0 +1,618 @@
+package com.tech.thrithvam.churchapp;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.wang.avi.AVLoadingIndicatorView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class ChurchDetails extends AppCompatActivity {
+Bundle extras;
+    String ChurchID;
+    AsyncTask getChurchDetails,getMassTimings;
+    TextView churchName;
+    TextView town;
+    TextView address;
+    TextView about;
+    TextView priestName;
+    TextView parishName;
+    TextView priestMobile;
+    TextView priestAbout;
+    TextView dateOrdination;
+    TextView churchAddress;
+    TextView phone1;
+    TextView phone2;
+    RelativeLayout viewMap;
+    ImageView churchImage,priestImage;
+    ScrollView activityScrollView;
+    RelativeLayout priestLayout;
+    RelativeLayout aboutLayout;
+    RelativeLayout contactLayout;
+    RelativeLayout massLayout;
+    TextView sundayLabel,mondayLabel,tuesdayLabel, wednesdayLabel, thursdayLabel,fridayLabel,saturdayLabel;
+    TextView sundayTiming,mondayTiming,tuesdayTiming,wednesdayTiming,thursdayTiming,fridayTiming,saturdayTiming;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_church_details);
+        extras=getIntent().getExtras();
+        ChurchID=extras.getString("churchID");
+        if (isOnline()) {
+            getChurchDetails=new GetChurchDetails().execute();
+        } else {
+            Toast.makeText(ChurchDetails.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+        }
+        //Layouts-----------------------------------
+        priestLayout=(RelativeLayout)findViewById(R.id.priestLayout);
+        aboutLayout=(RelativeLayout)findViewById(R.id.aboutLayout);
+        contactLayout=(RelativeLayout)findViewById(R.id.contactLayout);
+        massLayout=(RelativeLayout) findViewById(R.id.massLayout);
+
+        priestLayout.setVisibility(View.INVISIBLE);
+        contactLayout.setVisibility(View.INVISIBLE);
+        massLayout.setVisibility(View.GONE);
+        //fonts-------------------------------
+        activityScrollView=(ScrollView)findViewById(R.id.activity_scrollview);
+        activityScrollView.setVisibility(View.GONE);
+        Typeface typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
+        Typeface typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
+        Typeface typeBLKCHCRY = Typeface.createFromAsset(getAssets(),"fonts/blackchancery.ttf");
+
+        churchName=(TextView)findViewById(R.id.activity_head);
+        town=(TextView)findViewById(R.id.town);
+        address=(TextView)findViewById(R.id.address);
+        TextView aboutLabel=(TextView)findViewById(R.id.about_label);
+        about=(TextView)findViewById(R.id.about);
+        TextView priestLabel=(TextView)findViewById(R.id.priest_label);
+        priestName=(TextView)findViewById(R.id.priest_name);
+        parishName=(TextView)findViewById(R.id.parish);
+        priestMobile=(TextView)findViewById(R.id.priest_mobile);
+        priestAbout=(TextView)findViewById(R.id.priest_about);
+        dateOrdination=(TextView)findViewById(R.id.date_of_ordination);
+        churchImage=(ImageView)findViewById(R.id.church_image);
+        priestImage=(ImageView)findViewById(R.id.priest_image);
+        TextView contactLabel=(TextView)findViewById(R.id.contact_label);
+        churchAddress=(TextView)findViewById(R.id.church_address);
+        phone1=(TextView)findViewById(R.id.phone1);
+        phone2=(TextView)findViewById(R.id.phone2);
+        viewMap=(RelativeLayout)findViewById(R.id.view_in_map);
+        TextView massLabel=(TextView)findViewById(R.id.mass_label);
+        sundayLabel=(TextView)findViewById(R.id.sunday_label);
+        mondayLabel=(TextView)findViewById(R.id.monday_label);
+        tuesdayLabel=(TextView)findViewById(R.id.tuesday_label);
+        wednesdayLabel =(TextView)findViewById(R.id.wednesday_label);
+        thursdayLabel =(TextView)findViewById(R.id.thursday_label);
+        fridayLabel=(TextView)findViewById(R.id.friday_label);
+        saturdayLabel=(TextView)findViewById(R.id.saturday_label);
+        sundayTiming=(TextView)findViewById(R.id.sunday_timings);
+        mondayTiming=(TextView)findViewById(R.id.monday_timings);
+        tuesdayTiming=(TextView)findViewById(R.id.tuesday_timings);
+        wednesdayTiming=(TextView)findViewById(R.id.wednesday_timings);
+        thursdayTiming=(TextView)findViewById(R.id.thursday_timings);
+        fridayTiming=(TextView)findViewById(R.id.friday_timings);
+        saturdayTiming=(TextView)findViewById(R.id.saturday_timings);
+
+
+        churchName.setTypeface(typeBLKCHCRY);
+        town.setTypeface(typeQuicksand);
+        address.setTypeface(typeSegoe);
+        aboutLabel.setTypeface(typeQuicksand);
+        about.setTypeface(typeSegoe);
+        priestLabel.setTypeface(typeQuicksand);
+        priestName.setTypeface(typeSegoe);
+        parishName.setTypeface(typeSegoe);
+        priestMobile.setTypeface(typeSegoe);
+        priestAbout.setTypeface(typeSegoe);
+        dateOrdination.setTypeface(typeSegoe);
+        contactLabel.setTypeface(typeQuicksand);
+        churchAddress.setTypeface(typeSegoe);
+        phone1.setTypeface(typeSegoe);
+        phone2.setTypeface(typeSegoe);
+        massLabel.setTypeface(typeQuicksand);
+        sundayLabel.setTypeface(typeSegoe);
+        mondayLabel.setTypeface(typeSegoe);
+        tuesdayLabel.setTypeface(typeSegoe);
+        wednesdayLabel.setTypeface(typeSegoe);
+        thursdayLabel.setTypeface(typeSegoe);
+        fridayLabel.setTypeface(typeSegoe);
+        saturdayLabel.setTypeface(typeSegoe);
+        sundayTiming.setTypeface(typeSegoe);
+        mondayTiming.setTypeface(typeSegoe);
+        tuesdayTiming.setTypeface(typeSegoe);
+        wednesdayTiming.setTypeface(typeSegoe);
+        thursdayTiming.setTypeface(typeSegoe);
+        fridayTiming.setTypeface(typeSegoe);
+        saturdayTiming.setTypeface(typeSegoe);
+
+
+        //getting details from intent------------------------
+        if(getIntent().hasExtra("churchname")){
+            churchName.setText(extras.getString("churchname"));
+        }
+        if(getIntent().hasExtra("address")){
+            address.setText(extras.getString("address"));
+        }
+        else {
+            address.setVisibility(View.INVISIBLE);
+        }
+        if(getIntent().hasExtra("town")){
+            town.setText(extras.getString("town"));
+        }
+        else {
+            town.setVisibility(View.INVISIBLE);
+        }
+
+
+    }
+    public class GetChurchDetails extends AsyncTask<Void , Void, Void> {
+        int status;StringBuilder sb;
+        String strJson, postData;
+        JSONArray jsonArray;
+        String msg;
+        boolean pass=false;
+        AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
+        String churchNameString,aboutString,townNameString,addressString,mapCoOrdinatesString,phone1String,phone2String, townCodeString,imageURLString,priestNameString,priestAboutString,parishString,priestMobileString,dateOrdinationString,priestURLStringString;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            loadingIndicator.setVisibility(View.VISIBLE);
+            //----------encrypting ---------------------------
+            // usernameString=cryptography.Encrypt(usernameString);
+        }
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/ChurchDetailsByID";
+            HttpURLConnection c = null;
+            try {
+                postData =  "{\"ChurchID\":\"" + ChurchID+ "\"}";
+                URL u = new URL(url);
+                c = (HttpURLConnection) u.openConnection();
+                c.setRequestMethod("POST");
+                c.setRequestProperty("Content-type", "application/json; charset=utf-16");
+                c.setRequestProperty("Content-length", Integer.toString(postData.length()));
+                c.setDoInput(true);
+                c.setDoOutput(true);
+                c.setUseCaches(false);
+                c.setConnectTimeout(10000);
+                c.setReadTimeout(10000);
+                DataOutputStream wr = new DataOutputStream(c.getOutputStream());
+                wr.writeBytes(postData);
+                wr.flush();
+                wr.close();
+                status = c.getResponseCode();
+                switch (status) {
+                    case 200:
+                    case 201: BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                        sb = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line).append("\n");
+                        }
+                        br.close();
+                        int a=sb.indexOf("[");
+                        int b=sb.lastIndexOf("]");
+                        strJson=sb.substring(a, b + 1);
+                        //   strJson=cryptography.Decrypt(strJson);
+                        strJson="{\"JSON\":" + strJson.replace("\\\"","\"").replace("\\\\","\\") + "}";
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                msg=ex.getMessage();
+            } finally {
+                if (c != null) {
+                    try {
+                        c.disconnect();
+                    } catch (Exception ex) {
+                        Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                        msg=ex.getMessage();
+                    }
+                }
+            }
+            if(strJson!=null)
+            {try {
+                JSONObject jsonRootObject = new JSONObject(strJson);
+                jsonArray = jsonRootObject.optJSONArray("JSON");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    msg=jsonObject.optString("Message");
+                    pass=jsonObject.optBoolean("Flag",true);
+                    churchNameString=jsonObject.optString("ChurchName");
+                    aboutString=jsonObject.optString("About");
+                    townNameString=jsonObject.optString("TownName");
+                    addressString=jsonObject.optString("Address");
+                    mapCoOrdinatesString=jsonObject.optString("Longitude")+","+jsonObject.optString("Latitude");
+                    phone1String=jsonObject.optString("Phone1");
+                    phone2String=jsonObject.optString("Phone2");
+                    townCodeString=jsonObject.optString("TownCode");
+                    imageURLString=jsonObject.optString("ImageURL");
+                    priestNameString=jsonObject.optString("PriestName");
+                    priestAboutString=jsonObject.optString("PriestAbout");
+                    parishString=jsonObject.optString("Parish");
+                    priestMobileString=jsonObject.optString("PriestMobile");
+                    dateOrdinationString=jsonObject.optString("DateOrdination").replace("/Date(", "").replace(")/", "");
+                    priestURLStringString=jsonObject.optString("PriestURL");
+                }
+            } catch (Exception ex) {
+                msg=ex.getMessage();
+            }}
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            loadingIndicator.setVisibility(View.GONE);
+            if(!pass) {
+                new AlertDialog.Builder(ChurchDetails.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
+                        .setMessage(msg)//R.string.no_items)
+                        .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        }).setCancelable(false).show();
+            }
+            else {
+                activityScrollView.setVisibility(View.VISIBLE);
+                if(!churchNameString.equals("null")){
+                    churchName.setText(churchNameString);
+                }
+                else {
+                    churchName.setText("-");
+                }
+
+                if(!aboutString.equals("null")){
+                    about.setText(aboutString);
+                }
+                else {
+                    about.setText("-");
+                }
+
+                if(!townNameString.equals("null")){
+                    town.setText(townNameString);
+                }
+                else {
+                    town.setText("-");
+                }
+
+                if(!addressString.equals("null")){
+                    address.setText(addressString);
+                    churchAddress.setText(addressString);
+                }
+                else {
+                    address.setText("-");
+                    churchAddress.setText("-");
+                }
+
+                //townCodeString
+
+                if(!imageURLString.equals("null")){
+                    Glide.with(ChurchDetails.this)
+                            .load(getResources().getString(R.string.url) +imageURLString.substring((imageURLString).indexOf("img")))
+                            .placeholder(R.drawable.my_church_sample)
+                            .thumbnail(0.1f)
+                            .into(churchImage)
+                    ;
+                }
+
+                if(!priestNameString.equals("null")){
+                    priestName.setText(priestNameString);
+                }
+                else {
+                    priestName.setText("-");
+                }
+
+                if(!priestAboutString.equals("null")){
+                    priestAbout.setText(priestAboutString);
+                }
+                else {
+                    priestAbout.setText("-");
+                }
+
+                if(!parishString.equals("null")){
+                    parishName.setText(parishString);
+                }
+                else {
+                    parishName.setText("-");
+                }
+
+                if(!priestMobileString.equals("null")){
+                    priestMobile.setText(priestMobileString);
+                    priestMobile.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {                                   //Phone call function
+                            Uri number = Uri.parse("tel:" + priestMobileString);
+                            Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+                            startActivity(callIntent);
+                        }
+                    });
+                }
+                else {
+                    priestMobile.setText("-");
+                }
+
+                if(!dateOrdinationString.equals("null")){
+                    SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+                    Calendar cal= Calendar.getInstance();
+                    cal.setTimeInMillis(Long.parseLong(dateOrdinationString));
+                    dateOrdination.setText(formatted.format(cal.getTime()));
+                }
+                else {
+                    dateOrdination.setText("-");
+                }
+
+                if(!priestURLStringString.equals("null")){
+                    Glide.with(ChurchDetails.this)
+                            .load(getResources().getString(R.string.url) +priestURLStringString.substring((priestURLStringString).indexOf("img")))
+                            .thumbnail(0.1f)
+                            .into(priestImage)
+                    ;
+                }
+
+                if(!phone1String.equals("null")){
+                    phone1.setText(phone1String);
+                    phone1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {                                   //Phone call function
+                            Uri number = Uri.parse("tel:" + phone1String);
+                            Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+                            startActivity(callIntent);
+                        }
+                    });
+                }
+                else {
+                    phone1.setText("-");
+                }
+
+                if(!phone2String.equals("null")){
+                    phone2.setText(phone2String);
+                    phone2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {                                   //Phone call function
+                            Uri number = Uri.parse("tel:" + phone2String);
+                            Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+                            startActivity(callIntent);
+                        }
+                    });
+                }
+                else {
+                    phone2.setVisibility(View.GONE);
+                }
+
+                if(!mapCoOrdinatesString.equals("null,null")){
+                    viewMap.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            try {
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (mapCoOrdinatesString)));
+                                startActivity(intent);
+                            } catch (Exception e) {
+                                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+                else {
+                    viewMap.setVisibility(View.GONE);
+                }
+                //Animation-----------------------------------------------------
+                final Animation fromBottom = AnimationUtils.loadAnimation(ChurchDetails.this, R.anim.fade_in_from_bottom);
+                final Animation fromBottom2 = AnimationUtils.loadAnimation(ChurchDetails.this, R.anim.fade_in_from_bottom);
+                final Animation fromBottom3 = AnimationUtils.loadAnimation(ChurchDetails.this, R.anim.fade_in_from_bottom);
+
+                Handler handler = new Handler();
+                aboutLayout.startAnimation(fromBottom);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        priestLayout.setVisibility(View.VISIBLE);
+                        priestLayout.startAnimation(fromBottom2);
+                    }
+                },500);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        contactLayout.setVisibility(View.VISIBLE);
+                        contactLayout.startAnimation(fromBottom3);
+                    }
+                },1000);
+
+                getMassTimings=new GetMassTimings().execute();
+            }
+        }
+    }
+    public class GetMassTimings extends AsyncTask<Void , Void, Void> {
+        int status;StringBuilder sb;
+        String strJson, postData;
+        JSONArray jsonArray;
+        String msg;
+        boolean pass=false;
+        ArrayList<String> sunday=new ArrayList<>();
+        ArrayList<String> monday=new ArrayList<>();
+        ArrayList<String> tuesday=new ArrayList<>();
+        ArrayList<String> wednesday=new ArrayList<>();
+        ArrayList<String> thurday=new ArrayList<>();
+        ArrayList<String> friday=new ArrayList<>();
+        ArrayList<String> saturday=new ArrayList<>();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //----------encrypting ---------------------------
+            // usernameString=cryptography.Encrypt(usernameString);
+        }
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetMassTimings";
+            HttpURLConnection c = null;
+            try {
+                postData =  "{\"ChurchID\":\"" + ChurchID+ "\"}";
+                URL u = new URL(url);
+                c = (HttpURLConnection) u.openConnection();
+                c.setRequestMethod("POST");
+                c.setRequestProperty("Content-type", "application/json; charset=utf-16");
+                c.setRequestProperty("Content-length", Integer.toString(postData.length()));
+                c.setDoInput(true);
+                c.setDoOutput(true);
+                c.setUseCaches(false);
+                c.setConnectTimeout(10000);
+                c.setReadTimeout(10000);
+                DataOutputStream wr = new DataOutputStream(c.getOutputStream());
+                wr.writeBytes(postData);
+                wr.flush();
+                wr.close();
+                status = c.getResponseCode();
+                switch (status) {
+                    case 200:
+                    case 201: BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                        sb = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line).append("\n");
+                        }
+                        br.close();
+                        int a=sb.indexOf("[");
+                        int b=sb.lastIndexOf("]");
+                        strJson=sb.substring(a, b + 1);
+                        //   strJson=cryptography.Decrypt(strJson);
+                        strJson="{\"JSON\":" + strJson.replace("\\\"","\"").replace("\\\\","\\") + "}";
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                msg=ex.getMessage();
+            } finally {
+                if (c != null) {
+                    try {
+                        c.disconnect();
+                    } catch (Exception ex) {
+                        Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                        msg=ex.getMessage();
+                    }
+                }
+            }
+            if(strJson!=null)
+            {try {
+                JSONObject jsonRootObject = new JSONObject(strJson);
+                jsonArray = jsonRootObject.optJSONArray("JSON");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    msg=jsonObject.optString("Message");
+                    pass=jsonObject.optBoolean("Flag",true);
+                    switch (jsonObject.optString("Day")){
+                        case "Sun":
+                                sunday.add(jsonObject.optString("FormattedTime"));
+                            break;
+                        case "Mon":
+                                monday.add(jsonObject.optString("FormattedTime"));
+                            break;
+                        case "Tue":
+                                tuesday.add(jsonObject.optString("FormattedTime"));
+                            break;
+                        case "Wed":
+                                wednesday.add(jsonObject.optString("FormattedTime"));
+                            break;
+                        case "Thu":
+                                thurday.add(jsonObject.optString("FormattedTime"));
+                            break;
+                        case "Fri":
+                                friday.add(jsonObject.optString("FormattedTime"));
+                            break;
+                        case "Sat":
+                                saturday.add(jsonObject.optString("FormattedTime"));
+                            break;
+                        default:
+                    }
+                }
+            } catch (Exception ex) {
+                msg=ex.getMessage();
+            }}
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if(!pass) {
+                massLayout.setVisibility(View.GONE);
+            }
+            else {
+                massLayout.setVisibility(View.VISIBLE);
+
+                setTimingsToTextViews(sunday,sundayTiming,sundayLabel);
+                setTimingsToTextViews(monday,mondayTiming,mondayLabel);
+                setTimingsToTextViews(tuesday,tuesdayTiming,tuesdayLabel);
+                setTimingsToTextViews(wednesday,wednesdayTiming,wednesdayLabel);
+                setTimingsToTextViews(thurday,thursdayTiming,thursdayLabel);
+                setTimingsToTextViews(friday,fridayTiming,fridayLabel);
+                setTimingsToTextViews(saturday,saturdayTiming,saturdayLabel);
+
+
+                Animation fromBottom = AnimationUtils.loadAnimation(ChurchDetails.this, R.anim.fade_in_from_bottom);
+                massLayout.startAnimation(fromBottom);
+            }
+        }
+    }
+    public void setTimingsToTextViews(ArrayList<String> timings, TextView timingsDisplay, TextView dayLabel){
+        //To set mass timings to corresponding text views
+        String dayTimings="";
+        for(int i=0;i<timings.size();i++) {
+            if (i==0)
+            {
+                dayTimings = timings.get(0);
+            }
+            else
+            {
+                dayTimings = dayTimings+", "+timings.get(i);
+            }
+        }
+        if(!dayTimings.equals(""))
+            timingsDisplay.setText(dayTimings);
+        else {
+            dayLabel.setVisibility(View.GONE);
+            timingsDisplay.setVisibility(View.GONE);
+        }
+    }
+    public boolean isOnline() {
+        ConnectivityManager cm =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(getChurchDetails!=null)getChurchDetails.cancel(true);
+        if(getMassTimings!=null)getMassTimings.cancel(true);
+    }
+}

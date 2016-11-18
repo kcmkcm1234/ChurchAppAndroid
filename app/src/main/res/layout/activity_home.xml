@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tech.thrithvam.churchapp.Home"
+    android:background="@drawable/sky_bg_full">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/novenas">
+
+       <!-- <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mainimage"
+        android:scaleType="centerCrop"
+        android:background="@color/colorgray"
+        android:src="@drawable/home_image_church"/>-->
+
+ <!--       <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white_patch"/>-->
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchView"
+            android:queryHint="Search"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:hint="Search by town/church"
+            android:textColorHint="@color/edit_text"
+            android:gravity="center"
+            android:maxLength="100"
+            android:background="@drawable/boarder"
+            android:textColor="@color/edit_text"
+            android:imeActionLabel="actionGo"
+            android:singleLine="true"
+            android:maxLines="1" />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/search"
+            android:id="@+id/searchImage"
+            android:layout_alignTop="@+id/searchView"
+            android:layout_alignRight="@+id/searchView"
+            android:layout_alignEnd="@+id/searchView"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:layout_alignBottom="@+id/searchView" />
+
+        <TextView
+            android:text="View all towns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:id="@+id/view_all_towns"
+            android:textSize="14sp"
+            android:layout_below="@+id/searchImage"
+            android:layout_alignRight="@+id/searchView"
+            android:layout_alignEnd="@+id/searchView" />
+
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/novenas"
+        android:layout_above="@+id/my_n_near_church"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="1dp"
+        android:background="#c70e0226">
+        <!--<ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/novenas"/>-->
+      <!--  <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white_patch"/>-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:text="Novenas"
+            android:id="@+id/novenasText"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="10"/>
+        <!--android:shadowColor="@android:color/black"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="3"-->
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:id="@+id/my_n_near_church"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="1dp"
+            android:background="#cf3F51B5"
+            android:onClick="mychurch"
+            >
+<!--            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/mychurch"/>-->
+<!--            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white_patch"/>-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/mychurch"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="10"
+                android:text="My Church"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#c7441a2e">
+     <!--       <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/map"/>-->
+     <!--       <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white_patch"/>-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/nearbychurch"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="10"
+                android:text="Near By Churches"/>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>
