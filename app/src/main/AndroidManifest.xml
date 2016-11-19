@@ -25,20 +25,24 @@
         </activity>
         <activity
             android:name=".Home"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:configChanges="orientation|screenSize"
-            android:windowSoftInputMode="stateHidden"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".SearchResults"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="stateHidden"
-            android:configChanges="orientation|screenSize"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".MyChurch"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".ChurchDetails"
+        <activity
+            android:name=".ChurchDetails"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".Novenas"
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>

@@ -64,4 +64,8 @@ public class Home extends AppCompatActivity {
         Intent intent=new Intent(Home.this,MyChurch.class);
         startActivity(intent);
     }
+    public void novenas(View view){
+        Intent intent=new Intent(Home.this,Novenas.class);
+        startActivity(intent);
+    }
 }

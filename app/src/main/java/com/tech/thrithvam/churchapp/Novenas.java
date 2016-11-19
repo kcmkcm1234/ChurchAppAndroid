@@ -12,8 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,76 +30,59 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SearchResults extends AppCompatActivity {
-    AsyncTask searching;
-    String searchKey;
-    Bundle extras;
+public class Novenas extends AppCompatActivity {
+    Typeface typeSegoe;
+    Typeface typeBLKCHCRY;
+    Typeface typeQuicksand;
+    AsyncTask getPatrons;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_results);
-        extras=getIntent().getExtras();
-        searchKey=extras.getString("searchkey");
+        setContentView(R.layout.activity_novenas);
+        typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
+        typeBLKCHCRY = Typeface.createFromAsset(getAssets(),"fonts/blackchancery.ttf");
+        typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
+
+        TextView activityHead=(TextView)findViewById(R.id.activity_head);
+        activityHead.setTypeface(typeQuicksand);
+
         if (isOnline()) {
-            searching=new ChurchTownSearchResults().execute();
+            getPatrons=new GetPatrons().execute();
         } else {
-            Toast.makeText(SearchResults.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            Toast.makeText(Novenas.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
-        Typeface typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
-        Typeface typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
-        final EditText searchText=(EditText)findViewById(R.id.searchViewText);
-        searchText.setTypeface(typeSegoe);
-        ImageView searchImage =(ImageView)findViewById(R.id.searchImage);
-        searchImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(SearchResults.this,SearchResults.class);
-                intent.putExtra("searchkey",searchText.getText().toString());
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
-            }
-        });
-
     }
-
-    public class ChurchTownSearchResults extends AsyncTask<Void , Void, Void> {
+    public class GetPatrons extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
-        String strJson, postData;
+        String strJson;//, postData;
         JSONArray jsonArray;
         String msg;
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
-        TextView loadingText=(TextView)findViewById(R.id.loading_text);
-        ArrayList<String[]> churchItems=new ArrayList<>();
+        ArrayList<String[]> patronItems=new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             loadingIndicator.setVisibility(View.VISIBLE);
-            loadingText.setVisibility(View.VISIBLE);
             //----------encrypting ---------------------------
             // usernameString=cryptography.Encrypt(usernameString);
         }
         @Override
         protected Void doInBackground(Void... arg0) {
-            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/SearchChurch";
+            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetAllPatrons";
             HttpURLConnection c = null;
             try {
-                postData =  "{\"SearchTerm\":\"" + searchKey+ "\"}";
                 URL u = new URL(url);
                 c = (HttpURLConnection) u.openConnection();
                 c.setRequestMethod("POST");
                 c.setRequestProperty("Content-type", "application/json; charset=utf-16");
-                c.setRequestProperty("Content-length", Integer.toString(postData.length()));
+                c.setRequestProperty("Content-length","0");
                 c.setDoInput(true);
                 c.setDoOutput(true);
                 c.setUseCaches(false);
                 c.setConnectTimeout(10000);
                 c.setReadTimeout(10000);
-                DataOutputStream wr = new DataOutputStream(c.getOutputStream());
-                wr.writeBytes(postData);
-                wr.flush();
-                wr.close();
+                c.connect();
                 status = c.getResponseCode();
                 switch (status) {
                     case 200:
@@ -139,13 +120,12 @@ public class SearchResults extends AppCompatActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     msg=jsonObject.optString("Message");
                     pass=jsonObject.optBoolean("Flag",true);
-                    String[] data=new String[5];
+                    String[] data=new String[4];
                     data[0]=jsonObject.optString("ID");
-                    data[1]=jsonObject.optString("ChurchName");
-                    data[2]=jsonObject.optString("Town");
-                    data[3]=jsonObject.optString("ImageURL");
-                    data[4]=jsonObject.optString("Address");
-                    churchItems.add(data);
+                    data[1]=jsonObject.optString("Name");
+                    data[2]=jsonObject.optString("Description");
+                    data[3]=jsonObject.optString("URL");
+                    patronItems.add(data);
                 }
             } catch (Exception ex) {
                 msg=ex.getMessage();
@@ -157,9 +137,8 @@ public class SearchResults extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             loadingIndicator.setVisibility(View.GONE);
-            loadingText.setVisibility(View.GONE);
             if(!pass) {
-                new AlertDialog.Builder(SearchResults.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
+                new AlertDialog.Builder(Novenas.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
                         .setMessage(msg)//R.string.no_items)
                         .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
@@ -169,20 +148,20 @@ public class SearchResults extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(SearchResults.this, churchItems,"ChurchTownSearchResults");
-                ListView churchList=(ListView) findViewById(R.id.resultsGrid);
-                churchList.setAdapter(adapter);
-                churchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                CustomAdapter adapter=new CustomAdapter(Novenas.this, patronItems,"Novenas");
+                ListView patronList=(ListView) findViewById(R.id.patronsList);
+                patronList.setAdapter(adapter);
+                patronList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(SearchResults.this,ChurchDetails.class);
+                     /*   Intent intent=new Intent(SearchResults.this,ChurchDetails.class);
                         intent.putExtra("churchID",churchItems.get(position)[0]);
                         intent.putExtra("churchname",churchItems.get(position)[1]);
                         intent.putExtra("town",churchItems.get(position)[2]);
                         intent.putExtra("address",churchItems.get(position)[4]);
 //                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-//                        finish();
+//                        finish();*/
                     }
                 });
             }
@@ -194,10 +173,9 @@ public class SearchResults extends AppCompatActivity {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(searching!=null)searching.cancel(true);
+        if(getPatrons!=null)getPatrons.cancel(true);
     }
 }
