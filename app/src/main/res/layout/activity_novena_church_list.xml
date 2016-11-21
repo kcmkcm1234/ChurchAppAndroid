@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_novenas"
+    android:id="@+id/activity_novena_church_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tech.thrithvam.churchapp.Novenas"
+    tools:context="com.tech.thrithvam.churchapp.NovenaChurchList"
     android:background="@drawable/sky_bg_full">
     <TextView
         android:text="@string/novenas"
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarStyle="outsideOverlay"
-        android:id="@+id/patronsList"
+        android:id="@+id/novena_church_list"
         android:layout_below="@+id/activity_head"
         android:divider="@null"/>
 </RelativeLayout>

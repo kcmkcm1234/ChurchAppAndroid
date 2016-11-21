@@ -35,5 +35,6 @@
     <string name="gallery">Gallery</string>
     <string name="timings">Timings</string>
     <string name="change_my_church">Change my church✏</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
+    <string name="novena_dates">%1$s to %2$s</string>
 </resources>

@@ -42,7 +42,11 @@
             android:name=".ChurchDetails"
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Novenas"
+        <activity
+            android:name=".Novenas"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".NovenaChurchList"
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>

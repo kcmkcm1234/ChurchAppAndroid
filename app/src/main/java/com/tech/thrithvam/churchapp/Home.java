@@ -21,9 +21,9 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Animation fromLeft = AnimationUtils.loadAnimation(this, R.anim.fade_in_from_left);
+       // Animation fromLeft = AnimationUtils.loadAnimation(this, R.anim.fade_in_from_left);
         ImageView searchImage =(ImageView)findViewById(R.id.searchImage);
-        searchImage.startAnimation(fromLeft);
+        //searchImage.startAnimation(fromLeft);
         final EditText searchText=(EditText)findViewById(R.id.searchView);
         searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

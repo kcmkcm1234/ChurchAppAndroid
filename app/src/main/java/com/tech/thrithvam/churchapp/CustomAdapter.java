@@ -61,12 +61,15 @@ public class CustomAdapter extends BaseAdapter {
     }
     private class Holder
     {
-            //SearchingChurch--------------------
+            //Searching Church--------------------
         TextView churchName,address,town;
         ImageView churchImage;
             //Novenas----------------------------
         TextView patronName,patronDescription;
         ImageView patronImg1,patronImg2;
+            //Novena Church list---------------
+        TextView novenaCaption,novenaChurchName,novenaDescription,novenaDate,dayAndTime;
+        ImageView novenaImg;
     }
 
 
@@ -131,7 +134,7 @@ public class CustomAdapter extends BaseAdapter {
             case "Novenas":
                 if (convertView == null) {
                     holder = new Holder();
-                    convertView = inflater.inflate(R.layout.patron_item, null);
+                    convertView = inflater.inflate(R.layout.item_patron, null);
                     holder.patronName = (TextView) convertView.findViewById(R.id.patron_name);
                     holder.patronDescription=(TextView)convertView.findViewById(R.id.patron_description);
                     holder.patronImg1=(ImageView)convertView.findViewById(R.id.detail_image1);
@@ -174,6 +177,78 @@ public class CustomAdapter extends BaseAdapter {
                             ;
                         }
                 }
+                animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+                convertView.startAnimation(animation);
+                lastPosition = position;
+                break;
+            case "NovenaChurchList":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_novena_church, null);
+                    holder.novenaCaption=(TextView)convertView.findViewById(R.id.novena_caption);
+                    holder.novenaChurchName=(TextView)convertView.findViewById(R.id.church_name);
+                    holder.novenaDescription=(TextView)convertView.findViewById(R.id.novena_description);
+                    holder.novenaDate=(TextView)convertView.findViewById(R.id.novena_date);
+                    holder.novenaImg=(ImageView)convertView.findViewById(R.id.detail_image);
+                    holder.dayAndTime=(TextView)convertView.findViewById(R.id.novena_time);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //Label loading--------------------
+                holder.novenaCaption.setText(objects.get(position)[1]);
+                holder.novenaCaption.setTypeface(typeQuicksand);
+                holder.novenaChurchName.setText(objects.get(position)[2]);
+                holder.novenaChurchName.setTypeface(typeBLKCHCRY);
+
+                if(!objects.get(position)[3].equals("null")){
+                    holder.novenaDescription.setText(objects.get(position)[3]);
+                    holder.novenaDescription.setVisibility(View.VISIBLE);
+                }
+                else holder.novenaDescription.setVisibility(View.INVISIBLE);
+                holder.novenaDescription.setTypeface(typeSegoe);
+
+                if(!objects.get(position)[4].equals("null")){
+                    holder.novenaDate.setVisibility(View.VISIBLE);
+                    if(!objects.get(position)[5].equals("null")){
+                        cal.setTimeInMillis(Long.parseLong(objects.get(position)[4]));
+                        String startDate=formatted.format(cal.getTime());
+                        cal.setTimeInMillis(Long.parseLong(objects.get(position)[5]));
+                        String endDate=formatted.format(cal.getTime());
+                        holder.novenaDate.setText(adapterContext.getResources().getString(R.string.novena_dates,startDate,endDate));
+                    }
+                    else {
+                        cal.setTimeInMillis(Long.parseLong(objects.get(position)[4]));
+                        String startDate=formatted.format(cal.getTime());
+                        holder.novenaDate.setText(startDate);
+                    }
+                }
+                else {
+                    holder.novenaDate.setVisibility(View.GONE);
+                }
+                holder.novenaDate.setTypeface(typeSegoe);
+
+                if(!objects.get(position)[6].equals("null")){
+                        Glide.with(adapterContext)
+                                .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[6].substring((objects.get(position)[6]).indexOf("img")))
+                                .thumbnail(0.1f)
+                                .into(holder.novenaImg)
+                        ;
+                }
+
+                if(!objects.get(position)[7].equals("null")){
+                    holder.dayAndTime.setText(objects.get(position)[7]);
+                    holder.dayAndTime.setVisibility(View.VISIBLE);
+                }
+                else holder.dayAndTime.setVisibility(View.INVISIBLE);
+                holder.dayAndTime.setTypeface(typeSegoe);
+
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        holder.novenaDescription.setMaxLines(100);
+                    }
+                });
                 animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
                 convertView.startAnimation(animation);
                 lastPosition = position;

@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -42,7 +41,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ChurchDetails extends AppCompatActivity {
-Bundle extras;
+    Bundle extras;
     String ChurchID;
     AsyncTask getChurchDetails,getMassTimings,getExtraDetails;
     Typeface typeQuicksand;
@@ -475,7 +474,7 @@ Bundle extras;
         ArrayList<String> monday=new ArrayList<>();
         ArrayList<String> tuesday=new ArrayList<>();
         ArrayList<String> wednesday=new ArrayList<>();
-        ArrayList<String> thurday=new ArrayList<>();
+        ArrayList<String> thursday =new ArrayList<>();
         ArrayList<String> friday=new ArrayList<>();
         ArrayList<String> saturday=new ArrayList<>();
         @Override
@@ -555,7 +554,7 @@ Bundle extras;
                                 wednesday.add(jsonObject.optString("FormattedTime"));
                             break;
                         case "Thu":
-                                thurday.add(jsonObject.optString("FormattedTime"));
+                                thursday.add(jsonObject.optString("FormattedTime"));
                             break;
                         case "Fri":
                                 friday.add(jsonObject.optString("FormattedTime"));
@@ -584,7 +583,7 @@ Bundle extras;
                 setTimingsToTextViews(monday,mondayTiming,mondayLabel);
                 setTimingsToTextViews(tuesday,tuesdayTiming,tuesdayLabel);
                 setTimingsToTextViews(wednesday,wednesdayTiming,wednesdayLabel);
-                setTimingsToTextViews(thurday,thursdayTiming,thursdayLabel);
+                setTimingsToTextViews(thursday,thursdayTiming,thursdayLabel);
                 setTimingsToTextViews(friday,fridayTiming,fridayLabel);
                 setTimingsToTextViews(saturday,saturdayTiming,saturdayLabel);
 
@@ -716,7 +715,7 @@ Bundle extras;
 
                 extraDetails.setVisibility(View.VISIBLE);
                for (int i=0;i<extraDetailsArrayList.size();i++){
-                   final View extraItemCard=getLayoutInflater().inflate(R.layout.church_extra_detail_item, null);
+                   final View extraItemCard=getLayoutInflater().inflate(R.layout.item_church_extra_detail, null);
                    TextView title=(TextView)extraItemCard.findViewById(R.id.extra_detail_label);
                    ImageView image=(ImageView)extraItemCard.findViewById(R.id.detail_image);
                    TextView description=(TextView)extraItemCard.findViewById(R.id.extra_details);
