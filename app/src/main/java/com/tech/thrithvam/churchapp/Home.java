@@ -68,4 +68,8 @@ public class Home extends AppCompatActivity {
         Intent intent=new Intent(Home.this,Novenas.class);
         startActivity(intent);
     }
+    public void nearby_church(View view){
+        Intent intent=new Intent(Home.this,NearbyChurches.class);
+        startActivity(intent);
+    }
 }

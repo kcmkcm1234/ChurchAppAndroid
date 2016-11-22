@@ -1,7 +1,9 @@
 package com.tech.thrithvam.churchapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,20 +67,23 @@ public class CustomAdapter extends BaseAdapter {
     }
     private class Holder
     {
-            //Searching Church--------------------
+            //Searching Church---------------------
         TextView churchName,address,town;
         ImageView churchImage;
-            //Novenas----------------------------
+            //Novenas------------------------------
         TextView patronName,patronDescription;
         ImageView patronImg1,patronImg2;
-            //Novena Church list---------------
+            //Novena Church list-------------------
         TextView novenaCaption,novenaChurchName,novenaDescription,novenaDate,dayAndTime;
         ImageView novenaImg;
+            //Nearby Church List-------------------
+        TextView nearbyChurchName,nearbyChurchAddress,distance;
+        ImageView nearChurchImg,nearbyViewMap;
     }
 
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final Holder holder;
         switch (calledFrom) {
             //--------------------------for home screen items------------------
@@ -249,6 +258,87 @@ public class CustomAdapter extends BaseAdapter {
                         holder.novenaDescription.setMaxLines(100);
                     }
                 });
+                animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+                convertView.startAnimation(animation);
+                lastPosition = position;
+                break;
+            case "nearbyChurchList":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_neaby_church, null);
+                    holder.nearbyChurchName=(TextView)convertView.findViewById(R.id.church_name);
+                    holder.nearbyChurchAddress=(TextView)convertView.findViewById(R.id.address);
+                    holder.distance=(TextView)convertView.findViewById(R.id.distance);
+                    holder.nearbyViewMap=(ImageView)convertView.findViewById(R.id.map_icon);
+                    holder.nearChurchImg=(ImageView)convertView.findViewById(R.id.church_image);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //Label loading--------------------
+                holder.nearbyChurchName.setText(objects.get(position)[1]);
+                holder.nearbyChurchName.setTypeface(typeQuicksand);
+                holder.nearbyChurchAddress.setText(objects.get(position)[2]);
+                holder.nearbyChurchAddress.setTypeface(typeSegoe);
+
+                holder.nearbyViewMap.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(position)[3])));
+                            adapterContext.startActivity(intent);
+                        } catch (Exception e) {
+                            Toast.makeText(adapterContext, e.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                holder.distance.setText(objects.get(position)[4]);
+                holder.distance.setTypeface(typeQuicksand);
+                holder.distance.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(position)[3])));
+                            adapterContext.startActivity(intent);
+                        } catch (Exception e) {
+                            Toast.makeText(adapterContext, e.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                if(!objects.get(position)[5].equals("null")){
+                    Glide.with(adapterContext)
+                            .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[5].substring((objects.get(position)[5]).indexOf("img")))
+                            .thumbnail(0.1f)
+                            .listener(new RequestListener<String, GlideDrawable>() {
+                                @Override
+                                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                    holder.nearChurchImg.setPadding(15,15,15,15);
+                                    holder.nearChurchImg.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                                    Glide.with(adapterContext)
+                                            .load(R.drawable.church)
+                                            .into(holder.nearChurchImg)
+                                    ;
+                                    return true;
+                                }
+
+                                @Override
+                                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                    return false;
+                                }
+                            })
+                            .into(holder.nearChurchImg)
+                    ;
+                }
+                else{
+                    holder.nearChurchImg.setPadding(15,15,15,15);
+                    holder.nearChurchImg.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    Glide.with(adapterContext)
+                            .load(R.drawable.church)
+                            .into(holder.nearChurchImg)
+                    ;
+                }
+
                 animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
                 convertView.startAnimation(animation);
                 lastPosition = position;

@@ -170,7 +170,8 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="10"
-                android:text="@string/nearby_churches"/>
+                android:text="@string/nearby_churches"
+                android:onClick="nearby_church"/>
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
