@@ -68,7 +68,7 @@ public class NearbyChurches extends AppCompatActivity {
             String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetNearByChurches";
             HttpURLConnection c = null;
             try {
-                postData = "{\"Longitude\":\"" + "10.190815" + "\",\"Latitude\":\"" + "76.386674" + "\",\"churchcount\":\"" + "50" + "\",\"maxdistance\":\"" + "200" +"\"}";
+                postData = "{\"Latitude\":\"" + "10.190815" + "\",\"Longitude\":\"" + "76.386674" + "\",\"churchcount\":\"" + "50" + "\",\"maxdistance\":\"" + "200" +"\"}";
                 URL u = new URL(url);
                 c = (HttpURLConnection) u.openConnection();
                 c.setRequestMethod("POST");
@@ -124,7 +124,7 @@ public class NearbyChurches extends AppCompatActivity {
                     data[0]=jsonObject.optString("ChurchID");
                     data[1]=jsonObject.optString("Name");
                     data[2]=jsonObject.optString("Address");
-                    data[3]=jsonObject.optString("Longitude")+","+jsonObject.optString("Latitude");
+                    data[3]=jsonObject.optString("Latitude")+","+jsonObject.optString("Longitude");
                     data[4]=jsonObject.optString("Distance");
                     data[5]=jsonObject.optString("ImgURL");
                     nearbyChurchItems.add(data);

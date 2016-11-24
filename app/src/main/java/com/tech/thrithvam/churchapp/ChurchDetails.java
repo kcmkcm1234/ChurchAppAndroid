@@ -263,7 +263,7 @@ public class ChurchDetails extends AppCompatActivity {
                     aboutString=jsonObject.optString("About");
                     townNameString=jsonObject.optString("TownName");
                     addressString=jsonObject.optString("Address");
-                    mapCoOrdinatesString=jsonObject.optString("Longitude")+","+jsonObject.optString("Latitude");
+                    mapCoOrdinatesString=jsonObject.optString("Latitude")+","+jsonObject.optString("Longitude");
                     phone1String=jsonObject.optString("Phone1");
                     phone2String=jsonObject.optString("Phone2");
                     townCodeString=jsonObject.optString("TownCode");
