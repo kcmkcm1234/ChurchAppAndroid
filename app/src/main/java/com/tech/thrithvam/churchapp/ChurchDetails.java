@@ -800,4 +800,27 @@ public class ChurchDetails extends AppCompatActivity {
         if(getMassTimings!=null)getMassTimings.cancel(true);
         if(getExtraDetails!=null)getExtraDetails.cancel(true);
     }
+
+    public void pious_org_click (View view){
+        Intent intent=new Intent(ChurchDetails.this,PiousActivity.class);
+        startActivity(intent);
+    }
+    public void institutions_click (View view){
+        Intent intent=new Intent(ChurchDetails.this,Institutions.class);
+        startActivity(intent);
+    }
+    public void gallery_click (View view){
+        Intent intent=new Intent(ChurchDetails.this,PiousActivity.class);
+        startActivity(intent);
+    }
+    public void events_click (View view){
+        Intent intent=new Intent(ChurchDetails.this,PiousActivity.class);
+        startActivity(intent);
+    }
+    public void novenas_click (View view){
+        Intent intent=new Intent(ChurchDetails.this,PiousActivity.class);
+        startActivity(intent);
+    }
+
+
 }
