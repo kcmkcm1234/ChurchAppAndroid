@@ -1,12 +1,15 @@
 package com.tech.thrithvam.churchapp;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +36,7 @@ import java.util.logging.Logger;
 public class NearbyChurches extends AppCompatActivity {
     Typeface typeQuicksand;
     AsyncTask getNearbyChurchList;
+    final int MY_PERMISSIONS_LOCATION=555;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +51,112 @@ public class NearbyChurches extends AppCompatActivity {
         } else {
             Toast.makeText(NearbyChurches.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
+
+// Here, thisActivity is the current activity
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(NearbyChurches.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+                Toast.makeText(NearbyChurches.this,"Location Permission denied",Toast.LENGTH_LONG).show();
+                ActivityCompat.requestPermissions(NearbyChurches.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_LOCATION);
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(NearbyChurches.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_LOCATION);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+        else {
+            // check if GPS enabled
+            GPSTracker gpsTracker = new GPSTracker(this);
+
+            if (gpsTracker.getIsGPSTrackingEnabled())
+            {
+                String stringLatitude = String.valueOf(gpsTracker.latitude);
+
+
+                String stringLongitude = String.valueOf(gpsTracker.longitude);
+
+                Toast.makeText(NearbyChurches.this,"Already permission granted\n"+stringLatitude+","+stringLongitude,Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                // can't get location
+                // GPS or Network is not enabled
+                // Ask user to enable GPS/network in settings
+                gpsTracker.showSettingsAlert();
+            }
+        }
+
+
+
+
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    // check if GPS enabled
+                    GPSTracker gpsTracker = new GPSTracker(this);
+
+                    if (gpsTracker.getIsGPSTrackingEnabled())
+                    {
+                        String stringLatitude = String.valueOf(gpsTracker.latitude);
+
+
+                        String stringLongitude = String.valueOf(gpsTracker.longitude);
+
+                        Toast.makeText(NearbyChurches.this,stringLatitude+","+stringLongitude,Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        // can't get location
+                        // GPS or Network is not enabled
+                        // Ask user to enable GPS/network in settings
+                        gpsTracker.showSettingsAlert();
+                    }
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(NearbyChurches.this,"Location Permission denied",Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+  /*  private void showPermissionDialog() {
+        if (!NearbyChurches.checkPermission(this)) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSION_LOCATION_REQUEST_CODE);
+        }
+    }*/
     public class GetNearbyChurchList extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData;
