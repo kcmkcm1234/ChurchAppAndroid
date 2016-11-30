@@ -596,11 +596,11 @@
             android:id="@+id/material_design_floating_action_menu_item2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/institutions"
+            android:src="@drawable/pious_org"
             fab:fab_label="Pious Organisation"
             fab:fab_size="mini"
             fab:fab_colorNormal="#8d62d8"
-            fab:fab_colorPressed="#8d62d8"
+            fab:fab_colorPressed="#2e2248"
             android:onClick="pious_org_click"
             />
 
@@ -612,7 +612,7 @@
             fab:fab_label="Events"
             fab:fab_size="mini"
             fab:fab_colorNormal="#8d62d8"
-            fab:fab_colorPressed="#8d62d8"
+            fab:fab_colorPressed="#2e2248"
             android:onClick="events_click"/>
 
         <com.github.clans.fab.FloatingActionButton
@@ -623,7 +623,7 @@
             fab:fab_label="Gallery"
             fab:fab_size="mini"
             fab:fab_colorNormal="#8d62d8"
-            fab:fab_colorPressed="#8d62d8"
+            fab:fab_colorPressed="#2e2248"
             android:onClick="gallery_click"/>
 
         <com.github.clans.fab.FloatingActionButton
@@ -634,7 +634,7 @@
             fab:fab_label="Novenas"
             fab:fab_size="mini"
             fab:fab_colorNormal="#8d62d8"
-            fab:fab_colorPressed="#8d62d8"
+            fab:fab_colorPressed="#2e2248"
             android:onClick="novenas_click"/>
 
     </com.github.clans.fab.FloatingActionMenu>
