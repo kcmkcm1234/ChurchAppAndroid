@@ -22,6 +22,7 @@
         android:layout_marginTop="15dp"
         android:textSize="22sp"
         android:textColor="@android:color/white"/>
+
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/itemsLoading"
         android:layout_width="50dp"
@@ -537,104 +538,104 @@
                 android:layout_below="@+id/massLayout"
                 android:id="@+id/extra_items">
             </LinearLayout>
-            <com.github.clans.fab.FloatingActionMenu
-                android:id="@+id/material_design_android_floating_action_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:menu_animationDelayPerItem="55"
-                fab:menu_backgroundColor="@android:color/transparent"
-                fab:menu_buttonSpacing="0dp"
-                fab:menu_colorNormal="#8d62d8"
-                fab:menu_colorPressed="#8d62d8"
-                fab:menu_colorRipple="#99d4d4d4"
-                fab:menu_fab_label=""
-                fab:menu_fab_size="normal"
-                fab:menu_icon="@drawable/fab_add"
-                fab:menu_labels_colorNormal="#fff"
-                fab:menu_labels_colorPressed="#66efecec"
-                fab:menu_labels_colorRipple="#66efecec"
-                fab:menu_labels_cornerRadius="3dp"
-                fab:menu_labels_ellipsize="none"
-                fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
-                fab:menu_labels_margin="0dp"
-                fab:menu_labels_maxLines="-1"
-                fab:menu_labels_padding="8dp"
-                fab:menu_labels_position="left"
-                fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
-                fab:menu_labels_showShadow="true"
-                fab:menu_labels_singleLine="false"
-                fab:menu_labels_textColor="#8d62d8"
-                fab:menu_labels_textSize="15sp"
-                fab:menu_openDirection="down"
-                fab:menu_shadowColor="#82000000"
-                fab:menu_shadowRadius="4dp"
-                fab:menu_shadowXOffset="1dp"
-                fab:menu_shadowYOffset="4dp"
-                fab:menu_showShadow="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true">
 
-                <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/material_design_floating_action_menu_item1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/institutions"
-                    fab:fab_label="Institutions"
-                    fab:fab_size="mini"
-                    fab:fab_colorNormal="#8d62d8"
-                    fab:fab_colorPressed="#8d62d8"
-                    android:onClick="institutions_click"
-                    />
-
-                <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/material_design_floating_action_menu_item2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/institutions"
-                    fab:fab_label="Pious Organisation"
-                    fab:fab_size="mini"
-                    fab:fab_colorNormal="#8d62d8"
-                    fab:fab_colorPressed="#8d62d8"
-                    android:onClick="pious_org_click"
-                    />
-
-                <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/material_design_floating_action_menu_item3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/eventswhite"
-                    fab:fab_label="Events"
-                    fab:fab_size="mini"
-                    fab:fab_colorNormal="#8d62d8"
-                    fab:fab_colorPressed="#8d62d8"
-                    android:onClick="events_click"/>
-
-                <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/material_design_floating_action_menu_item4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/gallerywhite"
-                    fab:fab_label="Gallery"
-                    fab:fab_size="mini"
-                    fab:fab_colorNormal="#8d62d8"
-                    fab:fab_colorPressed="#8d62d8"
-                    android:onClick="gallery_click"/>
-
-                <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/material_design_floating_action_menu_item5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/novenas_saint"
-                    fab:fab_label="Novenas"
-                    fab:fab_size="mini"
-                    fab:fab_colorNormal="#8d62d8"
-                    fab:fab_colorPressed="#8d62d8"
-                    android:onClick="novenas_click"/>
-
-            </com.github.clans.fab.FloatingActionMenu>
 
 </RelativeLayout>
     </ScrollView>
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/material_design_android_floating_action_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:menu_animationDelayPerItem="55"
+        fab:menu_backgroundColor="@android:color/transparent"
+        fab:menu_buttonSpacing="0dp"
+        fab:menu_colorNormal="#2e2248"
+        fab:menu_colorPressed="#543b7d"
+        fab:menu_colorRipple="#ffffff"
+        fab:menu_fab_label=""
+        fab:menu_fab_size="mini"
+        fab:menu_icon="@drawable/left_arrow"
+        fab:menu_labels_colorNormal="#fff"
+        fab:menu_labels_colorPressed="#2e2248"
+        fab:menu_labels_colorRipple="#ffffff"
+        fab:menu_labels_cornerRadius="3dp"
+        fab:menu_labels_ellipsize="none"
+        fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+        fab:menu_labels_margin="0dp"
+        fab:menu_labels_maxLines="-1"
+        fab:menu_labels_padding="8dp"
+        fab:menu_labels_position="left"
+        fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        fab:menu_labels_showShadow="true"
+        fab:menu_labels_singleLine="false"
+        fab:menu_labels_textColor="#8d62d8"
+        fab:menu_labels_textSize="15sp"
+        fab:menu_openDirection="down"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+   <!--     fab:menu_shadowColor="#82000000"
+        fab:menu_shadowRadius="2dp"
+        fab:menu_shadowXOffset="0dp"
+        fab:menu_shadowYOffset="2dp"
+        fab:menu_showShadow="true"-->
 
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/institutions"
+            fab:fab_label="Institutions"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="#8d62d8"
+            fab:fab_colorPressed="#2e2248"
+            android:onClick="institutions_click"
+            />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/institutions"
+            fab:fab_label="Pious Organisation"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="#8d62d8"
+            fab:fab_colorPressed="#8d62d8"
+            android:onClick="pious_org_click"
+            />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/eventswhite"
+            fab:fab_label="Events"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="#8d62d8"
+            fab:fab_colorPressed="#8d62d8"
+            android:onClick="events_click"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gallerywhite"
+            fab:fab_label="Gallery"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="#8d62d8"
+            fab:fab_colorPressed="#8d62d8"
+            android:onClick="gallery_click"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/novenas_saint"
+            fab:fab_label="Novenas"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="#8d62d8"
+            fab:fab_colorPressed="#8d62d8"
+            android:onClick="novenas_click"/>
+
+    </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>

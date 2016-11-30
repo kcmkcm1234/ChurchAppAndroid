@@ -136,8 +136,12 @@ public class CustomAdapter extends BaseAdapter {
                 holder.town.setTypeface(typeSegoe);
                 holder.address.setTypeface(typeSegoe);
 
-                animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-                convertView.startAnimation(animation);
+               /* animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+                convertView.startAnimation(animation);*/
+                if(position>lastPosition){
+                    animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
+                    convertView.startAnimation(animation);
+                }
                 lastPosition = position;
                 break;
             case "Novenas":
@@ -186,8 +190,12 @@ public class CustomAdapter extends BaseAdapter {
                             ;
                         }
                 }
-                animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-                convertView.startAnimation(animation);
+                /*animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+                convertView.startAnimation(animation);*/
+                if(position>lastPosition){
+                    animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
+                    convertView.startAnimation(animation);
+                }
                 lastPosition = position;
                 break;
             case "NovenaChurchList":
@@ -258,8 +266,12 @@ public class CustomAdapter extends BaseAdapter {
                         holder.novenaDescription.setMaxLines(100);
                     }
                 });
-                animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-                convertView.startAnimation(animation);
+                /*animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+                convertView.startAnimation(animation);*/
+                if(position>lastPosition){
+                    animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
+                    convertView.startAnimation(animation);
+                }
                 lastPosition = position;
                 break;
             case "nearbyChurchList":
@@ -339,8 +351,12 @@ public class CustomAdapter extends BaseAdapter {
                     ;
                 }
 
-                animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-                convertView.startAnimation(animation);
+               /* animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+                convertView.startAnimation(animation);*/
+                if(position>lastPosition){
+                    animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
+                    convertView.startAnimation(animation);
+                }
                 lastPosition = position;
                 break;
             default:
