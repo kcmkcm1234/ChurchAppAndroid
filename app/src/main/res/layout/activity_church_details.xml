@@ -150,6 +150,7 @@
                     android:id="@+id/priest_image"
                     android:layout_margin="10dp"
                     android:src="@drawable/priest"
+                    android:scaleType="centerInside"
                     android:layout_below="@+id/priest_label"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -565,7 +566,7 @@
                 fab:menu_labels_textColor="#8d62d8"
                 fab:menu_labels_textSize="15sp"
                 fab:menu_openDirection="down"
-                fab:menu_shadowColor="#66aff198"
+                fab:menu_shadowColor="#82000000"
                 fab:menu_shadowRadius="4dp"
                 fab:menu_shadowXOffset="1dp"
                 fab:menu_shadowYOffset="4dp"
@@ -594,6 +595,7 @@
                     fab:fab_size="mini"
                     fab:fab_colorNormal="#8d62d8"
                     fab:fab_colorPressed="#8d62d8"
+                    android:onClick="pious_org_click"
                     />
 
                 <com.github.clans.fab.FloatingActionButton
