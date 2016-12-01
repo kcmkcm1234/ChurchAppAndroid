@@ -30,6 +30,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,6 +38,8 @@ public class NearbyChurches extends AppCompatActivity {
     Typeface typeQuicksand;
     AsyncTask getNearbyChurchList;
     final int MY_PERMISSIONS_LOCATION=555;
+    String stringLatitude;
+    String stringLongitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,117 +49,64 @@ public class NearbyChurches extends AppCompatActivity {
         TextView activityHead=(TextView)findViewById(R.id.activity_head);
         activityHead.setTypeface(typeQuicksand);
 
-        if (isOnline()) {
-            getNearbyChurchList=new GetNearbyChurchList().execute();
-        } else {
-            Toast.makeText(NearbyChurches.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
-        }
+        //Permission checking for higher versions
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED /*&& ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED*/){
 
-// Here, thisActivity is the current activity
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(NearbyChurches.this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-                Toast.makeText(NearbyChurches.this,"Location Permission denied",Toast.LENGTH_LONG).show();
+            if (ActivityCompat.shouldShowRequestPermissionRationale(NearbyChurches.this,Manifest.permission.ACCESS_FINE_LOCATION)) {//User Denied it before
+                Toast.makeText(NearbyChurches.this,R.string.loc_permission_denied,Toast.LENGTH_LONG).show();
+                ActivityCompat.requestPermissions(NearbyChurches.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},MY_PERMISSIONS_LOCATION);
+            } else {//Has permission already
                 ActivityCompat.requestPermissions(NearbyChurches.this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_LOCATION);
-            } else {
-
-                // No explanation needed, we can request the permission.
-
-                ActivityCompat.requestPermissions(NearbyChurches.this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_LOCATION);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
         }
         else {
-            // check if GPS enabled
-            GPSTracker gpsTracker = new GPSTracker(this);
-
-            if (gpsTracker.getIsGPSTrackingEnabled())
-            {
-                String stringLatitude = String.valueOf(gpsTracker.latitude);
-
-
-                String stringLongitude = String.valueOf(gpsTracker.longitude);
-
-                Toast.makeText(NearbyChurches.this,"Already permission granted\n"+stringLatitude+","+stringLongitude,Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                // can't get location
-                // GPS or Network is not enabled
-                // Ask user to enable GPS/network in settings
-                gpsTracker.showSettingsAlert();
-            }
+           getLatLong();
         }
-
-
-
-
     }
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode,String permissions[],int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                    // check if GPS enabled
-                    GPSTracker gpsTracker = new GPSTracker(this);
-
-                    if (gpsTracker.getIsGPSTrackingEnabled())
-                    {
-                        String stringLatitude = String.valueOf(gpsTracker.latitude);
-
-
-                        String stringLongitude = String.valueOf(gpsTracker.longitude);
-
-                        Toast.makeText(NearbyChurches.this,stringLatitude+","+stringLongitude,Toast.LENGTH_LONG).show();
-                    }
-                    else
-                    {
-                        // can't get location
-                        // GPS or Network is not enabled
-                        // Ask user to enable GPS/network in settings
-                        gpsTracker.showSettingsAlert();
-                    }
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted
+                    getLatLong();
                 } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Toast.makeText(NearbyChurches.this,"Location Permission denied",Toast.LENGTH_LONG).show();
+                    // permission denied
+                    Toast.makeText(NearbyChurches.this,R.string.loc_permission_denied,Toast.LENGTH_LONG).show();
                 }
-                return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
-  /*  private void showPermissionDialog() {
-        if (!NearbyChurches.checkPermission(this)) {
-            ActivityCompat.requestPermissions(
-                    this,
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSION_LOCATION_REQUEST_CODE);
+
+    public void getLatLong(){
+        // check if GPS enabled
+        GPSTracker gpsTracker = new GPSTracker(NearbyChurches.this);
+        if (gpsTracker.getIsGPSTrackingEnabled())
+        {
+            stringLatitude = String.valueOf(gpsTracker.latitude);
+            stringLongitude = String.valueOf(gpsTracker.longitude);
+
+            //Converting to 6 decimal points
+            stringLatitude=String.format(Locale.US,"%.6f",Double.parseDouble(stringLatitude));
+            stringLongitude=String.format(Locale.US,"%.6f",Double.parseDouble(stringLongitude));
+
+            Toast.makeText(NearbyChurches.this,"Found your location as\nLatitude: "+stringLatitude+"\nLongitude: "+stringLongitude,Toast.LENGTH_LONG).show();
+            if (isOnline()) {
+                getNearbyChurchList=new GetNearbyChurchList().execute();
+            } else {
+                Toast.makeText(NearbyChurches.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            }
         }
-    }*/
+        else
+        {
+            // can't get location. GPS or Network is not enabled. Ask user to enable GPS/network in settings
+            gpsTracker.showSettingsAlert();
+        }
+    }
+    //----------------------------------Asyc Tasks--------------------------------------
     public class GetNearbyChurchList extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData;
@@ -177,7 +127,7 @@ public class NearbyChurches extends AppCompatActivity {
             String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetNearByChurches";
             HttpURLConnection c = null;
             try {
-                postData = "{\"Latitude\":\"" + "10.190815" + "\",\"Longitude\":\"" + "76.386674" + "\",\"churchcount\":\"" + "50" + "\",\"maxdistance\":\"" + "200" +"\"}";
+                postData = "{\"Latitude\":\"" + stringLatitude + "\",\"Longitude\":\"" + stringLongitude + "\",\"churchcount\":\"" + "50" + "\",\"maxdistance\":\"" + "200" +"\"}";
                 URL u = new URL(url);
                 c = (HttpURLConnection) u.openConnection();
                 c.setRequestMethod("POST");

@@ -62,9 +62,6 @@ public class GPSTracker extends Service implements LocationListener {
         getLocation();
     }
 
-    /**
-     * Try to get my current location by GPS or Network Provider
-     */
     public void getLocation() {
 
         try {
@@ -106,7 +103,7 @@ public class GPSTracker extends Service implements LocationListener {
 
             // Application can use GPS or Network Provider
             if (!provider_info.isEmpty()) {
-                if (false) {
+                if (false) {//Dummy code to avoid compilation error
                     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         // TODO: Consider calling
                         //    ActivityCompat#requestPermissions
@@ -185,7 +182,8 @@ public class GPSTracker extends Service implements LocationListener {
      */
     public void stopUsingGPS() {
         if (locationManager != null) {
-         if(false){   if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+         if(false){//Dummy code to avoid compilation error
+             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
