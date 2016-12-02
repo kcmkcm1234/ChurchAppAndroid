@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.tech.thrithvam.churchapp.ChurchDetailsExpansion"
     android:background="@drawable/sky_bg_full">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +29,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/heading"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
         android:textSize="18sp"
         android:textColor="@android:color/white"/>
         <TextView
@@ -32,8 +41,9 @@
             android:id="@+id/description"
             android:layout_below="@id/heading"
             android:textColor="@color/primary_text"
-            android:layout_marginBottom="5dp"
+            android:layout_margin="5dp"
             android:textSize="15sp"/>
         </RelativeLayout>
-
+        </LinearLayout>
+</ScrollView>
 </RelativeLayout>
