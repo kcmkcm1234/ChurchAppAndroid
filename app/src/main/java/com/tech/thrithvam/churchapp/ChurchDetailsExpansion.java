@@ -3,7 +3,10 @@ package com.tech.thrithvam.churchapp;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.w3c.dom.Text;
 
@@ -30,9 +33,12 @@ public class ChurchDetailsExpansion extends AppCompatActivity {
         activtyHead.setText(extras.getString("heading"));
         description.setText(extras.getString("description"));
         }
+        else if(extras.getString("from").equals("view_more_extra_detail")){
+            activtyHead.setText(extras.getString("heading"));
+            description.setText(extras.getString("description"));
+        }
         else {
             finish();
         }
-
     }
 }
