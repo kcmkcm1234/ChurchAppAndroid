@@ -411,7 +411,8 @@ public class ChurchDetails extends AppCompatActivity {
                 if(!priestURLStringString.equals("null")){
                     Glide.with(ChurchDetails.this)
                             .load(getResources().getString(R.string.url) +priestURLStringString.substring((priestURLStringString).indexOf("img")))
-                            .placeholder(R.drawable.priest)
+                        //    .fitCenter()
+                         //   .placeholder(R.drawable.priest)  //stretches image
                             .thumbnail(0.1f)
                             .crossFade()
                             .listener(new RequestListener<String, GlideDrawable>() {
@@ -429,6 +430,7 @@ public class ChurchDetails extends AppCompatActivity {
                                     return false;
                                 }
                             })
+                            .dontTransform()
                             .into(priestImage)
                     ;
                 }
