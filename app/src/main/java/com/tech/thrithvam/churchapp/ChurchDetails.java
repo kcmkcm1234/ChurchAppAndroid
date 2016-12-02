@@ -806,22 +806,27 @@ public class ChurchDetails extends AppCompatActivity {
 
     public void pious_org_click (View view){
         Intent intent=new Intent(ChurchDetails.this,PiousActivity.class);
+        intent.putExtra("ChurchID",ChurchID);
         startActivity(intent);
     }
     public void institutions_click (View view){
         Intent intent=new Intent(ChurchDetails.this,Institutions.class);
+        intent.putExtra("ChurchID",ChurchID);
         startActivity(intent);
     }
     public void gallery_click (View view){
         Intent intent=new Intent(ChurchDetails.this,PiousActivity.class);
+        intent.putExtra("ChurchID",ChurchID);
         startActivity(intent);
     }
     public void events_click (View view){
         Intent intent=new Intent(ChurchDetails.this,PiousActivity.class);
+        intent.putExtra("ChurchID",ChurchID);
         startActivity(intent);
     }
     public void novenas_click (View view){
         Intent intent=new Intent(ChurchDetails.this,PiousActivity.class);
+        intent.putExtra("ChurchID",ChurchID);
         startActivity(intent);
     }
     public void view_more_about (View view){
