@@ -42,7 +42,7 @@ public class PiousActivity extends AppCompatActivity {
         ChurchID=extras.getString("ChurchID");
 
         if (isOnline()) {
-            new PiousActivity.PiousInstitutionSearchResults().execute();
+            new PiousInstitutionSearchResults().execute();
         } else {
             Toast.makeText(PiousActivity.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
@@ -55,13 +55,13 @@ public class PiousActivity extends AppCompatActivity {
         String msg;
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
-        TextView loadingText=(TextView)findViewById(R.id.loading_text);
-        ArrayList<String[]> churchItems=new ArrayList<>();
+
+        ArrayList<String[]> PiousOrgListItems=new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             loadingIndicator.setVisibility(View.VISIBLE);
-            loadingText.setVisibility(View.VISIBLE);
+
             //----------encrypting ---------------------------
             // usernameString=cryptography.Encrypt(usernameString);
         }
@@ -124,11 +124,12 @@ public class PiousActivity extends AppCompatActivity {
                     pass=jsonObject.optBoolean("Flag",true);
                     String[] data=new String[5];
                     data[0]=jsonObject.optString("ID");
-                    data[1]=jsonObject.optString("ChurchName");
-                    data[2]=jsonObject.optString("Town");
-                    data[3]=jsonObject.optString("ImageURL");
-                    data[4]=jsonObject.optString("Address");
-                    churchItems.add(data);
+                    data[1]=jsonObject.optString("Name");
+                    data[2]=jsonObject.optString("PatronName");
+                    data[3]=jsonObject.optString("URL");
+                    data[4]=jsonObject.optString("Desc");
+
+                    PiousOrgListItems.add(data);
                 }
             } catch (Exception ex) {
                 msg=ex.getMessage();
@@ -140,7 +141,7 @@ public class PiousActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             loadingIndicator.setVisibility(View.GONE);
-            loadingText.setVisibility(View.GONE);
+
             if(!pass) {
                 new AlertDialog.Builder(PiousActivity.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
                         .setMessage(msg)//R.string.no_items)
@@ -152,19 +153,20 @@ public class PiousActivity extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(PiousActivity.this, churchItems,"ChurchTownSearchResults");
-                ListView churchList=(ListView) findViewById(R.id.resultsGrid);
+                CustomAdapter adapter=new CustomAdapter(PiousActivity.this, PiousOrgListItems,"ChurchPiousOrgResults");
+                ListView churchList=(ListView) findViewById(R.id.Pious_org_list);
                 churchList.setAdapter(adapter);
                 churchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(PiousActivity.this,ChurchDetails.class);
-                        intent.putExtra("churchID",churchItems.get(position)[0]);
-                        intent.putExtra("churchname",churchItems.get(position)[1]);
-                        intent.putExtra("town",churchItems.get(position)[2]);
-                        intent.putExtra("address",churchItems.get(position)[4]);
+                   /*     Intent intent=new Intent(PiousActivity.this,PiousOrgDetails.class);
+                        intent.putExtra("ID",PiousOrgListItems.get(position)[0]);
+                        intent.putExtra("Name",PiousOrgListItems.get(position)[1]);
+                        intent.putExtra("PatronName",PiousOrgListItems.get(position)[2]);
+                        intent.putExtra("URL",PiousOrgListItems.get(position)[3]);
+                        intent.putExtra("Desc",PiousOrgListItems.get(position)[4]);
 //                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                        startActivity(intent);*/
 //                        finish();
                     }
                 });
