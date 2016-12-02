@@ -73,6 +73,7 @@ public class ChurchDetails extends AppCompatActivity {
     TextView sundayTiming,mondayTiming,tuesdayTiming,wednesdayTiming,thursdayTiming,fridayTiming,saturdayTiming;
     LinearLayout extraDetails;
     String aboutGlobal;
+    String churchImageGlobal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -360,6 +361,10 @@ public class ChurchDetails extends AppCompatActivity {
                             })
                             .into(churchImage)
                     ;
+                    churchImageGlobal=imageURLString;
+                }
+                else {
+                    churchImageGlobal="null";
                 }
 
                 if(!priestNameString.equals("null")){
@@ -838,6 +843,7 @@ public class ChurchDetails extends AppCompatActivity {
         intent.putExtra("from","view_more_about");
         intent.putExtra("heading","About");
         intent.putExtra("description",aboutGlobal);
+        intent.putExtra("image",churchImageGlobal);
         startActivity(intent);
     }
     public void view_more_extra_detail (View view){
