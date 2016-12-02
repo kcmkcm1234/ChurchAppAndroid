@@ -72,6 +72,7 @@ public class ChurchDetails extends AppCompatActivity {
     TextView sundayLabel,mondayLabel,tuesdayLabel, wednesdayLabel, thursdayLabel,fridayLabel,saturdayLabel;
     TextView sundayTiming,mondayTiming,tuesdayTiming,wednesdayTiming,thursdayTiming,fridayTiming,saturdayTiming;
     LinearLayout extraDetails;
+    String aboutGlobal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -308,9 +309,11 @@ public class ChurchDetails extends AppCompatActivity {
                 if(!aboutString.equals("null")){
                     about.setText(aboutString);
                     about.setVisibility(View.VISIBLE);
+                    aboutGlobal=aboutString;
                 }
                 else {
                     about.setText("-");
+                    aboutGlobal="-";
                 }
 
                 if(!townNameString.equals("null")){
@@ -819,6 +822,13 @@ public class ChurchDetails extends AppCompatActivity {
     }
     public void novenas_click (View view){
         Intent intent=new Intent(ChurchDetails.this,PiousActivity.class);
+        startActivity(intent);
+    }
+    public void view_more_about (View view){
+        Intent intent=new Intent(ChurchDetails.this,ChurchDetailsExpansion.class);
+        intent.putExtra("from","view_more_about");
+        intent.putExtra("heading","About");
+        intent.putExtra("description",aboutGlobal);
         startActivity(intent);
     }
 

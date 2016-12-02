@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_church_details_expansion"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tech.thrithvam.churchapp.ChurchDetailsExpansion"
+    android:background="@drawable/sky_bg_full">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/aboutLayout"
+        android:layout_below="@+id/church_image"
+        android:layout_margin="7dp"
+        android:background="@drawable/white_transperent_card"
+        android:padding="10dp">
+        <TextView
+        android:text="Heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/heading"
+        android:layout_margin="10dp"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:id="@+id/description"
+            android:layout_below="@id/heading"
+            android:textColor="@color/primary_text"
+            android:layout_marginBottom="5dp"
+            android:textSize="15sp"/>
+        </RelativeLayout>
+
+</RelativeLayout>

@@ -125,7 +125,8 @@
             android:layout_marginEnd="7dp"
             android:layout_below="@id/about"
             android:textSize="12sp"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent"
+            android:onClick="view_more_about"/>
     </RelativeLayout>
     <RelativeLayout
                 android:layout_width="match_parent"
