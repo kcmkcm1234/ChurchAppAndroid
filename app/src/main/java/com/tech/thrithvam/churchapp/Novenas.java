@@ -149,7 +149,7 @@ public class Novenas extends AppCompatActivity {
                 patronList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(Novenas.this,NovenaChurchList.class);
+                        Intent intent=new Intent(Novenas.this,NovenaDetailsList.class);
                         intent.putExtra("patronID",patronItems.get(position)[0]);
                         intent.putExtra("patronName",patronItems.get(position)[1]);
                         startActivity(intent);

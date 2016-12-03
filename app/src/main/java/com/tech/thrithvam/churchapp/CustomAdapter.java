@@ -201,7 +201,7 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 lastPosition = position;
                 break;
-            case "NovenaChurchList":
+            case "NovenaDetailsList":
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_novena_church, null);

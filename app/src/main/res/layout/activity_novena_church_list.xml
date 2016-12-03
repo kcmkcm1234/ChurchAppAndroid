@@ -5,7 +5,7 @@
     android:id="@+id/activity_novena_church_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tech.thrithvam.churchapp.NovenaChurchList"
+    tools:context="com.tech.thrithvam.churchapp.NovenaDetailsList"
     android:background="@drawable/sky_bg_full">
     <TextView
         android:text="@string/novenas"
