@@ -82,6 +82,9 @@ public class CustomAdapter extends BaseAdapter {
             //Pious Organisation--------------------
         TextView OrgName,OrgPatronName;
         ImageView Orgpartonimage;
+            //Institutions---------------------
+        TextView Institution_Name,Ins_Address;
+        ImageView Institution_image;
     }
 
 
@@ -362,6 +365,7 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 lastPosition = position;
                 break;
+            //
             case "ChurchPiousOrgResults":
 
                 if (convertView == null) {
@@ -376,7 +380,7 @@ public class CustomAdapter extends BaseAdapter {
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
-                //Label loading--------------------
+                //----------------Label loading--------------------
 
                 holder.OrgName.setText(objects.get(position)[1]);
                 holder.OrgPatronName.setText(objects.get(position)[2]);
@@ -386,6 +390,40 @@ public class CustomAdapter extends BaseAdapter {
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
                             .into(holder.Orgpartonimage)
+                    ;
+                }
+
+                if(position>lastPosition){
+                    animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
+                    convertView.startAnimation(animation);
+                }
+                lastPosition = position;
+                break;
+            //---------------------ChurchInstutionsResults-------------------------
+            case "ChurchInstutionsResults":
+
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_institution, null);
+
+                    holder.Institution_image =(ImageView)convertView.findViewById(R.id.Institution_image );
+                    holder.Institution_Name = (TextView) convertView.findViewById(R.id.Institution_name );
+                    holder.Ins_Address =(TextView)convertView.findViewById(R.id.Institution_Address);
+
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //----------------Label loading--------------------
+
+                holder.Institution_Name.setText(objects.get(position)[1]);
+                holder.Ins_Address.setText(objects.get(position)[2]);
+
+                if(!objects.get(position)[3].equals("null")){
+                    Glide.with(adapterContext)
+                            .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
+                            .thumbnail(0.1f)
+                            .into(holder.Institution_image)
                     ;
                 }
 

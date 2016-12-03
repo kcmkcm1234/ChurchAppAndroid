@@ -67,9 +67,11 @@
             android:name=".ChurchDetailsExpansion"
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".PiousOrgDetails"
+        <activity
+            android:name=".PiousOrgDetails"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".InstitutionDetails"></activity>
     </application>
 
 </manifest>
