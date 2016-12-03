@@ -9,13 +9,13 @@
     android:background="@drawable/sky_bg_full">
 
     <TextView
-        android:text="Pious Organisations"
+        android:text="@string/pious_org"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/activity_head"
+        android:id="@+id/activity_Pious_head"
         android:layout_margin="15dp"
         android:textSize="22sp"
         android:textColor="@android:color/white"/>
@@ -34,7 +34,7 @@
         android:layout_height="match_parent"
         android:scrollbarStyle="outsideOverlay"
         android:id="@+id/Pious_org_list"
-        android:layout_below="@+id/activity_head"
+        android:layout_below="@+id/activity_Pious_head"
         android:divider="@null"/>
 
 </RelativeLayout>

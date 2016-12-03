@@ -3,6 +3,7 @@ package com.tech.thrithvam.churchapp;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -33,6 +34,8 @@ public class PiousActivity extends AppCompatActivity {
 
     Bundle extras;
     String ChurchID;
+    Typeface typeQuicksand;
+    TextView Pious_head;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,10 @@ public class PiousActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pious);
         extras=getIntent().getExtras();
         ChurchID=extras.getString("ChurchID");
+
+        typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
+        Pious_head=(TextView)findViewById(R.id.activity_Pious_head);
+        Pious_head.setTypeface(typeQuicksand);
 
         if (isOnline()) {
             new PiousInstitutionSearchResults().execute();
@@ -159,14 +166,14 @@ public class PiousActivity extends AppCompatActivity {
                 churchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                   /*     Intent intent=new Intent(PiousActivity.this,PiousOrgDetails.class);
+                        Intent intent=new Intent(PiousActivity.this,PiousOrgDetails.class);
                         intent.putExtra("ID",PiousOrgListItems.get(position)[0]);
                         intent.putExtra("Name",PiousOrgListItems.get(position)[1]);
                         intent.putExtra("PatronName",PiousOrgListItems.get(position)[2]);
                         intent.putExtra("URL",PiousOrgListItems.get(position)[3]);
                         intent.putExtra("Desc",PiousOrgListItems.get(position)[4]);
 //                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);*/
+                        startActivity(intent);
 //                        finish();
                     }
                 });

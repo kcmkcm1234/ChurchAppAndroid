@@ -98,7 +98,8 @@ public class ChurchDetails extends AppCompatActivity {
         //fonts-------------------------------
         activityScrollView=(ScrollView)findViewById(R.id.activity_scrollview);
         activityScrollView.setVisibility(View.GONE);
-        typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
+
+
         typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
         typeBLKCHCRY = Typeface.createFromAsset(getAssets(),"fonts/blackchancery.ttf");
 
