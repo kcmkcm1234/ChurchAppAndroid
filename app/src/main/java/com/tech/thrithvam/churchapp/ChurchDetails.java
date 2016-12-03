@@ -835,8 +835,10 @@ public class ChurchDetails extends AppCompatActivity {
         startActivity(intent);
     }
     public void novenas_click (View view){
-        Intent intent=new Intent(ChurchDetails.this,PiousActivity.class);
-        intent.putExtra("ChurchID",ChurchID);
+        Intent intent=new Intent(ChurchDetails.this,NovenaDetailsList.class);
+        intent.putExtra("churchID",ChurchID);
+        intent.putExtra("churchName",churchName.getText().toString());
+        intent.putExtra("from","church");
         startActivity(intent);
     }
     public void view_more_about (View view){

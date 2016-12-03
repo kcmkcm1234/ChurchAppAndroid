@@ -34,17 +34,29 @@ public class NovenaDetailsList extends AppCompatActivity {
     AsyncTask getNovenaChurchList;
     Bundle extras;
     String patronID;
+    String churchID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novena_church_list);
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
         extras=getIntent().getExtras();
-        patronID=extras.getString("patronID");
 
         TextView activityHead=(TextView)findViewById(R.id.activity_head);
-        activityHead.setText(extras.getString("patronName"));
         activityHead.setTypeface(typeQuicksand);
+
+        switch (extras.getString("from")){
+            case "novenas":
+                patronID=extras.getString("patronID");
+                activityHead.setText(extras.getString("patronName"));
+                break;
+            case  "church":
+                churchID=extras.getString("churchID");
+                activityHead.setText(extras.getString("churchName"));
+                break;
+            default:
+                finish();
+        }
 
         if (isOnline()) {
             getNovenaChurchList=new GetNovenaChurchList().execute();
@@ -69,10 +81,25 @@ public class NovenaDetailsList extends AppCompatActivity {
         }
         @Override
         protected Void doInBackground(Void... arg0) {
-            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/NovenasByPatronID";
+            String url="";
+            switch (extras.getString("from")){
+                case "novenas":
+                    url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/NovenasByPatronID";
+                    break;
+                case  "church":
+                    url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/NovenasByChurchID";
+                    break;
+            }
             HttpURLConnection c = null;
             try {
-                postData =  "{\"PatronID\":\"" + patronID+ "\"}";
+                switch (extras.getString("from")){
+                    case "novenas":
+                        postData =  "{\"PatronID\":\"" + patronID+ "\"}";
+                        break;
+                    case  "church":
+                        postData =  "{\"ChurchID\":\"" + churchID+ "\"}";
+                        break;
+                }
                 URL u = new URL(url);
                 c = (HttpURLConnection) u.openConnection();
                 c.setRequestMethod("POST");

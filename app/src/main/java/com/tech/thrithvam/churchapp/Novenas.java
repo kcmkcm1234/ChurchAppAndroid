@@ -152,6 +152,7 @@ public class Novenas extends AppCompatActivity {
                         Intent intent=new Intent(Novenas.this,NovenaDetailsList.class);
                         intent.putExtra("patronID",patronItems.get(position)[0]);
                         intent.putExtra("patronName",patronItems.get(position)[1]);
+                        intent.putExtra("from","novenas");
                         startActivity(intent);
                     }
                 });
