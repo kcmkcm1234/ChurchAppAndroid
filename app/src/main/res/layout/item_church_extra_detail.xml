@@ -49,6 +49,8 @@
             android:layout_marginRight="7dp"
             android:layout_below="@id/extra_details"
             android:textSize="12sp"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent"
+            android:onClick="view_more_extra_detail"
+            android:id="@+id/view_more_extra_detail"/>
     </RelativeLayout>
 </LinearLayout>

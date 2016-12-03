@@ -73,6 +73,7 @@ public class ChurchDetails extends AppCompatActivity {
     TextView sundayTiming,mondayTiming,tuesdayTiming,wednesdayTiming,thursdayTiming,fridayTiming,saturdayTiming;
     LinearLayout extraDetails;
     String aboutGlobal;
+    String churchImageGlobal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -361,6 +362,10 @@ public class ChurchDetails extends AppCompatActivity {
                             })
                             .into(churchImage)
                     ;
+                    churchImageGlobal=imageURLString;
+                }
+                else {
+                    churchImageGlobal="null";
                 }
 
                 if(!priestNameString.equals("null")){
@@ -684,7 +689,7 @@ public class ChurchDetails extends AppCompatActivity {
             String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetChurchExtraDetails";
             HttpURLConnection c = null;
             try {
-                postData =  "{\"ChurchID\":\"" + ChurchID+ "\"}";
+                postData =  "{\"ChurchID\":\"" + ChurchID+ "\",\"full\":\""+ "false" + "\"}";
                 URL u = new URL(url);
                 c = (HttpURLConnection) u.openConnection();
                 c.setRequestMethod("POST");
@@ -763,9 +768,11 @@ public class ChurchDetails extends AppCompatActivity {
                    TextView title=(TextView)extraItemCard.findViewById(R.id.extra_detail_label);
                    ImageView image=(ImageView)extraItemCard.findViewById(R.id.detail_image);
                    TextView description=(TextView)extraItemCard.findViewById(R.id.extra_details);
+                   TextView view_more_extra_detail=(TextView)extraItemCard.findViewById(R.id.view_more_extra_detail);
                    title.setTypeface(typeQuicksand);
                    description.setTypeface(typeSegoe);
 
+                   view_more_extra_detail.setTag(extraDetailsArrayList.get(i));
                    title.setText(extraDetailsArrayList.get(i)[1]);
                    description.setText(extraDetailsArrayList.get(i)[2]);
                    if(!extraDetailsArrayList.get(i)[3].equals("null")){
@@ -837,6 +844,16 @@ public class ChurchDetails extends AppCompatActivity {
         intent.putExtra("from","view_more_about");
         intent.putExtra("heading","About");
         intent.putExtra("description",aboutGlobal);
+        intent.putExtra("image",churchImageGlobal);
+        startActivity(intent);
+    }
+    public void view_more_extra_detail (View view){
+        Intent intent=new Intent(ChurchDetails.this,ChurchDetailsExpansion.class);
+        intent.putExtra("from","view_more_extra_detail");
+        String[] details= (String[]) view.getTag();
+        intent.putExtra("heading",details[1]);
+        intent.putExtra("description",details[2]);
+        intent.putExtra("image",details[3]);
         startActivity(intent);
     }
 
