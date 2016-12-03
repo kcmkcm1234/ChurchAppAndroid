@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NovenaChurchList extends AppCompatActivity {
+public class NovenaDetailsList extends AppCompatActivity {
     Typeface typeQuicksand;
     AsyncTask getNovenaChurchList;
     Bundle extras;
@@ -49,7 +49,7 @@ public class NovenaChurchList extends AppCompatActivity {
         if (isOnline()) {
             getNovenaChurchList=new GetNovenaChurchList().execute();
         } else {
-            Toast.makeText(NovenaChurchList.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            Toast.makeText(NovenaDetailsList.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
     }
     public class GetNovenaChurchList extends AsyncTask<Void , Void, Void> {
@@ -146,7 +146,7 @@ public class NovenaChurchList extends AppCompatActivity {
             super.onPostExecute(result);
             loadingIndicator.setVisibility(View.GONE);
             if(!pass) {
-                new AlertDialog.Builder(NovenaChurchList.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
+                new AlertDialog.Builder(NovenaDetailsList.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
                         .setMessage(msg)//R.string.no_items)
                         .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
@@ -156,7 +156,7 @@ public class NovenaChurchList extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(NovenaChurchList.this, novenaChurchItems,"NovenaChurchList");
+                CustomAdapter adapter=new CustomAdapter(NovenaDetailsList.this, novenaChurchItems,"NovenaDetailsList");
                 ListView novenaChurchList=(ListView) findViewById(R.id.novena_church_list);
                 novenaChurchList.setAdapter(adapter);
                 novenaChurchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

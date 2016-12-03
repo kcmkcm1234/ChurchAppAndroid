@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Church App</string>
     <string name="url" translatable="false">http://192.168.1.107:55/</string>
-    <!-- <string name="url" translatable="false">http://jdadmin-001-site4.itempurl.com/</string>-->
+     <!--<string name="url" translatable="false">http://jdadmin-001-site4.itempurl.com/</string>-->
     <string name="network_off_alert">Please turn on internet</string>
     <string name="ok_button">OK</string>
     <string name="church_name">Church Name</string>
@@ -40,7 +40,6 @@
     <string name="novena_dates">%1$s to %2$s</string>
     <string name="loc_permission_denied">Location Permission denied</string>
     <string name="pious_org">Pious Organisations</string>
-    <!--<string name=""></string>-->
     <string name="org_name">Organisation Name</string>
     <string name="history">History</string>
     <string name="details">Details</string>
