@@ -47,9 +47,10 @@ public class Novenas extends AppCompatActivity {
             Toast.makeText(Novenas.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
     }
+    //--------------------------------Async Tasks-----------------------------------
     public class GetPatrons extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
-        String strJson;//, postData;
+        String strJson;
         JSONArray jsonArray;
         String msg;
         boolean pass=false;
@@ -77,7 +78,7 @@ public class Novenas extends AppCompatActivity {
                 c.setUseCaches(false);
                 c.setConnectTimeout(10000);
                 c.setReadTimeout(10000);
-                c.connect();
+                c.connect();//Since no post data
                 status = c.getResponseCode();
                 switch (status) {
                     case 200:

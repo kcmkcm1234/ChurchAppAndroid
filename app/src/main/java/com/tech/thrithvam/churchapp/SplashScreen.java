@@ -27,7 +27,6 @@ public class SplashScreen extends AppCompatActivity {
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/blackchancery.ttf");
         txtapp.setTypeface(type);
 
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

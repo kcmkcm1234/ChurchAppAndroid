@@ -16,6 +16,7 @@ public class MyChurch extends AppCompatActivity {
         Typeface typeBLKCHCRY = Typeface.createFromAsset(getAssets(),"fonts/blackchancery.ttf");
         Typeface typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
 
+        //Fonts---------------
         TextView activtyHead=(TextView)findViewById(R.id.activity_head);
         TextView churchName=(TextView)findViewById(R.id.church_name);
         TextView churchDetail1=(TextView)findViewById(R.id.church_detail1);

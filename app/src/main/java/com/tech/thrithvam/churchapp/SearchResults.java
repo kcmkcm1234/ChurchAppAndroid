@@ -1,15 +1,13 @@
 package com.tech.thrithvam.churchapp;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -36,6 +34,7 @@ public class SearchResults extends AppCompatActivity {
     AsyncTask searching;
     String searchKey;
     Bundle extras;
+    EditText searchText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +46,11 @@ public class SearchResults extends AppCompatActivity {
         } else {
             Toast.makeText(SearchResults.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
+        //Search Text box--------------
         Typeface typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
-        Typeface typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
-        final EditText searchText=(EditText)findViewById(R.id.searchViewText);
+        searchText=(EditText)findViewById(R.id.searchViewText);
         searchText.setTypeface(typeSegoe);
+        searchText.setText(searchKey);
         ImageView searchImage =(ImageView)findViewById(R.id.searchImage);
         searchImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +64,7 @@ public class SearchResults extends AppCompatActivity {
         });
 
     }
-
+    //-----------------------------Async Tasks----------------------------------------
     public class ChurchTownSearchResults extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData;
@@ -157,18 +157,11 @@ public class SearchResults extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             loadingIndicator.setVisibility(View.GONE);
-            loadingText.setVisibility(View.GONE);
             if(!pass) {
-                new AlertDialog.Builder(SearchResults.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
-                        .setMessage(msg)//R.string.no_items)
-                        .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        }).setCancelable(false).show();
+                                loadingText.setText(msg);
             }
             else {
+                loadingText.setVisibility(View.GONE);
                 CustomAdapter adapter=new CustomAdapter(SearchResults.this, churchItems,"ChurchTownSearchResults");
                 ListView churchList=(ListView) findViewById(R.id.resultsGrid);
                 churchList.setAdapter(adapter);
@@ -180,11 +173,10 @@ public class SearchResults extends AppCompatActivity {
                         intent.putExtra("churchname",churchItems.get(position)[1]);
                         intent.putExtra("town",churchItems.get(position)[2]);
                         intent.putExtra("address",churchItems.get(position)[4]);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-//                        finish();
                     }
                 });
+                searchText.setSelectAllOnFocus(true);
             }
         }
     }

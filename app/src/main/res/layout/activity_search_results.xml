@@ -12,10 +12,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#adffffff"
-
     android:id="@+id/searchView"
     android:layout_margin="5dp"
-    android:padding="5dp">
+    android:padding="5dp"
+    android:focusableInTouchMode="true">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,8 @@
         android:textColor="@color/edit_text"
         android:imeActionLabel="actionGo"
         android:singleLine="true"
-        android:maxLines="1"/>
+        android:maxLines="1"
+        android:selectAllOnFocus="true"/>
 </RelativeLayout>
     <ImageView
         android:layout_width="40dp"
@@ -61,7 +62,6 @@
         android:layout_below="@+id/searchView"
         android:divider="@null"
         android:dividerHeight="0.5dp"
-
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"/>
 

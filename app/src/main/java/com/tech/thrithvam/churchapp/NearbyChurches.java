@@ -51,7 +51,6 @@ public class NearbyChurches extends AppCompatActivity {
 
         //Permission checking for higher versions
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED /*&& ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED*/){
-
             if (ActivityCompat.shouldShowRequestPermissionRationale(NearbyChurches.this,Manifest.permission.ACCESS_FINE_LOCATION)) {//User Denied it before
                 Toast.makeText(NearbyChurches.this,R.string.loc_permission_denied,Toast.LENGTH_LONG).show();
                 ActivityCompat.requestPermissions(NearbyChurches.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},MY_PERMISSIONS_LOCATION);
@@ -106,7 +105,7 @@ public class NearbyChurches extends AppCompatActivity {
             gpsTracker.showSettingsAlert();
         }
     }
-    //----------------------------------Asyc Tasks--------------------------------------
+    //----------------------------------Async Tasks--------------------------------------
     public class GetNearbyChurchList extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData;
@@ -219,9 +218,7 @@ public class NearbyChurches extends AppCompatActivity {
                         intent.putExtra("churchID",nearbyChurchItems.get(position)[0]);
                         intent.putExtra("churchname",nearbyChurchItems.get(position)[1]);
                         intent.putExtra("address",nearbyChurchItems.get(position)[2]);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-//                        finish();
                     }
                 });
             }

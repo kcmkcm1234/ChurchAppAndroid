@@ -10,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +37,7 @@ public class NovenaDetailsList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_novena_church_list);
+        setContentView(R.layout.activity_novena_details_list);
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
         extras=getIntent().getExtras();
 
@@ -46,11 +45,11 @@ public class NovenaDetailsList extends AppCompatActivity {
         activityHead.setTypeface(typeQuicksand);
 
         switch (extras.getString("from")){
-            case "novenas":
+            case "novenas":                                         //List of churches with the novena
                 patronID=extras.getString("patronID");
                 activityHead.setText(extras.getString("patronName"));
                 break;
-            case  "church":
+            case  "church":                                         //List of novenas in the church
                 churchID=extras.getString("churchID");
                 activityHead.setText(extras.getString("churchName"));
                 break;
@@ -186,19 +185,6 @@ public class NovenaDetailsList extends AppCompatActivity {
                 CustomAdapter adapter=new CustomAdapter(NovenaDetailsList.this, novenaChurchItems,"NovenaDetailsList");
                 ListView novenaChurchList=(ListView) findViewById(R.id.novena_church_list);
                 novenaChurchList.setAdapter(adapter);
-                novenaChurchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                     /*   Intent intent=new Intent(SearchResults.this,ChurchDetails.class);
-                        intent.putExtra("churchID",churchItems.get(position)[0]);
-                        intent.putExtra("churchname",churchItems.get(position)[1]);
-                        intent.putExtra("town",churchItems.get(position)[2]);
-                        intent.putExtra("address",churchItems.get(position)[4]);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-//                        finish();*/
-                    }
-                });
             }
         }
     }

@@ -2,18 +2,14 @@ package com.tech.thrithvam.churchapp;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class Home extends AppCompatActivity {
 
@@ -21,15 +17,14 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-       // Animation fromLeft = AnimationUtils.loadAnimation(this, R.anim.fade_in_from_left);
         ImageView searchImage =(ImageView)findViewById(R.id.searchImage);
-        //searchImage.startAnimation(fromLeft);
         final EditText searchText=(EditText)findViewById(R.id.searchView);
         searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {    //for clicking enter on keyboard
                 if (i == EditorInfo.IME_ACTION_GO) {
                     Intent intent=new Intent(Home.this,SearchResults.class);
+                    intent.putExtra("searchkey",searchText.getText().toString());
                     startActivity(intent);
                     return true;
                 }
@@ -46,10 +41,9 @@ public class Home extends AppCompatActivity {
         });
 
 
+        //Fonts--------------
         Typeface typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
-
         searchText.setTypeface(typeSegoe);
-
         TextView view_all_towns=(TextView)findViewById(R.id.view_all_towns);
         TextView novenas=(TextView)findViewById(R.id.novenasText);
         TextView my_church=(TextView)findViewById(R.id.mychurch);
