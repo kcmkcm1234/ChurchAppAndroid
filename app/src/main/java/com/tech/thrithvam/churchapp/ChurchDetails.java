@@ -171,7 +171,7 @@ public class ChurchDetails extends AppCompatActivity {
         saturdayTiming.setTypeface(typeSegoe);
 
 
-        //getting details from intent------------------------
+        //getting details from intent if available-----------------
         if(getIntent().hasExtra("churchname")){
             churchName.setText(extras.getString("churchname"));
         }
@@ -187,9 +187,8 @@ public class ChurchDetails extends AppCompatActivity {
         else {
             town.setVisibility(View.INVISIBLE);
         }
-
-
     }
+    //-----------------------------Async Tasks----------------------------------------
     public class GetChurchDetails extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData;
@@ -336,8 +335,7 @@ public class ChurchDetails extends AppCompatActivity {
                     churchAddress.setText("-");
                 }
 
-                //townCodeString
-
+                //Church Image----
                 if(!imageURLString.equals("null")){
                     Glide.with(ChurchDetails.this)
                             .load(getResources().getString(R.string.url) +imageURLString.substring((imageURLString).indexOf("img")))
@@ -368,6 +366,7 @@ public class ChurchDetails extends AppCompatActivity {
                     churchImageGlobal="null";
                 }
 
+                //Priest-----------
                 if(!priestNameString.equals("null")){
                     priestName.setText(priestNameString);
                 }
@@ -441,6 +440,7 @@ public class ChurchDetails extends AppCompatActivity {
                     ;
                 }
 
+                //Contact---------
                 if(!phone1String.equals("null")){
                     phone1.setText(phone1String);
                     phone1.setOnClickListener(new View.OnClickListener() {
@@ -649,12 +649,11 @@ public class ChurchDetails extends AppCompatActivity {
             }
             getExtraDetails=new GetExtraDetails().execute();
         }
-
         private void setTimingsToTextViews(ArrayList<String> timings, TextView timingsDisplay, TextView dayLabel){
             //To set mass timings to corresponding text views
             String dayTimings="";
             for(int i=0;i<timings.size();i++) {
-                if (i==0)
+                if (i==0)//to avoid first comma
                 {
                     dayTimings = timings.get(0);
                 }
@@ -761,9 +760,8 @@ public class ChurchDetails extends AppCompatActivity {
                 massLayout.setVisibility(View.GONE);
             }
             else {
-
-                extraDetails.setVisibility(View.VISIBLE);
-               for (int i=0;i<extraDetailsArrayList.size();i++){
+               extraDetails.setVisibility(View.VISIBLE);
+               for (int i=0;i<extraDetailsArrayList.size();i++){//Adding each extra item card
                    final View extraItemCard=getLayoutInflater().inflate(R.layout.item_church_extra_detail, null);
                    TextView title=(TextView)extraItemCard.findViewById(R.id.extra_detail_label);
                    ImageView image=(ImageView)extraItemCard.findViewById(R.id.detail_image);
@@ -786,7 +784,6 @@ public class ChurchDetails extends AppCompatActivity {
                    else {
                        image.setVisibility(View.GONE);
                    }
-                   extraItemCard.setVisibility(View.INVISIBLE);
                    extraDetails.addView(extraItemCard);
                    final Animation fromBottom = AnimationUtils.loadAnimation(ChurchDetails.this, R.anim.fade_in_from_bottom);
                    Handler handler = new Handler();
@@ -796,7 +793,7 @@ public class ChurchDetails extends AppCompatActivity {
                            extraItemCard.setVisibility(View.VISIBLE);
                            extraItemCard.startAnimation(fromBottom);
                        }
-                   },(i+1)*1000);
+                   },(i+1)*1000);//animation with delay for each
                }
             }
         }
