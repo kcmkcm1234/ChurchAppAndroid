@@ -4,10 +4,215 @@
     android:id="@+id/activity_institution_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/sky_bg_full"
     tools:context="com.tech.thrithvam.churchapp.InstitutionDetails">
+
+    <TextView
+        android:text="@string/ins_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/activity_Institution_head"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="15dp"
+        android:textSize="22sp"
+        android:textColor="@android:color/white"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/activity_scrollview"
+        android:layout_below="@+id/activity_Institution_head"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:id="@+id/Institution_image"
+                android:scaleType="centerInside"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/FirstLayout"
+                android:layout_below="@+id/Institution_image"
+                android:layout_margin="7dp"
+                android:background="@drawable/white_transperent_card"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Address"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/Address_label"
+                    android:textColor="@color/primary_text"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/details"
+                    android:id="@+id/Address_details"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:ellipsize="end"
+                    android:layout_below="@+id/Address_label"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ThirdLayout"
+                android:layout_below="@+id/SecondLayout"
+                android:layout_margin="7dp"
+                android:background="@drawable/white_transperent_card"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/history"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/history_label"
+                    android:textColor="@color/primary_text"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/details"
+                    android:id="@+id/history_details"
+                    android:layout_below="@id/history_label"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="14sp"
+                    android:ellipsize="end"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/SecondLayout"
+                android:background="@drawable/white_transperent_card"
+                android:padding="10dp"
+                android:layout_below="@+id/FirstLayout"
+                android:layout_alignLeft="@+id/FirstLayout"
+                android:layout_alignStart="@+id/FirstLayout">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/General_Inform"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/General_label"
+                    android:textColor="@color/primary_text"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Founder"
+                    android:id="@+id/Founder_label"
+                    android:layout_below="@id/General_label"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="14sp"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Founder_Name"
+                    android:id="@+id/Founder"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:ellipsize="end"
+                    android:layout_below="@+id/General_label"
+                    android:layout_toRightOf="@+id/Founder_label" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Founded"
+                    android:id="@+id/Founded_label"
+                    android:layout_below="@id/Founder"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="14sp"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Founder_Year"
+                    android:id="@+id/Founded"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:ellipsize="end"
+                    android:layout_toRightOf="@+id/Founded_label"
+                    android:layout_below="@+id/Founder"/>
+                <TextView
+                  android:layout_width="100dp"
+                  android:layout_height="wrap_content"
+                  android:text="@string/Email"
+                  android:id="@+id/Email_label"
+                  android:layout_below="@id/Founded"
+                  android:textColor="@color/primary_text"
+                  android:layout_marginBottom="5dp"
+                  android:textSize="14sp"
+                  android:ellipsize="end"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email_Id"
+                    android:id="@+id/Email_id"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:ellipsize="end"
+                    android:layout_toRightOf="@+id/Email_label"
+                    android:layout_below="@id/Founded"/>
+
+                 <TextView
+                     android:layout_width="100dp"
+                     android:layout_height="wrap_content"
+                     android:text="@string/Mobile"
+                     android:id="@+id/Mobile_label"
+                     android:layout_below="@id/Email_id"
+                     android:textColor="@color/primary_text"
+                     android:layout_marginBottom="5dp"
+                     android:textSize="14sp"
+                     android:ellipsize="end"/>
+
+                 <TextView
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:text="Mobile_Number"
+                     android:id="@+id/Mobile_Number"
+                     android:textColor="@color/primary_text"
+                     android:textSize="14sp"
+                     android:ellipsize="end"
+                     android:layout_toRightOf="@+id/Mobile_label"
+                     android:layout_below="@id/Email_id"/>
+
+
+
+
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+
+
+
+    </ScrollView>
 
 </RelativeLayout>

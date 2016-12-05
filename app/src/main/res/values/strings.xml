@@ -39,11 +39,17 @@
     <string name="loading">Loading…</string>
     <string name="novena_dates">%1$s to %2$s</string>
     <string name="loc_permission_denied">Location Permission denied</string>
-    <string name="pious_org">Pious Organisations</string>
+    <string name="pious_org">Pious Org.</string>
     <string name="org_name">Organisation Name</string>
     <string name="history">History</string>
     <string name="details">Details</string>
     <string name="institutions">Institutions</string>
-
+    <string name="ins_name">Institution Name</string>
+    <string name="Address">Address</string>
+    <string name="General_Inform">General Informations</string>
+    <string name="Founder">Founder:</string>
+    <string name="Founded">Founded:</string>
+    <string name="Email">Email:</string>
+    <string name="Mobile">Mobile:</string>
 
 </resources>

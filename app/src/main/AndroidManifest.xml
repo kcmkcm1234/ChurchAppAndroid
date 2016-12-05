@@ -71,7 +71,10 @@
             android:name=".PiousOrgDetails"
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".InstitutionDetails"></activity>
+        <activity
+            android:name=".InstitutionDetails"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 
 </manifest>

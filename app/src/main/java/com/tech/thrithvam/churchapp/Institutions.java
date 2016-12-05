@@ -26,7 +26,10 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,6 +39,7 @@ public class Institutions extends AppCompatActivity {
     String ChurchID;
     Typeface typeQuicksand;
     TextView Institution_head;
+    Calendar event_start =Calendar.getInstance() ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,17 +133,25 @@ public class Institutions extends AppCompatActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     msg=jsonObject.optString("Message");
                     pass=jsonObject.optBoolean("Flag",true);
-                    String[] data=new String[8];
+                    String[] data=new String[9];
                     data[0]=jsonObject.optString("ID");
                     data[1]=jsonObject.optString("Name");
                     data[2]=jsonObject.optString("Address");
                     data[3]=jsonObject.optString("URL");
                     data[4]=jsonObject.optString("desc");
-                    data[5]=jsonObject.optString("Website");
-                    data[6]=jsonObject.optString("Website");
-                    data[7]=jsonObject.optString("Founded");
+                    data[5]=jsonObject.optString("Email");
+                    data[6]=jsonObject.optString("Founder");
+                    data[7]=jsonObject.optString("Founded").replace("/Date(", "").replace(")/", "");
+                    data[8]=jsonObject.optString("Mobile");
+
+
+                    event_start.setTimeInMillis(Long.parseLong(data[7]));
 
                     InstitutionListItems.add(data);
+
+
+
+
                 }
             } catch (Exception ex) {
                 msg=ex.getMessage();
@@ -175,11 +187,16 @@ public class Institutions extends AppCompatActivity {
                         intent.putExtra("Address",InstitutionListItems.get(position)[2]);
                         intent.putExtra("URL",InstitutionListItems.get(position)[3]);
                         intent.putExtra("desc",InstitutionListItems.get(position)[4]);
-                        intent.putExtra("Website",InstitutionListItems.get(position)[5]);
+                        intent.putExtra("Email",InstitutionListItems.get(position)[5]);
                         intent.putExtra("Founder ",InstitutionListItems.get(position)[6]);
-                        intent.putExtra("Founded",InstitutionListItems.get(position)[7]);
-                       /* intent.putExtra(" ",InstitutionListItems.get(position)[8]);
-                        intent.putExtra(" ",InstitutionListItems.get(position)[9]);
+
+                        SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+                        event_start.setTimeInMillis(Long.parseLong(InstitutionListItems.get(position)[7]));
+                        String startDate=formatted.format(event_start.getTime());
+                        intent.putExtra("Founded",startDate);
+
+                        intent.putExtra("Mobile",InstitutionListItems.get(position)[8]);
+                        /*  intent.putExtra(" ",InstitutionListItems.get(position)[9]);
                         intent.putExtra(" ",InstitutionListItems.get(position)[10]);
                         intent.putExtra(" ",InstitutionListItems.get(position)[11]);*/
 
