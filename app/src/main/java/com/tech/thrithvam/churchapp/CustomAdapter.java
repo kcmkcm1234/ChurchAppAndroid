@@ -269,11 +269,9 @@ public class CustomAdapter extends BaseAdapter {
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        holder.novenaDescription.setMaxLines(100);
+                        holder.novenaDescription.setMaxLines(100);//Expand description
                     }
                 });
-                /*animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-                convertView.startAnimation(animation);*/
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
                     convertView.startAnimation(animation);
@@ -356,9 +354,6 @@ public class CustomAdapter extends BaseAdapter {
                             .into(holder.nearChurchImg)
                     ;
                 }
-
-               /* animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-                convertView.startAnimation(animation);*/
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
                     convertView.startAnimation(animation);
