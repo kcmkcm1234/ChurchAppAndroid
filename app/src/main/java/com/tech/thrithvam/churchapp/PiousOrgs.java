@@ -36,7 +36,7 @@ public class PiousOrgs extends AppCompatActivity {
     String ChurchID;
     Typeface typeQuicksand;
     TextView Pious_head;
-
+    AsyncTask getPiousOrgList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,21 +49,21 @@ public class PiousOrgs extends AppCompatActivity {
         Pious_head.setTypeface(typeQuicksand);
 
         if (isOnline()) {
-            new PiousInstitutionSearchResults().execute();
+            getPiousOrgList=new GetPiousOrgList().execute();
         } else {
             Toast.makeText(PiousOrgs.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
     }
 
     //--------------------------------------Async Tasks--------------------------------------
-    public class PiousInstitutionSearchResults extends AsyncTask<Void , Void, Void> {
+    public class GetPiousOrgList extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData;
         JSONArray jsonArray;
         String msg;
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
-        ArrayList<String[]> PiousOrgListItems=new ArrayList<>();
+        ArrayList<String[]> piousOrgListItems =new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -134,8 +134,7 @@ public class PiousOrgs extends AppCompatActivity {
                     data[2]=jsonObject.optString("PatronName");
                     data[3]=jsonObject.optString("URL");
                     data[4]=jsonObject.optString("Desc");
-
-                    PiousOrgListItems.add(data);
+                    piousOrgListItems.add(data);
                 }
             } catch (Exception ex) {
                 msg=ex.getMessage();
@@ -159,18 +158,18 @@ public class PiousOrgs extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(PiousOrgs.this, PiousOrgListItems,"ChurchPiousOrgList");
+                CustomAdapter adapter=new CustomAdapter(PiousOrgs.this, piousOrgListItems,"ChurchPiousOrgList");
                 ListView churchList=(ListView) findViewById(R.id.Pious_org_list);
                 churchList.setAdapter(adapter);
                 churchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent=new Intent(PiousOrgs.this,PiousOrgDetails.class);
-                        intent.putExtra("ID",PiousOrgListItems.get(position)[0]);
-                        intent.putExtra("Name",PiousOrgListItems.get(position)[1]);
-                        intent.putExtra("PatronName",PiousOrgListItems.get(position)[2]);
-                        intent.putExtra("URL",PiousOrgListItems.get(position)[3]);
-                        intent.putExtra("Desc",PiousOrgListItems.get(position)[4]);
+                        intent.putExtra("ID", piousOrgListItems.get(position)[0]);
+                        intent.putExtra("Name", piousOrgListItems.get(position)[1]);
+                        intent.putExtra("PatronName", piousOrgListItems.get(position)[2]);
+                        intent.putExtra("URL", piousOrgListItems.get(position)[3]);
+                        intent.putExtra("Desc", piousOrgListItems.get(position)[4]);
                         startActivity(intent);
                     }
                 });
@@ -183,5 +182,9 @@ public class PiousOrgs extends AppCompatActivity {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(getPiousOrgList!=null)getPiousOrgList.cancel(true);
+    }
 }

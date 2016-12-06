@@ -34,51 +34,49 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Institutions extends AppCompatActivity {
-
     Bundle extras;
     String ChurchID;
     Typeface typeQuicksand;
-    TextView Institution_head;
+    TextView activity_head;
     Calendar event_start =Calendar.getInstance() ;
-
+    AsyncTask getInstitutionsList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_institutions);
-
         extras=getIntent().getExtras();
         ChurchID=extras.getString("ChurchID");
+
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
-        Institution_head=(TextView)findViewById(R.id.Institution_head);
-        Institution_head.setTypeface(typeQuicksand);
+        activity_head =(TextView)findViewById(R.id.Institution_head);
+        activity_head.setTypeface(typeQuicksand);
 
         if (isOnline()) {
-            new InstitutionSearchResults().execute();
+            getInstitutionsList=new GetInstitutionsList().execute();
         } else {
             Toast.makeText(Institutions.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
     }
 
-    public class InstitutionSearchResults extends AsyncTask<Void , Void, Void> {
+    //---------------------------------Async Tasks--------------------------------------
+    public class GetInstitutionsList extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData;
         JSONArray jsonArray;
         String msg;
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
-
         ArrayList<String[]> InstitutionListItems=new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             loadingIndicator.setVisibility(View.VISIBLE);
-
             //----------encrypting ---------------------------
             // usernameString=cryptography.Encrypt(usernameString);
         }
         @Override
         protected Void doInBackground(Void... arg0) {
-            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/SearchInstitutionsbyChurchID";
+            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetInstitutionsByChurchID";
             HttpURLConnection c = null;
             try {
                 postData =  "{\"ChurchID\":\"" + ChurchID+ "\"}";
@@ -213,6 +211,11 @@ public class Institutions extends AppCompatActivity {
         ConnectivityManager cm =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(getInstitutionsList!=null)getInstitutionsList.cancel(true);
     }
 
 }
