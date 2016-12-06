@@ -827,7 +827,7 @@ public class ChurchDetails extends AppCompatActivity {
         startActivity(intent);
     }
     public void events_click (View view){
-        Intent intent=new Intent(ChurchDetails.this,PiousActivity.class);
+        Intent intent=new Intent(ChurchDetails.this,Events.class);
         intent.putExtra("ChurchID",ChurchID);
         startActivity(intent);
     }

@@ -85,6 +85,10 @@ public class CustomAdapter extends BaseAdapter {
             //Institutions---------------------
         TextView Institution_Name,Ins_Address;
         ImageView Institution_image;
+            //Events
+        TextView NoticeHead,NoticeDate;
+        ImageView Noticeimage;
+
     }
 
 
@@ -419,6 +423,40 @@ public class CustomAdapter extends BaseAdapter {
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
                             .into(holder.Institution_image)
+                    ;
+                }
+
+                if(position>lastPosition){
+                    animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
+                    convertView.startAnimation(animation);
+                }
+                lastPosition = position;
+                break;
+            //-------------------ChurchEventsResults-------------------------------
+            case "ChurchEventsResults":
+
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_events, null);
+
+                    holder.Noticeimage =(ImageView)convertView.findViewById(R.id.Notice_image );
+                    holder.NoticeHead = (TextView) convertView.findViewById(R.id.Notice_Head );
+                    holder.NoticeDate =(TextView)convertView.findViewById(R.id.Notice_Date);
+
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //----------------Label loading--------------------
+
+                holder.NoticeHead.setText(objects.get(position)[1]);
+                holder.NoticeDate.setText(objects.get(position)[2]);
+
+                if(!objects.get(position)[3].equals("null")){
+                    Glide.with(adapterContext)
+                            .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
+                            .thumbnail(0.1f)
+                            .into(holder.Noticeimage)
                     ;
                 }
 
