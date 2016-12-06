@@ -73,41 +73,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/ThirdLayout"
-                android:layout_below="@+id/SecondLayout"
-                android:layout_margin="7dp"
-                android:background="@drawable/white_transperent_card"
-                android:padding="10dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/history"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/history_label"
-                    android:textColor="@color/primary_text"
-                    android:textSize="16sp"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/details"
-                    android:id="@+id/history_details"
-                    android:layout_below="@id/history_label"
-                    android:textColor="@color/primary_text"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="14sp"
-                    android:ellipsize="end"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/SecondLayout"
                 android:background="@drawable/white_transperent_card"
                 android:padding="10dp"
+                android:layout_margin="7dp"
                 android:layout_below="@+id/FirstLayout"
-                android:layout_alignLeft="@+id/FirstLayout"
-                android:layout_alignStart="@+id/FirstLayout">
+               >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -160,15 +131,15 @@
                     android:layout_toRightOf="@+id/Founded_label"
                     android:layout_below="@+id/Founder"/>
                 <TextView
-                  android:layout_width="100dp"
-                  android:layout_height="wrap_content"
-                  android:text="@string/Email"
-                  android:id="@+id/Email_label"
-                  android:layout_below="@id/Founded"
-                  android:textColor="@color/primary_text"
-                  android:layout_marginBottom="5dp"
-                  android:textSize="14sp"
-                  android:ellipsize="end"/>
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Email"
+                    android:id="@+id/Email_label"
+                    android:layout_below="@id/Founded"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="14sp"
+                    android:ellipsize="end"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -180,32 +151,63 @@
                     android:layout_toRightOf="@+id/Email_label"
                     android:layout_below="@id/Founded"/>
 
-                 <TextView
-                     android:layout_width="100dp"
-                     android:layout_height="wrap_content"
-                     android:text="@string/Mobile"
-                     android:id="@+id/Mobile_label"
-                     android:layout_below="@id/Email_id"
-                     android:textColor="@color/primary_text"
-                     android:layout_marginBottom="5dp"
-                     android:textSize="14sp"
-                     android:ellipsize="end"/>
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Mobile"
+                    android:id="@+id/Mobile_label"
+                    android:layout_below="@id/Email_id"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="14sp"
+                    android:ellipsize="end"/>
 
-                 <TextView
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:text="Mobile_Number"
-                     android:id="@+id/Mobile_Number"
-                     android:textColor="@color/primary_text"
-                     android:textSize="14sp"
-                     android:ellipsize="end"
-                     android:layout_toRightOf="@+id/Mobile_label"
-                     android:layout_below="@id/Email_id"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile_Number"
+                    android:id="@+id/Mobile_Number"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:ellipsize="end"
+                    android:layout_toRightOf="@+id/Mobile_label"
+                    android:layout_below="@id/Email_id"/>
 
 
 
 
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ThirdLayout"
+                android:layout_below="@+id/SecondLayout"
+                android:layout_margin="7dp"
+                android:background="@drawable/white_transperent_card"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/history"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/history_label"
+                    android:textColor="@color/primary_text"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/details"
+                    android:id="@+id/history_details"
+                    android:layout_below="@id/history_label"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="14sp"
+                    android:ellipsize="end"/>
+
+            </RelativeLayout>
+
+
 
 
 
