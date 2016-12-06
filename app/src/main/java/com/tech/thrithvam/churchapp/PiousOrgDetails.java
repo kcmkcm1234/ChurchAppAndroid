@@ -11,12 +11,15 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import org.w3c.dom.Text;
+
 public class PiousOrgDetails extends AppCompatActivity {
     Bundle extras;
     String URL;
-    TextView P_Name,about;
+    TextView activityHead,P_Name,about,history_label;
     ImageView Patron_image;
     Typeface typeQuicksand;
+    Typeface typeSegoe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +29,22 @@ public class PiousOrgDetails extends AppCompatActivity {
         URL=extras.getString("URL");
 
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
+        typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
 
-        P_Name=(TextView)findViewById(R.id.activity_Org_head);
+        activityHead=(TextView)findViewById(R.id.activity_head);
+        P_Name=(TextView)findViewById(R.id.patron_name);
+        history_label=(TextView)findViewById(R.id.history_label);
         about=(TextView)findViewById(R.id.history_details);
-        Patron_image =(ImageView)findViewById(R.id.Parton_image);
-        P_Name.setTypeface(typeQuicksand);
+        Patron_image =(ImageView)findViewById(R.id.patron_img);
+        activityHead.setTypeface(typeQuicksand);
+        P_Name.setTypeface(typeSegoe);
+        history_label.setTypeface(typeQuicksand);
+        about.setTypeface(typeSegoe);
 
+
+        if(getIntent().hasExtra("Name")){
+            activityHead.setText(extras.getString("Name"));
+        }
         if(getIntent().hasExtra("PatronName")){
             P_Name.setText(extras.getString("PatronName"));
         }
@@ -42,9 +55,9 @@ public class PiousOrgDetails extends AppCompatActivity {
         if(!URL.equals("null")){
             Glide.with(PiousOrgDetails.this)
                     .load(getResources().getString(R.string.url) +URL.substring((URL).indexOf("img")))
-                    .placeholder(R.drawable.priest)
                     .thumbnail(0.1f)
                     .crossFade()
+                    .dontTransform()
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
@@ -55,7 +68,6 @@ public class PiousOrgDetails extends AppCompatActivity {
                             ;
                             return true;
                         }
-
                         @Override
                         public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                             return false;

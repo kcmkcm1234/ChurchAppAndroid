@@ -37,6 +37,7 @@ public class ChurchDetailsExpansion extends AppCompatActivity {
                     .load(getResources().getString(R.string.url) +extras.getString("image").substring((extras.getString("image")).indexOf("img")))
                     .placeholder(R.drawable.church)
                     .thumbnail(0.1f)
+                    .dontTransform()
                     .into(detailImage)
             ;
         }

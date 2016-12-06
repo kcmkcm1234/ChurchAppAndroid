@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/activity_Org_head"
+        android:id="@+id/activity_head"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
@@ -25,18 +25,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/activity_scrollview"
-        android:layout_below="@+id/activity_Org_head"
+        android:layout_below="@+id/activity_head"
         >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:id="@+id/Parton_image"
+                android:id="@+id/patron_img"
                 android:scaleType="centerInside"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/priest"/>
 
+            <TextView
+                android:text="Patron Name"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/patron_name"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/patron_img"
+                android:maxLines="1"/>
        <!--     <TextView
                 android:text="Town"
                 android:gravity="center"
@@ -52,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/aboutLayout"
-                android:layout_below="@+id/Parton_image"
+                android:layout_below="@+id/patron_name"
                 android:layout_margin="7dp"
                 android:background="@drawable/white_transperent_card"
                 android:padding="10dp">
@@ -72,6 +83,7 @@
                     android:layout_below="@id/history_label"
                     android:textColor="@color/primary_text"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
                     android:textSize="14sp"
                     android:ellipsize="end"/>
 
