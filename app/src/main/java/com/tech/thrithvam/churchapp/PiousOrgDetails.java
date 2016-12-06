@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -16,10 +15,8 @@ public class PiousOrgDetails extends AppCompatActivity {
     Bundle extras;
     String URL;
     TextView P_Name,about;
-    ImageView Parton_image;
+    ImageView Patron_image;
     Typeface typeQuicksand;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +29,7 @@ public class PiousOrgDetails extends AppCompatActivity {
 
         P_Name=(TextView)findViewById(R.id.activity_Org_head);
         about=(TextView)findViewById(R.id.history_details);
-        Parton_image=(ImageView)findViewById(R.id.Parton_image);
+        Patron_image =(ImageView)findViewById(R.id.Parton_image);
         P_Name.setTypeface(typeQuicksand);
 
         if(getIntent().hasExtra("PatronName")){
@@ -51,10 +48,10 @@ public class PiousOrgDetails extends AppCompatActivity {
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            Parton_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            Patron_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
                             Glide.with(PiousOrgDetails.this)
                                     .load(R.drawable.church)
-                                    .into(Parton_image)
+                                    .into(Patron_image)
                             ;
                             return true;
                         }
@@ -64,7 +61,7 @@ public class PiousOrgDetails extends AppCompatActivity {
                             return false;
                         }
                     })
-                    .into(Parton_image)
+                    .into(Patron_image)
             ;
         }
 

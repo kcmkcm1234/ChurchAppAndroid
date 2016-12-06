@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PiousActivity extends AppCompatActivity {
+public class PiousOrgs extends AppCompatActivity {
 
     Bundle extras;
     String ChurchID;
@@ -40,7 +40,7 @@ public class PiousActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pious);
+        setContentView(R.layout.activity_pious_orgs);
         extras=getIntent().getExtras();
         ChurchID=extras.getString("ChurchID");
 
@@ -51,10 +51,11 @@ public class PiousActivity extends AppCompatActivity {
         if (isOnline()) {
             new PiousInstitutionSearchResults().execute();
         } else {
-            Toast.makeText(PiousActivity.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            Toast.makeText(PiousOrgs.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
     }
 
+    //--------------------------------------Async Tasks--------------------------------------
     public class PiousInstitutionSearchResults extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData;
@@ -62,19 +63,17 @@ public class PiousActivity extends AppCompatActivity {
         String msg;
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
-
         ArrayList<String[]> PiousOrgListItems=new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             loadingIndicator.setVisibility(View.VISIBLE);
-
             //----------encrypting ---------------------------
             // usernameString=cryptography.Encrypt(usernameString);
         }
         @Override
         protected Void doInBackground(Void... arg0) {
-            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/SearchPiousOrgbyChurchID";
+            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetPiousOrgsByChurchID";
             HttpURLConnection c = null;
             try {
                 postData =  "{\"ChurchID\":\"" + ChurchID+ "\"}";
@@ -150,7 +149,7 @@ public class PiousActivity extends AppCompatActivity {
             loadingIndicator.setVisibility(View.GONE);
 
             if(!pass) {
-                new AlertDialog.Builder(PiousActivity.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
+                new AlertDialog.Builder(PiousOrgs.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
                         .setMessage(msg)//R.string.no_items)
                         .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
@@ -160,21 +159,19 @@ public class PiousActivity extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(PiousActivity.this, PiousOrgListItems,"ChurchPiousOrgResults");
+                CustomAdapter adapter=new CustomAdapter(PiousOrgs.this, PiousOrgListItems,"ChurchPiousOrgList");
                 ListView churchList=(ListView) findViewById(R.id.Pious_org_list);
                 churchList.setAdapter(adapter);
                 churchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(PiousActivity.this,PiousOrgDetails.class);
+                        Intent intent=new Intent(PiousOrgs.this,PiousOrgDetails.class);
                         intent.putExtra("ID",PiousOrgListItems.get(position)[0]);
                         intent.putExtra("Name",PiousOrgListItems.get(position)[1]);
                         intent.putExtra("PatronName",PiousOrgListItems.get(position)[2]);
                         intent.putExtra("URL",PiousOrgListItems.get(position)[3]);
                         intent.putExtra("Desc",PiousOrgListItems.get(position)[4]);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-//                        finish();
                     }
                 });
             }

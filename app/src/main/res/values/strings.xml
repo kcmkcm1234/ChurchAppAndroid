@@ -40,6 +40,7 @@
     <string name="novena_dates">%1$s to %2$s</string>
     <string name="loc_permission_denied">Location Permission denied</string>
     <string name="pious_org">Pious Org.</string>
+    <string name="pious_org_full">Pious Organisations</string>
     <string name="org_name">Organisation Name</string>
     <string name="history">History</string>
     <string name="details">Details</string>

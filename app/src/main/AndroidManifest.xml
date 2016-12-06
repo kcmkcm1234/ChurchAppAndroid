@@ -56,7 +56,7 @@
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".PiousActivity"
+            android:name=".PiousOrgs"
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity

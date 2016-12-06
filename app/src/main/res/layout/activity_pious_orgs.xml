@@ -5,11 +5,11 @@
     android:id="@+id/activity_pious"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tech.thrithvam.churchapp.PiousActivity"
+    tools:context="com.tech.thrithvam.churchapp.PiousOrgs"
     android:background="@drawable/sky_bg_full">
 
     <TextView
-        android:text="@string/pious_org"
+        android:text="@string/pious_org_full"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

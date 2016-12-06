@@ -812,7 +812,7 @@ public class ChurchDetails extends AppCompatActivity {
     }
 
     public void pious_org_click (View view){
-        Intent intent=new Intent(ChurchDetails.this,PiousActivity.class);
+        Intent intent=new Intent(ChurchDetails.this,PiousOrgs.class);
         intent.putExtra("ChurchID",ChurchID);
         startActivity(intent);
     }
@@ -822,7 +822,7 @@ public class ChurchDetails extends AppCompatActivity {
         startActivity(intent);
     }
     public void gallery_click (View view){
-        Intent intent=new Intent(ChurchDetails.this,PiousActivity.class);
+        Intent intent=new Intent(ChurchDetails.this,PiousOrgs.class);
         intent.putExtra("ChurchID",ChurchID);
         startActivity(intent);
     }

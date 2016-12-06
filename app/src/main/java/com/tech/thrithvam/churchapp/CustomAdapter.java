@@ -365,25 +365,22 @@ public class CustomAdapter extends BaseAdapter {
                 lastPosition = position;
                 break;
             //
-            case "ChurchPiousOrgResults":
-
+            case "ChurchPiousOrgList":
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_pious_organisation, null);
-
                     holder.Orgpartonimage =(ImageView)convertView.findViewById(R.id.patron_image );
                     holder.OrgName  = (TextView) convertView.findViewById(R.id.Pious_org_name );
                     holder.OrgPatronName =(TextView)convertView.findViewById(R.id.Pious_org_patron_name);
-
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
                 //----------------Label loading--------------------
-
                 holder.OrgName.setText(objects.get(position)[1]);
                 holder.OrgPatronName.setText(objects.get(position)[2]);
-
+                holder.OrgName.setTypeface(typeQuicksand);
+                holder.OrgPatronName.setTypeface(typeSegoe);
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
@@ -391,7 +388,6 @@ public class CustomAdapter extends BaseAdapter {
                             .into(holder.Orgpartonimage)
                     ;
                 }
-
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
                     convertView.startAnimation(animation);
