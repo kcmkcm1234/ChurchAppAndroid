@@ -130,7 +130,7 @@ public class Institutions extends AppCompatActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     msg=jsonObject.optString("Message");
                     pass=jsonObject.optBoolean("Flag",true);
-                    String[] data=new String[9];
+                    String[] data=new String[12];
                     data[0]=jsonObject.optString("ID");
                     data[1]=jsonObject.optString("Name");
                     data[2]=jsonObject.optString("Address");
@@ -140,10 +140,9 @@ public class Institutions extends AppCompatActivity {
                     data[6]=jsonObject.optString("Founder");
                     data[7]=jsonObject.optString("Founded").replace("/Date(", "").replace(")/", "");
                     data[8]=jsonObject.optString("Mobile");
-                //   Phone1
-               //             Phone2
-               //     Website
-
+                    data[9]=jsonObject.optString("Phone1");
+                    data[10]=jsonObject.optString("Phone2");
+                    data[11]=jsonObject.optString("Website");
                     institutionListItems.add(data);
                 }
             } catch (Exception ex) {
@@ -181,7 +180,9 @@ public class Institutions extends AppCompatActivity {
                         intent.putExtra("desc", institutionListItems.get(position)[4]);
                         intent.putExtra("Email", institutionListItems.get(position)[5]);
                         intent.putExtra("Founder", institutionListItems.get(position)[6]);
-
+                        intent.putExtra("Phone1", institutionListItems.get(position)[9]);
+                        intent.putExtra("Phone2", institutionListItems.get(position)[10]);
+                        intent.putExtra("Website", institutionListItems.get(position)[11]);
                         SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
                         Calendar date=Calendar.getInstance();
                         date.setTimeInMillis(Long.parseLong(institutionListItems.get(position)[7]));
