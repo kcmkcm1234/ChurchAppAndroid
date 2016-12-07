@@ -3,6 +3,7 @@ package com.tech.thrithvam.churchapp;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -12,6 +13,7 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -190,6 +192,18 @@ public class ChurchDetails extends AppCompatActivity {
         else {
             town.setVisibility(View.INVISIBLE);
         }
+    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event){
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (floatingActionMenu.isOpened()) {
+                Rect outRect = new Rect();
+                floatingActionMenu.getGlobalVisibleRect(outRect);
+                if(!outRect.contains((int)event.getRawX(), (int)event.getRawY()))
+                    floatingActionMenu.close(true);
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
     //-----------------------------Async Tasks----------------------------------------
     public class GetChurchDetails extends AsyncTask<Void , Void, Void> {
