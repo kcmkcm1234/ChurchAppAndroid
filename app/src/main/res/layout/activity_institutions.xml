@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.tech.thrithvam.churchapp.Institutions"
     android:background="@drawable/sky_bg_full">
-
     <TextView
         android:text="@string/institutions"
         android:layout_width="wrap_content"
@@ -33,9 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarStyle="outsideOverlay"
-        android:id="@+id/Institutions_list"
+        android:id="@+id/institutions_list"
         android:layout_below="@+id/activity_head"
         android:divider="@null"/>
-
-
 </RelativeLayout>

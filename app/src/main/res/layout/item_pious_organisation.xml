@@ -29,8 +29,6 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/patron_image"
             android:id="@+id/Pious_org_name"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:maxLines="1"
             android:ellipsize="end"/>
 

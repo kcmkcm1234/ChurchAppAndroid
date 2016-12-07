@@ -80,11 +80,11 @@ public class CustomAdapter extends BaseAdapter {
         TextView nearbyChurchName,nearbyChurchAddress,distance;
         ImageView nearChurchImg,nearbyViewMap;
             //Pious Organisation--------------------
-        TextView OrgName,OrgPatronName;
-        ImageView Orgpartonimage;
+        TextView orgName, orgPatronName;
+        ImageView orgPatronImage;
             //Institutions---------------------
-        TextView Institution_Name,Ins_Address;
-        ImageView Institution_image;
+        TextView institution_name, institution_address;
+        ImageView institution_image;
             //Events
         TextView NoticeHead,NoticeDate;
         ImageView Noticeimage;
@@ -364,28 +364,28 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 lastPosition = position;
                 break;
-            //
+            //-----------------------------ChurchPiousOrgList-------------------------------------------
             case "ChurchPiousOrgList":
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_pious_organisation, null);
-                    holder.Orgpartonimage =(ImageView)convertView.findViewById(R.id.patron_image );
-                    holder.OrgName  = (TextView) convertView.findViewById(R.id.Pious_org_name );
-                    holder.OrgPatronName =(TextView)convertView.findViewById(R.id.Pious_org_patron_name);
+                    holder.orgPatronImage =(ImageView)convertView.findViewById(R.id.patron_image );
+                    holder.orgName = (TextView) convertView.findViewById(R.id.Pious_org_name );
+                    holder.orgPatronName =(TextView)convertView.findViewById(R.id.Pious_org_patron_name);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
                 //----------------Label loading--------------------
-                holder.OrgName.setText(objects.get(position)[1]);
-                holder.OrgPatronName.setText(objects.get(position)[2]);
-                holder.OrgName.setTypeface(typeQuicksand);
-                holder.OrgPatronName.setTypeface(typeSegoe);
+                holder.orgName.setText(objects.get(position)[1]);
+                holder.orgPatronName.setText(objects.get(position)[2]);
+                holder.orgName.setTypeface(typeQuicksand);
+                holder.orgPatronName.setTypeface(typeSegoe);
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
-                            .into(holder.Orgpartonimage)
+                            .into(holder.orgPatronImage)
                     ;
                 }
                 if(position>lastPosition){
@@ -394,31 +394,29 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 lastPosition = position;
                 break;
-            //---------------------ChurchInstutionsResults-------------------------
-            case "ChurchInstutionsResults":
-
+            //---------------------ChurchInstitutions-------------------------
+            case "ChurchInstitutions":
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_institution, null);
-
-                    holder.Institution_image =(ImageView)convertView.findViewById(R.id.Institution_image );
-                    holder.Institution_Name = (TextView) convertView.findViewById(R.id.Institution_name );
-                    holder.Ins_Address =(TextView)convertView.findViewById(R.id.Institution_Address);
-
+                    holder.institution_image =(ImageView)convertView.findViewById(R.id.institution_image );
+                    holder.institution_name = (TextView) convertView.findViewById(R.id.institution_name );
+                    holder.institution_address =(TextView)convertView.findViewById(R.id.institution_address);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
                 //----------------Label loading--------------------
-
-                holder.Institution_Name.setText(objects.get(position)[1]);
-                holder.Ins_Address.setText(objects.get(position)[2]);
+                holder.institution_name.setText(objects.get(position)[1]);
+                holder.institution_address.setText(objects.get(position)[2]);
+                holder.institution_name.setTypeface(typeQuicksand);
+                holder.institution_address.setTypeface(typeSegoe);
 
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
-                            .into(holder.Institution_image)
+                            .into(holder.institution_image)
                     ;
                 }
 

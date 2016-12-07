@@ -38,7 +38,6 @@ public class Institutions extends AppCompatActivity {
     String ChurchID;
     Typeface typeQuicksand;
     TextView activity_head;
-    Calendar event_start =Calendar.getInstance() ;
     AsyncTask getInstitutionsList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,7 @@ public class Institutions extends AppCompatActivity {
         ChurchID=extras.getString("ChurchID");
 
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
-        activity_head =(TextView)findViewById(R.id.Institution_head);
+        activity_head =(TextView)findViewById(R.id.activity_head);
         activity_head.setTypeface(typeQuicksand);
 
         if (isOnline()) {
@@ -66,7 +65,7 @@ public class Institutions extends AppCompatActivity {
         String msg;
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
-        ArrayList<String[]> InstitutionListItems=new ArrayList<>();
+        ArrayList<String[]> institutionListItems =new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -141,22 +140,13 @@ public class Institutions extends AppCompatActivity {
                     data[6]=jsonObject.optString("Founder");
                     data[7]=jsonObject.optString("Founded").replace("/Date(", "").replace(")/", "");
                     data[8]=jsonObject.optString("Mobile");
-
-
-                    event_start.setTimeInMillis(Long.parseLong(data[7]));
-
-                    InstitutionListItems.add(data);
-
-
-
-
+                    institutionListItems.add(data);
                 }
             } catch (Exception ex) {
                 msg=ex.getMessage();
             }}
             return null;
         }
-
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
@@ -173,34 +163,28 @@ public class Institutions extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(Institutions.this, InstitutionListItems,"ChurchInstutionsResults");
-                ListView InstitutionList=(ListView) findViewById(R.id.Institutions_list);
+                CustomAdapter adapter=new CustomAdapter(Institutions.this, institutionListItems,"ChurchInstitutions");
+                ListView InstitutionList=(ListView) findViewById(R.id.institutions_list);
                 InstitutionList.setAdapter(adapter);
                 InstitutionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent=new Intent(Institutions.this,InstitutionDetails.class);
-                        intent.putExtra("ID",InstitutionListItems.get(position)[0]);
-                        intent.putExtra("Name",InstitutionListItems.get(position)[1]);
-                        intent.putExtra("Address",InstitutionListItems.get(position)[2]);
-                        intent.putExtra("URL",InstitutionListItems.get(position)[3]);
-                        intent.putExtra("desc",InstitutionListItems.get(position)[4]);
-                        intent.putExtra("Email",InstitutionListItems.get(position)[5]);
-                        intent.putExtra("Founder ",InstitutionListItems.get(position)[6]);
+                        intent.putExtra("ID", institutionListItems.get(position)[0]);
+                        intent.putExtra("Name", institutionListItems.get(position)[1]);
+                        intent.putExtra("Address", institutionListItems.get(position)[2]);
+                        intent.putExtra("URL", institutionListItems.get(position)[3]);
+                        intent.putExtra("desc", institutionListItems.get(position)[4]);
+                        intent.putExtra("Email", institutionListItems.get(position)[5]);
+                        intent.putExtra("Founder ", institutionListItems.get(position)[6]);
 
                         SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
-                        event_start.setTimeInMillis(Long.parseLong(InstitutionListItems.get(position)[7]));
-                        String startDate=formatted.format(event_start.getTime());
-                        intent.putExtra("Founded",startDate);
+                        Calendar date=Calendar.getInstance();
+                        date.setTimeInMillis(Long.parseLong(institutionListItems.get(position)[7]));
+                        intent.putExtra("Founded",formatted.format(date.getTime()));
 
-                        intent.putExtra("Mobile",InstitutionListItems.get(position)[8]);
-                        /*  intent.putExtra(" ",InstitutionListItems.get(position)[9]);
-                        intent.putExtra(" ",InstitutionListItems.get(position)[10]);
-                        intent.putExtra(" ",InstitutionListItems.get(position)[11]);*/
-
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("Mobile", institutionListItems.get(position)[8]);
                         startActivity(intent);
-//                        finish();
                     }
                 });
             }
@@ -217,5 +201,4 @@ public class Institutions extends AppCompatActivity {
         super.onBackPressed();
         if(getInstitutionsList!=null)getInstitutionsList.cancel(true);
     }
-
 }
