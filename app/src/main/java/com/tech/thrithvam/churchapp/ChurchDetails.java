@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.github.clans.fab.FloatingActionMenu;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -46,7 +47,7 @@ import java.util.logging.Logger;
 public class ChurchDetails extends AppCompatActivity {
     Bundle extras;
     String ChurchID;
-    AsyncTask getChurchDetails,getMassTimings,getExtraDetails;
+    AsyncTask getChurchDetails=null,getMassTimings=null,getExtraDetails=null;
     Typeface typeQuicksand;
     Typeface typeSegoe;
     Typeface typeBLKCHCRY;
@@ -74,6 +75,7 @@ public class ChurchDetails extends AppCompatActivity {
     LinearLayout extraDetails;
     String aboutGlobal;
     String churchImageGlobal;
+    FloatingActionMenu floatingActionMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +88,7 @@ public class ChurchDetails extends AppCompatActivity {
             Toast.makeText(ChurchDetails.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
         //Layouts-----------------------------------
+        floatingActionMenu=(FloatingActionMenu)findViewById(R.id.material_design_android_floating_action_menu);
         priestLayout=(RelativeLayout)findViewById(R.id.priestLayout);
         aboutLayout=(RelativeLayout)findViewById(R.id.aboutLayout);
         contactLayout=(RelativeLayout)findViewById(R.id.contactLayout);
@@ -814,21 +817,25 @@ public class ChurchDetails extends AppCompatActivity {
     public void pious_org_click (View view){
         Intent intent=new Intent(ChurchDetails.this,PiousOrgs.class);
         intent.putExtra("ChurchID",ChurchID);
+        floatingActionMenu.close(true);
         startActivity(intent);
     }
     public void institutions_click (View view){
         Intent intent=new Intent(ChurchDetails.this,Institutions.class);
         intent.putExtra("ChurchID",ChurchID);
+        floatingActionMenu.close(true);
         startActivity(intent);
     }
     public void gallery_click (View view){
         Intent intent=new Intent(ChurchDetails.this,PiousOrgs.class);
         intent.putExtra("ChurchID",ChurchID);
+        floatingActionMenu.close(true);
         startActivity(intent);
     }
     public void events_click (View view){
         Intent intent=new Intent(ChurchDetails.this,Events.class);
         intent.putExtra("ChurchID",ChurchID);
+        floatingActionMenu.close(true);
         startActivity(intent);
     }
     public void novenas_click (View view){
@@ -836,6 +843,7 @@ public class ChurchDetails extends AppCompatActivity {
         intent.putExtra("churchID",ChurchID);
         intent.putExtra("churchName",churchName.getText().toString());
         intent.putExtra("from","church");
+        floatingActionMenu.close(true);
         startActivity(intent);
     }
     public void view_more_about (View view){

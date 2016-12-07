@@ -54,7 +54,7 @@
                 android:id="@+id/NoticeLayout"
                 android:layout_below="@+id/Event_date"
                 android:layout_margin="7dp"
-                android:background="@drawable/white_transperent_card"
+                android:background="@drawable/white_transparent_card"
                 android:padding="10dp">
 
                 <TextView

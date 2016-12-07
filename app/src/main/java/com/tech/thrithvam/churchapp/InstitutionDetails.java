@@ -13,81 +13,92 @@ import com.bumptech.glide.request.target.Target;
 
 public class InstitutionDetails extends AppCompatActivity {
     Bundle extras;
-    String URL;
-    TextView Ins_Name,Founder,Founded,Mobile,Email,Address,History;
-    ImageView Institution_image;
+    TextView insName, founder, founded, mobile, email, address, history;
+    ImageView institution_image;
     Typeface typeQuicksand;
-
-
+    Typeface typeSegoe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_institution_details);
         extras=getIntent().getExtras();
 
-        URL=extras.getString("URL");
+        String imageURL=extras.getString("URL");
 
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
+        typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
 
-        Ins_Name=(TextView)findViewById(R.id.activity_Institution_head);
-        Ins_Name.setTypeface(typeQuicksand);
-        Founder=(TextView)findViewById(R.id.Founder);
-        Founded=(TextView)findViewById(R.id.Founded);
-        Mobile=(TextView)findViewById(R.id.Mobile_Number);
-        Email=(TextView)findViewById(R.id.Email_id);
-        Address=(TextView)findViewById(R.id.Address_details);
-        History=(TextView)findViewById(R.id.history_details);
-        Institution_image=(ImageView)findViewById(R.id.Institution_image);
+        insName =(TextView)findViewById(R.id.activity_head);
+        insName.setTypeface(typeQuicksand);
+        TextView addressLabel=(TextView)findViewById(R.id.address_label);
+        TextView genInfoLabel=(TextView)findViewById(R.id.general_info_label);
+        TextView historyLabel=(TextView)findViewById(R.id.history_label);
+        founder =(TextView)findViewById(R.id.founder_name);
+        founded =(TextView)findViewById(R.id.founded);
+        mobile =(TextView)findViewById(R.id.mobile_number);
+        email =(TextView)findViewById(R.id.email_id);
+        address =(TextView)findViewById(R.id.address_details);
+        history =(TextView)findViewById(R.id.history_details);
+        institution_image =(ImageView)findViewById(R.id.institution_image);
 
+        addressLabel.setTypeface(typeQuicksand);
+        genInfoLabel.setTypeface(typeQuicksand);
+        historyLabel.setTypeface(typeQuicksand);
+        founder.setTypeface(typeSegoe);
+        founded.setTypeface(typeSegoe);
+        mobile.setTypeface(typeSegoe);
+        email.setTypeface(typeSegoe);
+        address.setTypeface(typeSegoe);
+        history.setTypeface(typeSegoe);
+
+        //Loading data------------
         if(getIntent().hasExtra("Name")){
-            Ins_Name.setText(extras.getString("Name"));
+            insName.setText(extras.getString("Name"));
         }
         if(getIntent().hasExtra("desc")){
-            History.setText(extras.getString("desc"));
+            history.setText(extras.getString("desc"));
         }
         if(getIntent().hasExtra("Address")){
-            Address.setText(extras.getString("Address"));
+            address.setText(extras.getString("Address"));
         }
         if(getIntent().hasExtra("Email")){
-            Email.setText(extras.getString("Email"));
+            email.setText(extras.getString("Email"));
         }
 
         if(getIntent().hasExtra("Mobile")){
-            Mobile.setText(extras.getString("Mobile"));
+            mobile.setText(extras.getString("Mobile"));
         }
         if(getIntent().hasExtra("Founded")){
-            Founded.setText(extras.getString("Founded"));
+            founded.setText(extras.getString("Founded"));
         }
         if(getIntent().hasExtra("Founder")){
-            Founder.setText(extras.getString("Founder"));
+            founder.setText(extras.getString("Founder"));
         }
 
         //image loading using url
-        if(!URL.equals("null")){
+        if(!imageURL.equals("null")){
             Glide.with(InstitutionDetails.this)
-                    .load(getResources().getString(R.string.url) +URL.substring((URL).indexOf("img")))
-                    .placeholder(R.drawable.priest)
+                    .load(getResources().getString(R.string.url) +imageURL.substring((imageURL).indexOf("img")))
                     .thumbnail(0.1f)
                     .crossFade()
+                    .dontTransform()
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            Institution_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            institution_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
                             Glide.with(InstitutionDetails.this)
                                     .load(R.drawable.church)
-                                    .into(Institution_image)
+                                    .into(institution_image)
                             ;
                             return true;
                         }
-
                         @Override
                         public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                             return false;
                         }
                     })
-                    .into(Institution_image)
+                    .into(institution_image)
             ;
         }
-
     }
 }

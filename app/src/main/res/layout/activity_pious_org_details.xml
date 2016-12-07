@@ -32,11 +32,15 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
+                android:maxHeight="200dp"
                 android:id="@+id/patron_img"
                 android:scaleType="centerInside"
+                android:layout_marginRight="7dp"
+                android:layout_marginLeft="7dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/priest"/>
+                android:src="@drawable/priest"
+                android:adjustViewBounds="true"/>
 
             <TextView
                 android:text="Patron Name"
@@ -65,7 +69,7 @@
                 android:id="@+id/aboutLayout"
                 android:layout_below="@+id/patron_name"
                 android:layout_margin="7dp"
-                android:background="@drawable/white_transperent_card"
+                android:background="@drawable/white_transparent_card"
                 android:padding="10dp">
                 <TextView
                     android:layout_width="wrap_content"

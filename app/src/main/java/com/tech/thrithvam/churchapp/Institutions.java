@@ -140,6 +140,10 @@ public class Institutions extends AppCompatActivity {
                     data[6]=jsonObject.optString("Founder");
                     data[7]=jsonObject.optString("Founded").replace("/Date(", "").replace(")/", "");
                     data[8]=jsonObject.optString("Mobile");
+                //   Phone1
+               //             Phone2
+               //     Website
+
                     institutionListItems.add(data);
                 }
             } catch (Exception ex) {
@@ -176,7 +180,7 @@ public class Institutions extends AppCompatActivity {
                         intent.putExtra("URL", institutionListItems.get(position)[3]);
                         intent.putExtra("desc", institutionListItems.get(position)[4]);
                         intent.putExtra("Email", institutionListItems.get(position)[5]);
-                        intent.putExtra("Founder ", institutionListItems.get(position)[6]);
+                        intent.putExtra("Founder", institutionListItems.get(position)[6]);
 
                         SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
                         Calendar date=Calendar.getInstance();
