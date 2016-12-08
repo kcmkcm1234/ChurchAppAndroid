@@ -88,7 +88,9 @@ public class CustomAdapter extends BaseAdapter {
             //Events
         TextView NoticeHead,NoticeDate;
         ImageView Noticeimage;
+            //Towns
 
+        TextView TownHead;
     }
 
 
@@ -454,6 +456,25 @@ public class CustomAdapter extends BaseAdapter {
                     ;
                 }
 
+                if(position>lastPosition){
+                    animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
+                    convertView.startAnimation(animation);
+                }
+                lastPosition = position;
+                break;
+            //-------------------AllTownsResults-------------------------------
+            case "AllTownsResults":
+
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_town, null);
+                    holder.TownHead = (TextView) convertView.findViewById(R.id.town_name);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //----------------Label loading--------------------
+                holder.TownHead.setText(objects.get(position)[1]);
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
                     convertView.startAnimation(animation);

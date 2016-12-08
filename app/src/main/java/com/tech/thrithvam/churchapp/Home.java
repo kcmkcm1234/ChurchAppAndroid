@@ -18,6 +18,7 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ImageView searchImage =(ImageView)findViewById(R.id.searchImage);
+        TextView alltownsview=(TextView)findViewById(R.id.view_all_towns);
         final EditText searchText=(EditText)findViewById(R.id.searchView);
         searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -29,6 +30,14 @@ public class Home extends AppCompatActivity {
                     return true;
                 }
                 return false;
+            }
+        });
+        alltownsview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Home.this,Alltowns.class);
+                /*intent.putExtra("searchkey",searchText.getText().toString());*/
+                startActivity(intent);
             }
         });
         searchImage.setOnClickListener(new View.OnClickListener() {

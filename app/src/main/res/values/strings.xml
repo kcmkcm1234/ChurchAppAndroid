@@ -47,11 +47,12 @@
     <string name="institutions">Institutions</string>
     <string name="ins_name">Institution Name</string>
     <string name="address">Address</string>
-    <string name="General_Inform">General Informations</string>
-    <string name="Founder">Founder:</string>
-    <string name="Founded">Founded:</string>
-    <string name="Email">Email:</string>
-    <string name="Mobile">Mobile:</string>
+    <string name="general_inform">General Informations</string>
+    <string name="founder">Founder:</string>
+    <string name="founded">Founded:</string>
+    <string name="email">Email:</string>
+    <string name="mobile_colon">Mobile:</string>
     <string name="phone_colon">Phone:</string>
+    <string name="towns">Towns</string>
 
 </resources>

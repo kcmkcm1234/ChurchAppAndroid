@@ -92,7 +92,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/General_Inform"
+                    android:text="@string/general_inform"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:id="@+id/general_info_label"
@@ -101,7 +101,7 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/Founder"
+                    android:text="@string/founder"
                     android:id="@+id/founder_label"
                     android:layout_below="@id/general_info_label"
                     android:textColor="@color/primary_text"
@@ -124,7 +124,7 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/Founded"
+                    android:text="@string/founded"
                     android:id="@+id/founded_label"
                     android:layout_below="@id/founder_name"
                     android:textColor="@color/primary_text"
@@ -148,7 +148,7 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/Mobile"
+                    android:text="@string/mobile_colon"
                     android:id="@+id/mobile_label"
                     android:layout_below="@id/founded"
                     android:textColor="@color/primary_text"
@@ -196,7 +196,7 @@
                     android:id="@+id/phone2"
                     android:textColor="@color/colorAccent"
                     android:textSize="14sp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="15dp"
                     android:maxLength="11"
                     android:ellipsize="end"
                     android:layout_toRightOf="@+id/phone1"
@@ -204,7 +204,7 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/Email"
+                    android:text="@string/email"
                     android:id="@+id/email_label"
                     android:layout_below="@id/phone1"
                     android:textColor="@color/primary_text"
