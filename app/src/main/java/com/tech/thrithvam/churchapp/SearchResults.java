@@ -175,6 +175,7 @@ public class SearchResults extends AppCompatActivity {
                         intent.putExtra("town",churchItems.get(position)[2]);
                         intent.putExtra("address",churchItems.get(position)[4]);
                         startActivity(intent);
+                        finish();
                     }
                 });
                 searchText.setSelectAllOnFocus(true);
@@ -266,6 +267,15 @@ public class SearchResults extends AppCompatActivity {
                 ArrayAdapter<String> adapter = new ArrayAdapter<>
                         (SearchResults.this,android.R.layout.simple_list_item_activated_1,townListItems);
                 searchText.setAdapter(adapter);
+                searchText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Intent intent=new Intent(SearchResults.this,SearchResults.class);
+                        intent.putExtra("searchkey",searchText.getText().toString());
+                        startActivity(intent);
+                        finish();
+                    }
+                });
             }
         }
     }

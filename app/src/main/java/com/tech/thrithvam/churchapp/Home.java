@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
@@ -180,7 +181,15 @@ public class Home extends AppCompatActivity {
             else {
                 ArrayAdapter<String> adapter = new ArrayAdapter<>
                         (Home.this,android.R.layout.simple_list_item_activated_1,townListItems);
-                    searchText.setAdapter(adapter);
+                searchText.setAdapter(adapter);
+                searchText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Intent intent=new Intent(Home.this,SearchResults.class);
+                        intent.putExtra("searchkey",searchText.getText().toString());
+                        startActivity(intent);
+                    }
+                });
             }
         }
     }
