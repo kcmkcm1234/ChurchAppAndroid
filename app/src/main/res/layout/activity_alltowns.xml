@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/sky_bg_full"
-    tools:context="com.tech.thrithvam.churchapp.Alltowns">
+    tools:context="com.tech.thrithvam.churchapp.AllTowns">
     <TextView
         android:text="@string/towns"
         android:layout_width="match_parent"
