@@ -88,7 +88,7 @@
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".AllTowns"
+            android:name=".AllTownsList"
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity

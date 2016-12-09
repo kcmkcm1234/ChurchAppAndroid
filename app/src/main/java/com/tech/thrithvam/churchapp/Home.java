@@ -54,7 +54,7 @@ public class Home extends AppCompatActivity {
         alltownsview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Home.this,AllTowns.class);
+                Intent intent=new Intent(Home.this,AllTownsList.class);
                 /*intent.putExtra("searchkey",searchText.getText().toString());*/
                 startActivity(intent);
             }

@@ -26,8 +26,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AllTowns extends AppCompatActivity {
-
+public class AllTownsList extends AppCompatActivity {
     Typeface typeQuicksand;
     TextView Towns_head;
     AsyncTask getTowns=null;
@@ -41,9 +40,10 @@ public class AllTowns extends AppCompatActivity {
         if (isOnline()) {
             getTowns=new GetAllTowns().execute();
         } else {
-            Toast.makeText(AllTowns.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            Toast.makeText(AllTownsList.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
     }
+    //--------------------Async Tasks----------------------------
     public class GetAllTowns extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson;
@@ -128,7 +128,7 @@ public class AllTowns extends AppCompatActivity {
             super.onPostExecute(result);
             loadingIndicator.setVisibility(View.GONE);
             if(!pass) {
-                new AlertDialog.Builder(AllTowns.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
+                new AlertDialog.Builder(AllTownsList.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
                         .setMessage(msg)
                         .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
@@ -138,13 +138,13 @@ public class AllTowns extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(AllTowns.this, townListItems,"AllTowns");
+                CustomAdapter adapter=new CustomAdapter(AllTownsList.this, townListItems,"AllTownsList");
                 ListView townsList=(ListView) findViewById(R.id.town_list);
                 townsList.setAdapter(adapter);
                 townsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(AllTowns.this,SearchResults.class);
+                        Intent intent=new Intent(AllTownsList.this,SearchResults.class);
                         intent.putExtra("searchkey", townListItems.get(position)[1]);
                         startActivity(intent);
                     }
@@ -152,7 +152,6 @@ public class AllTowns extends AppCompatActivity {
             }
         }
     }
-
     public boolean isOnline() {
         ConnectivityManager cm =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();

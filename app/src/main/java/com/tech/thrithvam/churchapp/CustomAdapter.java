@@ -465,7 +465,7 @@ public class CustomAdapter extends BaseAdapter {
                 lastPosition = position;
                 break;
             //-------------------AllTownsResults-------------------------------
-            case "AllTowns":
+            case "AllTownsList":
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_town, null);

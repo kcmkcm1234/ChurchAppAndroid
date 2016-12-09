@@ -451,7 +451,6 @@ public class ChurchDetails extends AppCompatActivity {
                             .into(priestImage)
                     ;
                 }
-
                 //Contact---------
                 if(!phone1String.equals("null")){
                     phone1.setText(phone1String);
