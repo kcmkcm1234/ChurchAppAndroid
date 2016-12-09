@@ -463,8 +463,7 @@ public class CustomAdapter extends BaseAdapter {
                 lastPosition = position;
                 break;
             //-------------------AllTownsResults-------------------------------
-            case "AllTownsResults":
-
+            case "AllTowns":
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_town, null);
@@ -475,11 +474,6 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 //----------------Label loading--------------------
                 holder.TownHead.setText(objects.get(position)[1]);
-                if(position>lastPosition){
-                    animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
-                    convertView.startAnimation(animation);
-                }
-                lastPosition = position;
                 break;
             default:
                 break;

@@ -138,7 +138,7 @@ public class AllTowns extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(AllTowns.this, townListItems,"AllTownsResults");
+                CustomAdapter adapter=new CustomAdapter(AllTowns.this, townListItems,"AllTowns");
                 ListView townsList=(ListView) findViewById(R.id.town_list);
                 townsList.setAdapter(adapter);
                 townsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
