@@ -508,13 +508,32 @@ public class CustomAdapter extends BaseAdapter {
                 holder.p_add.setText(objects.get(position)[2]);
                 holder.p_about.setText(objects.get(position)[4]);
                 holder.p_parish.setText(objects.get(position)[5]);
-                holder.p_dob.setText(objects.get(position)[6]);
-                holder.p_dateordination.setText(objects.get(position)[7]);
+              /*  holder.p_dob.setText(objects.get(position)[6]);
+                holder.p_dateordination.setText(objects.get(position)[7]);*/
                 holder.p_email.setText(objects.get(position)[8]);
                 holder.p_mob.setText(objects.get(position)[9]);
                 holder.p_desgn.setText(objects.get(position)[10]);
                 holder.p_status.setText(objects.get(position)[11]);
                 holder.p_baptism.setText(objects.get(position)[12]);
+
+                if(!objects.get(position)[6].equals("null")){
+                    cal.setTimeInMillis(Long.parseLong(objects.get(position)[6]));
+                    String date=formatted.format(cal.getTime());
+                    holder.p_dateordination.setText(date);
+                }
+                else {
+
+                    holder.p_dateordination.setText("-");
+                }
+                if(!objects.get(position)[7].equals("null")){
+                    cal.setTimeInMillis(Long.parseLong(objects.get(position)[7]));
+                    String dob=formatted.format(cal.getTime());
+                    holder.p_dob.setText(dob);
+                }
+                else {
+
+                    holder.p_dateordination.setText("-");
+                }
 
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
@@ -523,6 +542,28 @@ public class CustomAdapter extends BaseAdapter {
                             .into(holder.p_image)
                     ;
                 }
+
+                holder.p_mob.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Uri number = Uri.parse("tel:" +objects.get(position)[9]);
+                        Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+                        adapterContext.startActivity(callIntent);
+                    }
+                });
+                holder.p_email.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("*/*");
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{objects.get(position)[8]});
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Mail from Church App User");
+                        if (intent.resolveActivity(adapterContext.getPackageManager()) != null) {
+                            adapterContext.startActivity(intent);
+                        }
+
+                    }
+                });
                 break;
             default:
                 break;

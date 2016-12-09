@@ -224,7 +224,7 @@
                     android:layout_height="wrap_content"
                     android:text="Email@gmail.com"
                     android:textSize="14sp"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/colorAccent"
                     android:layout_toRightOf="@+id/priest_image"
                     android:layout_toEndOf="@+id/priest_image"
                     android:layout_below="@+id/priest_email_label"
@@ -251,7 +251,6 @@
                     android:layout_toEndOf="@+id/priest_image"
                     android:layout_below="@+id/priest_address_label"
                     android:id="@+id/priest_address"
-                    android:maxLines="1"
                     android:ellipsize="end"/>
                 <TextView
                     android:layout_width="match_parent"

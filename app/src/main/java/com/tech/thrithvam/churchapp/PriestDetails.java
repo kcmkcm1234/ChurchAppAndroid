@@ -136,8 +136,8 @@ public class PriestDetails extends AppCompatActivity {
                     data[3]=jsonObject.optString("URL");
                     data[4]=jsonObject.optString("About");
                     data[5]=jsonObject.optString("Parish");
-                    data[6]=jsonObject.optString("DOB");
-                    data[7]=jsonObject.optString("DateOrdination");
+                    data[6]=jsonObject.optString("DOB").replace("/Date(", "").replace(")/", "");
+                    data[7]=jsonObject.optString("DateOrdination").replace("/Date(", "").replace(")/", "");
                     data[8]=jsonObject.optString("Email");
                     data[9]=jsonObject.optString("Mobile");
                     data[10]=jsonObject.optString("Designation");
