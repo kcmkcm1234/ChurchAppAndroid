@@ -107,10 +107,16 @@ public class InstitutionDetails extends AppCompatActivity {
             }
         }
         if(getIntent().hasExtra("Founded")){
-            founded.setText(extras.getString("Founded"));
+            if(!extras.getString("Founded").equals("null"))
+                founded.setText(extras.getString("Founded"));
+            else
+                founded.setText("-");
         }
         if(getIntent().hasExtra("Founder")){
-            founder.setText(extras.getString("Founder"));
+            if(!extras.getString("Founder").equals("null"))
+                founder.setText(extras.getString("Founder"));
+            else
+                founder.setText("-");
         }
         if(getIntent().hasExtra("Phone1")){
             if(!extras.getString("Phone1").equals("null")){

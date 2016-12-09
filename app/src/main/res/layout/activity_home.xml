@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/novenas">
 
-        <EditText
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/searchView"
@@ -44,7 +44,7 @@
         <TextView
             android:text="@string/view_all_towns"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:textColor="@android:color/white"
             android:id="@+id/view_all_towns"
             android:textSize="12sp"

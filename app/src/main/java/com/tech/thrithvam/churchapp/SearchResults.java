@@ -10,7 +10,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,10 +32,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SearchResults extends AppCompatActivity {
-    AsyncTask searching;
+    AsyncTask searching=null,getTowns=null;
     String searchKey;
     Bundle extras;
-    EditText searchText;
+    AutoCompleteTextView searchText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +49,7 @@ public class SearchResults extends AppCompatActivity {
         }
         //Search Text box--------------
         Typeface typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
-        searchText=(EditText)findViewById(R.id.searchViewText);
+        searchText=(AutoCompleteTextView) findViewById(R.id.searchViewText);
         searchText.setTypeface(typeSegoe);
         searchText.setText(searchKey);
         ImageView searchImage =(ImageView)findViewById(R.id.searchImage);
@@ -174,13 +175,110 @@ public class SearchResults extends AppCompatActivity {
                         intent.putExtra("town",churchItems.get(position)[2]);
                         intent.putExtra("address",churchItems.get(position)[4]);
                         startActivity(intent);
+                        finish();
                     }
                 });
                 searchText.setSelectAllOnFocus(true);
             }
+            getTowns=new GetAllTowns().execute();
         }
     }
+    //----------------------AsyncTasks----------------------------
+    public class GetAllTowns extends AsyncTask<Void , Void, Void> {
+        int status;StringBuilder sb;
+        String strJson;
+        JSONArray jsonArray;
+        String msg;
+        boolean pass=false;
+        ArrayList<String> townListItems =new ArrayList<>();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //----------encrypting ---------------------------
+            // usernameString=cryptography.Encrypt(usernameString);
+        }
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/AllTown";
+            HttpURLConnection c = null;
+            try {
+                URL u = new URL(url);
+                c = (HttpURLConnection) u.openConnection();
+                c.setRequestMethod("POST");
+                c.setRequestProperty("Content-type", "application/json; charset=utf-16");
+                c.setRequestProperty("Content-length","0");
+                c.setDoInput(true);
+                c.setDoOutput(true);
+                c.setUseCaches(false);
+                c.setConnectTimeout(10000);
+                c.setReadTimeout(10000);
+                c.connect();//Since no post data
+                status = c.getResponseCode();
+                switch (status) {
+                    case 200:
+                    case 201: BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                        sb = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line).append("\n");
+                        }
+                        br.close();
+                        int a=sb.indexOf("[");
+                        int b=sb.lastIndexOf("]");
+                        strJson=sb.substring(a, b + 1);
+                        //   strJson=cryptography.Decrypt(strJson);
+                        strJson="{\"JSON\":" + strJson.replace("\\\"","\"").replace("\\\\","\\") + "}";
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                msg=ex.getMessage();
+            } finally {
+                if (c != null) {
+                    try {
+                        c.disconnect();
+                    } catch (Exception ex) {
+                        Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                        msg=ex.getMessage();
+                    }
+                }
+            }
+            if(strJson!=null)
+            {try {
+                JSONObject jsonRootObject = new JSONObject(strJson);
+                jsonArray = jsonRootObject.optJSONArray("JSON");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    msg=jsonObject.optString("Message");
+                    pass=jsonObject.optBoolean("Flag",true);
+                    townListItems.add(jsonObject.optString("Name"));
+                }
+            } catch (Exception ex) {
+                msg=ex.getMessage();
+            }}
+            return null;
+        }
 
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if(!pass) {
+            }
+            else {
+                ArrayAdapter<String> adapter = new ArrayAdapter<>
+                        (SearchResults.this,android.R.layout.simple_list_item_activated_1,townListItems);
+                searchText.setAdapter(adapter);
+                searchText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Intent intent=new Intent(SearchResults.this,SearchResults.class);
+                        intent.putExtra("searchkey",searchText.getText().toString());
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }
+        }
+    }
     public boolean isOnline() {
         ConnectivityManager cm =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -191,5 +289,6 @@ public class SearchResults extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         if(searching!=null)searching.cancel(true);
+        if(getTowns!=null)getTowns.cancel(true);
     }
 }
