@@ -48,35 +48,20 @@ import java.util.logging.Logger;
 
 public class ChurchDetails extends AppCompatActivity {
     Bundle extras;
-    String ChurchID;
+    String ChurchID,aboutGlobal,churchImageGlobal;
     AsyncTask getChurchDetails=null,getMassTimings=null,getExtraDetails=null;
-    Typeface typeQuicksand;
-    Typeface typeSegoe;
-    Typeface typeBLKCHCRY;
-    TextView churchName;
-    TextView town;
-    TextView address;
-    TextView about;
-    TextView priestName;
-    TextView parishName;
-    TextView priestMobile;
-    TextView priestAbout;
-    TextView dateOrdination;
-    TextView churchAddress;
-    TextView phone1;
-    TextView phone2;
+    Typeface typeQuicksand,typeSegoe,typeBLKCHCRY;
     RelativeLayout viewMap;
     ImageView churchImage,priestImage;
     ScrollView activityScrollView;
-    RelativeLayout priestLayout;
-    RelativeLayout aboutLayout;
-    RelativeLayout contactLayout;
-    RelativeLayout massLayout;
-    TextView sundayLabel,mondayLabel,tuesdayLabel, wednesdayLabel, thursdayLabel,fridayLabel,saturdayLabel;
+    RelativeLayout priestLayout,aboutLayout,contactLayout,massLayout;
+    TextView churchName,town,address,about,priestName,parishName,priestMobile;
+    TextView priestAbout,dateOrdination,churchAddress,phone1,phone2,priestviewmore;
+    TextView sundayLabel,mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel;
     TextView sundayTiming,mondayTiming,tuesdayTiming,wednesdayTiming,thursdayTiming,fridayTiming,saturdayTiming;
+    TextView aboutLabel,priestLabel,massLabel,contactLabel;
     LinearLayout extraDetails;
-    String aboutGlobal;
-    String churchImageGlobal;
+
     FloatingActionMenu floatingActionMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,9 +97,9 @@ public class ChurchDetails extends AppCompatActivity {
         churchName=(TextView)findViewById(R.id.activity_head);
         town=(TextView)findViewById(R.id.town);
         address=(TextView)findViewById(R.id.address);
-        TextView aboutLabel=(TextView)findViewById(R.id.about_label);
+        aboutLabel=(TextView)findViewById(R.id.about_label);
         about=(TextView)findViewById(R.id.about);
-        TextView priestLabel=(TextView)findViewById(R.id.priest_label);
+        priestLabel=(TextView)findViewById(R.id.priest_label);
         priestName=(TextView)findViewById(R.id.priest_name);
         parishName=(TextView)findViewById(R.id.parish);
         priestMobile=(TextView)findViewById(R.id.priest_mobile);
@@ -122,17 +107,18 @@ public class ChurchDetails extends AppCompatActivity {
         dateOrdination=(TextView)findViewById(R.id.date_of_ordination);
         churchImage=(ImageView)findViewById(R.id.church_image);
         priestImage=(ImageView)findViewById(R.id.priest_image);
-        TextView contactLabel=(TextView)findViewById(R.id.contact_label);
+        priestviewmore=(TextView)findViewById(R.id.priest_viewmore);
+        contactLabel=(TextView)findViewById(R.id.contact_label);
         churchAddress=(TextView)findViewById(R.id.church_address);
         phone1=(TextView)findViewById(R.id.phone1);
         phone2=(TextView)findViewById(R.id.phone2);
         viewMap=(RelativeLayout)findViewById(R.id.view_in_map);
-        TextView massLabel=(TextView)findViewById(R.id.mass_label);
+        massLabel=(TextView)findViewById(R.id.mass_label);
         sundayLabel=(TextView)findViewById(R.id.sunday_label);
         mondayLabel=(TextView)findViewById(R.id.monday_label);
         tuesdayLabel=(TextView)findViewById(R.id.tuesday_label);
-        wednesdayLabel =(TextView)findViewById(R.id.wednesday_label);
-        thursdayLabel =(TextView)findViewById(R.id.thursday_label);
+        wednesdayLabel=(TextView)findViewById(R.id.wednesday_label);
+        thursdayLabel=(TextView)findViewById(R.id.thursday_label);
         fridayLabel=(TextView)findViewById(R.id.friday_label);
         saturdayLabel=(TextView)findViewById(R.id.saturday_label);
         sundayTiming=(TextView)findViewById(R.id.sunday_timings);
@@ -174,6 +160,15 @@ public class ChurchDetails extends AppCompatActivity {
         thursdayTiming.setTypeface(typeSegoe);
         fridayTiming.setTypeface(typeSegoe);
         saturdayTiming.setTypeface(typeSegoe);
+
+        priestviewmore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(ChurchDetails.this,PriestDetails.class);
+                intent.putExtra("ChurchID",ChurchID);
+                startActivity(intent);
+            }
+        });
 
 
         //getting details from intent if available-----------------

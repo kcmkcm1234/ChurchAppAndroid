@@ -89,8 +89,10 @@ public class CustomAdapter extends BaseAdapter {
         TextView NoticeHead,NoticeDate;
         ImageView Noticeimage;
             //Towns
-
         TextView TownHead;
+            //Priest-------------------------------
+        TextView p_name,p_dob,p_about,p_dateordination,p_desgn,p_add,p_email,p_mob,p_parish,p_status,p_baptism;
+        ImageView p_image;
     }
 
 
@@ -480,6 +482,53 @@ public class CustomAdapter extends BaseAdapter {
                     convertView.startAnimation(animation);
                 }
                 lastPosition = position;
+                break;
+
+//------------------------------PriestList-----------------------------
+            case "PriestList":
+
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_priest, null);
+
+                    holder.p_image  =(ImageView)convertView.findViewById(R.id.priest_image);
+                    holder.p_name  = (TextView) convertView.findViewById(R.id.priest_name );
+                    holder.p_parish  =(TextView)convertView.findViewById(R.id.parish);
+                    holder.p_baptism = (TextView) convertView.findViewById(R.id.baptismalname);
+                    holder.p_desgn =(TextView)convertView.findViewById(R.id.designation);
+                    holder.p_status = (TextView) convertView.findViewById(R.id.priest_status);
+                    holder.p_dob  =(TextView)convertView.findViewById(R.id.date_of_birth);
+                    holder.p_mob  = (TextView) convertView.findViewById(R.id.priest_mobile);
+                    holder.p_dateordination=(TextView)convertView.findViewById(R.id.date_of_ordination);
+                    holder.p_email =(TextView)convertView.findViewById(R.id.priest_email);
+                    holder.p_add =(TextView)convertView.findViewById(R.id.priest_address);
+                    holder.p_about  =(TextView)convertView.findViewById(R.id.priest_about);
+
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //----------------Label loading--------------------
+
+                holder.p_name.setText(objects.get(position)[1]);
+                holder.p_add.setText(objects.get(position)[2]);
+                holder.p_about.setText(objects.get(position)[4]);
+                holder.p_parish.setText(objects.get(position)[5]);
+                holder.p_dob.setText(objects.get(position)[6]);
+                holder.p_dateordination.setText(objects.get(position)[7]);
+                holder.p_email.setText(objects.get(position)[8]);
+                holder.p_mob.setText(objects.get(position)[9]);
+                holder.p_desgn.setText(objects.get(position)[10]);
+                holder.p_status.setText(objects.get(position)[11]);
+                holder.p_baptism.setText(objects.get(position)[12]);
+
+                if(!objects.get(position)[3].equals("null")){
+                    Glide.with(adapterContext)
+                            .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
+                            .thumbnail(0.1f)
+                            .into(holder.p_image)
+                    ;
+                }
                 break;
             default:
                 break;

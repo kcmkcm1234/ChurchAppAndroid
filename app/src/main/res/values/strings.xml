@@ -8,6 +8,7 @@
     <string name="about">About</string>
     <string name="view_more">View more</string>
     <string name="priest">Priest</string>
+    <string name="priests">Priests</string>
     <string name="name">Name</string>
     <string name="priest_name">Priest Name</string>
     <string name="parish">Parish</string>
@@ -54,5 +55,10 @@
     <string name="mobile_colon">Mobile:</string>
     <string name="phone_colon">Phone:</string>
     <string name="towns">Towns</string>
+    <string name="baptismalname">Baptismal Name</string>
+    <string name="designation">Designation</string>
+    <string name="status">Status</string>
+    <string name="dob">Date of Birth</string>
+    <string name="emailid">Email Id</string>
 
 </resources>
