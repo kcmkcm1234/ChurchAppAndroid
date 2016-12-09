@@ -72,6 +72,8 @@
         android:layout_above="@+id/address"
         android:layout_alignLeft="@+id/church_image"
         android:layout_alignStart="@+id/church_image"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:maxLines="1"
         android:ellipsize="end"/>
     <TextView
@@ -86,7 +88,9 @@
         android:layout_alignLeft="@+id/church_image"
         android:layout_alignStart="@+id/church_image"
         android:maxLines="1"
-        android:ellipsize="end"/>
+        android:ellipsize="end"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
