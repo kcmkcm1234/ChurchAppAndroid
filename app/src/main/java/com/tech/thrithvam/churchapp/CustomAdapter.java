@@ -79,16 +79,16 @@ public class CustomAdapter extends BaseAdapter {
             //Nearby Church List-------------------
         TextView nearbyChurchName,nearbyChurchAddress,distance;
         ImageView nearChurchImg,nearbyViewMap;
-            //Pious Organisation--------------------
+            //Pious Organisation-------------------
         TextView orgName, orgPatronName;
         ImageView orgPatronImage;
-            //Institutions---------------------
+            //Institutions-------------------------
         TextView institution_name, institution_address;
         ImageView institution_image;
-            //Events
+            //Events-------------------------------
         TextView NoticeHead,NoticeDate;
         ImageView Noticeimage;
-            //Towns
+            //Towns--------------------------------
         TextView TownHead;
             //Priest-------------------------------
         TextView p_name,p_dob,p_about,p_dateordination,p_desgn,p_add,p_email,p_mob,p_parish,p_status,p_baptism;
@@ -115,7 +115,6 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 //Label loading--------------------
                 holder.churchName.setText(objects.get(position)[1]);
-
                 if(!objects.get(position)[2].equals("null")) {
                     holder.town.setText(objects.get(position)[2]);
                     holder.town.setVisibility(View.VISIBLE);
@@ -128,30 +127,23 @@ public class CustomAdapter extends BaseAdapter {
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
-                            .into(holder.churchImage)
-                            ;
+                            .into(holder.churchImage);
                 }
                 else{
                     holder.churchImage.setPadding(15,15,15,15);
                     holder.churchImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                     Glide.with(adapterContext)
                             .load(R.drawable.church)
-                            .into(holder.churchImage)
-                            ;
+                            .into(holder.churchImage);
                 }
-
                 if(!objects.get(position)[4].equals("null")){
                     holder.address.setText(objects.get(position)[4]);
                     holder.address.setVisibility(View.VISIBLE);
                 }
                 else holder.address.setVisibility(View.INVISIBLE);
-
                 holder.churchName.setTypeface(typeQuicksand);
                 holder.town.setTypeface(typeSegoe);
                 holder.address.setTypeface(typeSegoe);
-
-               /* animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-                convertView.startAnimation(animation);*/
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
                     convertView.startAnimation(animation);
@@ -189,8 +181,7 @@ public class CustomAdapter extends BaseAdapter {
                             Glide.with(adapterContext)
                                     .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                                     .thumbnail(0.1f)
-                                    .into(holder.patronImg1)
-                            ;
+                                    .into(holder.patronImg1);
                         }
                 }
                 else {
@@ -200,12 +191,9 @@ public class CustomAdapter extends BaseAdapter {
                             Glide.with(adapterContext)
                                     .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                                     .thumbnail(0.1f)
-                                    .into(holder.patronImg2)
-                            ;
+                                    .into(holder.patronImg2);
                         }
                 }
-                /*animation = AnimationUtils.loadAnimation(adapterContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-                convertView.startAnimation(animation);*/
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
                     convertView.startAnimation(animation);
@@ -341,11 +329,9 @@ public class CustomAdapter extends BaseAdapter {
                                     holder.nearChurchImg.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                                     Glide.with(adapterContext)
                                             .load(R.drawable.church)
-                                            .into(holder.nearChurchImg)
-                                    ;
+                                            .into(holder.nearChurchImg);
                                     return true;
                                 }
-
                                 @Override
                                 public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                                     return false;
@@ -389,8 +375,7 @@ public class CustomAdapter extends BaseAdapter {
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
-                            .into(holder.orgPatronImage)
-                    ;
+                            .into(holder.orgPatronImage);
                 }
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
@@ -420,10 +405,8 @@ public class CustomAdapter extends BaseAdapter {
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
-                            .into(holder.institution_image)
-                    ;
+                            .into(holder.institution_image);
                 }
-
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
                     convertView.startAnimation(animation);
@@ -432,32 +415,25 @@ public class CustomAdapter extends BaseAdapter {
                 break;
             //-------------------ChurchEventsResults-------------------------------
             case "ChurchEventsResults":
-
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_events, null);
-
-                    holder.Noticeimage =(ImageView)convertView.findViewById(R.id.Notice_image );
-                    holder.NoticeHead = (TextView) convertView.findViewById(R.id.Notice_Head );
-                    holder.NoticeDate =(TextView)convertView.findViewById(R.id.Notice_Date);
-
+                    holder.Noticeimage =(ImageView)convertView.findViewById(R.id.events_image);
+                    holder.NoticeHead = (TextView) convertView.findViewById(R.id.events_head );
+                    holder.NoticeDate =(TextView)convertView.findViewById(R.id.events_date);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
                 //----------------Label loading--------------------
-
                 holder.NoticeHead.setText(objects.get(position)[1]);
                 holder.NoticeDate.setText(objects.get(position)[2]);
-
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
-                            .into(holder.Noticeimage)
-                    ;
+                            .into(holder.Noticeimage);
                 }
-
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
                     convertView.startAnimation(animation);
@@ -484,7 +460,6 @@ public class CustomAdapter extends BaseAdapter {
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_priest, null);
-
                     holder.p_image  =(ImageView)convertView.findViewById(R.id.priest_image);
                     holder.p_name  = (TextView) convertView.findViewById(R.id.priest_name );
                     holder.p_parish  =(TextView)convertView.findViewById(R.id.parish);
@@ -497,7 +472,6 @@ public class CustomAdapter extends BaseAdapter {
                     holder.p_email =(TextView)convertView.findViewById(R.id.priest_email);
                     holder.p_add =(TextView)convertView.findViewById(R.id.priest_address);
                     holder.p_about  =(TextView)convertView.findViewById(R.id.priest_about);
-
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
@@ -508,8 +482,6 @@ public class CustomAdapter extends BaseAdapter {
                 holder.p_add.setText(objects.get(position)[2]);
                 holder.p_about.setText(objects.get(position)[4]);
                 holder.p_parish.setText(objects.get(position)[5]);
-              /*  holder.p_dob.setText(objects.get(position)[6]);
-                holder.p_dateordination.setText(objects.get(position)[7]);*/
                 holder.p_email.setText(objects.get(position)[8]);
                 holder.p_mob.setText(objects.get(position)[9]);
                 holder.p_desgn.setText(objects.get(position)[10]);
@@ -522,7 +494,6 @@ public class CustomAdapter extends BaseAdapter {
                     holder.p_dateordination.setText(date);
                 }
                 else {
-
                     holder.p_dateordination.setText("-");
                 }
                 if(!objects.get(position)[7].equals("null")){
@@ -531,7 +502,6 @@ public class CustomAdapter extends BaseAdapter {
                     holder.p_dob.setText(dob);
                 }
                 else {
-
                     holder.p_dateordination.setText("-");
                 }
 
@@ -539,8 +509,7 @@ public class CustomAdapter extends BaseAdapter {
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
-                            .into(holder.p_image)
-                    ;
+                            .into(holder.p_image);
                 }
 
                 holder.p_mob.setOnClickListener(new View.OnClickListener() {
@@ -561,7 +530,6 @@ public class CustomAdapter extends BaseAdapter {
                         if (intent.resolveActivity(adapterContext.getPackageManager()) != null) {
                             adapterContext.startActivity(intent);
                         }
-
                     }
                 });
                 break;

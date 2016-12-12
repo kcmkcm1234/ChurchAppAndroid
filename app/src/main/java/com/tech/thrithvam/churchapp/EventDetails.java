@@ -15,8 +15,8 @@ public class EventDetails extends AppCompatActivity {
 
     Bundle extras;
     String URL;
-    TextView Date,Notice_head,Notice_content;
-    ImageView Notice_image;
+    TextView Date,Events_head,Events_content;
+    ImageView Events_image;
     Typeface typeQuicksand;
 
     @Override
@@ -28,35 +28,35 @@ public class EventDetails extends AppCompatActivity {
 
         URL=extras.getString("URL");
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
-        Notice_head=(TextView)findViewById(R.id.activity_Notice_head);
-        Notice_head.setTypeface(typeQuicksand);
+        Events_head=(TextView)findViewById(R.id.activity_event_head);
+        Events_head.setTypeface(typeQuicksand);
         Date=(TextView)findViewById(R.id.Event_date);
-        Notice_content=(TextView)findViewById(R.id.Event_details);
-        Notice_image=(ImageView)findViewById(R.id.Notice_img);
+        Events_content=(TextView)findViewById(R.id.Event_details);
+        Events_image=(ImageView)findViewById(R.id.event_img);
 
         if(getIntent().hasExtra("EventName")){
-            Notice_head.setText(extras.getString("EventName"));
+            Events_head.setText(extras.getString("EventName"));
         }
         if(getIntent().hasExtra("StartDate")){
             Date.setText(extras.getString("StartDate"));
         }
         if(getIntent().hasExtra("Descrtiption")){
-            Notice_content.setText(extras.getString("Descrtiption"));
+            Events_content.setText(extras.getString("Descrtiption"));
         }
         //image loading using url
         if(!URL.equals("null")){
             Glide.with(EventDetails.this)
                     .load(getResources().getString(R.string.url) +URL.substring((URL).indexOf("img")))
-                    .placeholder(R.drawable.notices)
+                    .placeholder(R.drawable.events)
                     .thumbnail(0.1f)
                     .crossFade()
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            Notice_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            Events_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
                             Glide.with(EventDetails.this)
-                                    .load(R.drawable.notices)
-                                    .into(Notice_image)
+                                    .load(R.drawable.events)
+                                    .into(Events_image)
                             ;
                             return true;
                         }
@@ -66,7 +66,7 @@ public class EventDetails extends AppCompatActivity {
                             return false;
                         }
                     })
-                    .into(Notice_image)
+                    .into(Events_image)
             ;
         }
     }

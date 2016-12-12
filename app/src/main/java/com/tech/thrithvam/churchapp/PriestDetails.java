@@ -37,7 +37,6 @@ public class PriestDetails extends AppCompatActivity {
     Typeface typeQuicksand;
     TextView Priest_head;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,7 +157,7 @@ public class PriestDetails extends AppCompatActivity {
 
             if(!pass) {
                 new AlertDialog.Builder(PriestDetails.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
-                        .setMessage(msg)//R.string.no_items)
+                        .setMessage(msg)
                         .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -170,18 +169,6 @@ public class PriestDetails extends AppCompatActivity {
                 CustomAdapter adapter=new CustomAdapter(PriestDetails.this, priestListItems,"PriestList");
                 ListView PriestsList=(ListView) findViewById(R.id.priest_list);
                 PriestsList.setAdapter(adapter);
-               /* churchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                      *//*  Intent intent=new Intent(PiousOrgs.this,PiousOrgDetails.class);
-                        intent.putExtra("ID", piousOrgListItems.get(position)[0]);
-                        intent.putExtra("Name", piousOrgListItems.get(position)[1]);
-                        intent.putExtra("PatronName", piousOrgListItems.get(position)[2]);
-                        intent.putExtra("URL", piousOrgListItems.get(position)[3]);
-                        intent.putExtra("Desc", piousOrgListItems.get(position)[4]);
-                        startActivity(intent);*//*
-                    }
-                });*/
             }
         }
     }
