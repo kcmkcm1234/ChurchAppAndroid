@@ -43,8 +43,6 @@ public class Notices extends AppCompatActivity {
         setContentView(R.layout.activity_notices); extras=getIntent().getExtras();
         ChurchID=extras.getString("churchID");
 
-        Toast.makeText(Notices.this, ChurchID, Toast.LENGTH_LONG).show();
-
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
         activity_notice_head =(TextView)findViewById(R.id.activity_notice_head);
         activity_notice_head.setTypeface(typeQuicksand);
@@ -165,14 +163,13 @@ public class Notices extends AppCompatActivity {
                 InstitutionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                       /* Intent intent=new Intent(Notices.this,InstitutionDetails.class);
+                        Intent intent=new Intent(Notices.this,NoticeDetails.class);
                         intent.putExtra("ID", NoticeListItems.get(position)[0]);
                         intent.putExtra("NoticeName", NoticeListItems.get(position)[1]);
                         intent.putExtra("Description", NoticeListItems.get(position)[2]);
                         intent.putExtra("URL", NoticeListItems.get(position)[3]);
                         intent.putExtra("NoticeType", NoticeListItems.get(position)[4]);
-
-                        startActivity(intent);*/
+                        startActivity(intent);
                     }
                 });
             }
