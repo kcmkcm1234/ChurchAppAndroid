@@ -835,7 +835,7 @@ public class ChurchDetails extends AppCompatActivity {
         startActivity(intent);
     }
     public void gallery_click (View view){
-        Intent intent=new Intent(ChurchDetails.this,PiousOrgs.class);
+        Intent intent=new Intent(ChurchDetails.this,Gallery.class);
         intent.putExtra("ChurchID",ChurchID);
         floatingActionMenu.close(true);
         startActivity(intent);
