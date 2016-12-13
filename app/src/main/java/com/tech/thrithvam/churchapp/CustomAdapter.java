@@ -86,13 +86,16 @@ public class CustomAdapter extends BaseAdapter {
         TextView institution_name, institution_address;
         ImageView institution_image;
             //Events-------------------------------
-        TextView NoticeHead,NoticeDate;
-        ImageView Noticeimage;
+        TextView EventsHead,EventsDate;
+        ImageView Eventimage;
             //Towns--------------------------------
         TextView TownHead;
             //Priest-------------------------------
         TextView p_name,p_dob,p_about,p_dateordination,p_desgn,p_add,p_email,p_mob,p_parish,p_status,p_baptism;
         ImageView p_image;
+        //Events-------------------------------
+        TextView NoticeHead,NoticeType,NoticeDesc;
+        ImageView Noticeimage;
     }
 
 
@@ -418,21 +421,21 @@ public class CustomAdapter extends BaseAdapter {
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_events, null);
-                    holder.Noticeimage =(ImageView)convertView.findViewById(R.id.events_image);
-                    holder.NoticeHead = (TextView) convertView.findViewById(R.id.events_head );
-                    holder.NoticeDate =(TextView)convertView.findViewById(R.id.events_date);
+                    holder.Eventimage =(ImageView)convertView.findViewById(R.id.events_image);
+                    holder.EventsHead = (TextView) convertView.findViewById(R.id.events_head );
+                    holder.EventsDate =(TextView)convertView.findViewById(R.id.events_date);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
                 //----------------Label loading--------------------
-                holder.NoticeHead.setText(objects.get(position)[1]);
-                holder.NoticeDate.setText(objects.get(position)[2]);
+                holder.EventsHead.setText(objects.get(position)[1]);
+                holder.EventsDate.setText(objects.get(position)[2]);
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
-                            .into(holder.Noticeimage);
+                            .into(holder.Eventimage);
                 }
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
@@ -533,6 +536,34 @@ public class CustomAdapter extends BaseAdapter {
                     }
                 });
                 break;
+            //------------------ChurchNotices---------------------------
+            case "ChurchNotices":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_notices, null);
+                    holder.Noticeimage =(ImageView)convertView.findViewById(R.id.notice_image );
+                    holder.NoticeHead = (TextView) convertView.findViewById(R.id.notice_name );
+                    holder.NoticeType  =(TextView)convertView.findViewById(R.id.notice_type);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //----------------Label loading--------------------
+                holder.NoticeHead.setText(objects.get(position)[1]);
+                holder.NoticeType.setText(objects.get(position)[4]);
+                if(!objects.get(position)[3].equals("null")){
+                    Glide.with(adapterContext)
+                            .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
+                            .thumbnail(0.1f)
+                            .into(holder.Noticeimage);
+                }
+                if(position>lastPosition){
+                    animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
+                    convertView.startAnimation(animation);
+                }
+                lastPosition = position;
+                break;
+
             default:
                 break;
         }

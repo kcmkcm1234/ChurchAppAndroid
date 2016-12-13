@@ -854,6 +854,13 @@ public class ChurchDetails extends AppCompatActivity {
         floatingActionMenu.close(true);
         startActivity(intent);
     }
+
+    public void notice_click (View view){
+        Intent intent=new Intent(ChurchDetails.this,Notices.class);
+        intent.putExtra("churchID",ChurchID);
+        floatingActionMenu.close(true);
+        startActivity(intent);
+    }
     public void view_more_about (View view){
         Intent intent=new Intent(ChurchDetails.this,ChurchDetailsExpansion.class);
         intent.putExtra("from","view_more_about");
