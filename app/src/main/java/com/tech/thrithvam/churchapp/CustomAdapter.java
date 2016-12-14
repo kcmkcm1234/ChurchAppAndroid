@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,9 +94,12 @@ public class CustomAdapter extends BaseAdapter {
             //Priest-------------------------------
         TextView p_name,p_dob,p_about,p_dateordination,p_desgn,p_add,p_email,p_mob,p_parish,p_status,p_baptism;
         ImageView p_image;
-        //Events-------------------------------
-        TextView NoticeHead,NoticeType,NoticeDesc;
+            //Events-------------------------------
+        TextView NoticeHead,NoticeType;
         ImageView Noticeimage;
+            //Gallery Albums-----------------------
+        TextView albumTitle,itemCount;
+        ImageView galleryAlbum;
     }
 
 
@@ -563,7 +567,33 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 lastPosition = position;
                 break;
-
+            //------------------ChurchNotices---------------------------
+            case "GalleryAlbums":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_gallery_album, null);
+                    holder.galleryAlbum =(ImageView)convertView.findViewById(R.id.grid_img );
+                    holder.albumTitle = (TextView) convertView.findViewById(R.id.grid_txt );
+                    holder.itemCount  =(TextView)convertView.findViewById(R.id.item_count);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //----------------Label loading--------------------
+                holder.albumTitle.setText(objects.get(position)[1]);
+                holder.itemCount.setText(objects.get(position)[2]);
+                holder.albumTitle.setTypeface(typeQuicksand);
+                holder.itemCount.setTypeface(typeSegoe);
+                if(!objects.get(position)[3].equals("null")){
+                    Glide.with(adapterContext)
+                            .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
+                            .dontTransform()
+                            .thumbnail(0.1f)
+                            .into(holder.galleryAlbum);
+                }
+                holder.albumTitle.setMaxLines(1);
+                holder.albumTitle.setEllipsize(TextUtils.TruncateAt.END);
+                break;
             default:
                 break;
         }
