@@ -37,7 +37,8 @@
                 android:id="@+id/notice_img"
                 android:scaleType="centerInside"
                 android:layout_centerHorizontal="true"
-                android:adjustViewBounds="true"/>
+                android:adjustViewBounds="true"
+                android:onClick="imageclick"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

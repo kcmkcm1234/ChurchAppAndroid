@@ -1,8 +1,10 @@
 package com.tech.thrithvam.churchapp;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -66,5 +68,11 @@ public class NoticeDetails extends AppCompatActivity {
                     .into(Notice_image)
             ;
         }
+    }
+
+    public void  imageclick (View view){
+        Intent intent=new Intent(NoticeDetails.this,Imageviewer.class);
+        intent.putExtra("URL",URL);
+        startActivity(intent);
     }
 }
