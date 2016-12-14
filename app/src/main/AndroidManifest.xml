@@ -104,7 +104,7 @@
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".Imageviewer"
+            android:name=".ImageViewer"
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity

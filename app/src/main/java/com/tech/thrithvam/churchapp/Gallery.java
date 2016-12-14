@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +35,7 @@ public class Gallery extends AppCompatActivity {
     Bundle extras;
     AsyncTask getGalleryAlbums,getGalleryItems;
     String churchID;
+    GridView galleryGrid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +45,7 @@ public class Gallery extends AppCompatActivity {
         churchID=extras.getString("ChurchID");
         TextView activityHead=(TextView)findViewById(R.id.activity_head);
         activityHead.setTypeface(typeQuicksand);
+        galleryGrid =(GridView) findViewById(R.id.gallery_grid);
         if (isOnline()) {
             getGalleryAlbums=new GetGalleryAlbums().execute();
         } else {
@@ -153,20 +154,131 @@ public class Gallery extends AppCompatActivity {
             }
             else {
                 CustomAdapter adapter=new CustomAdapter(Gallery.this, galleryAlbums,"GalleryAlbums");
-                GridView churchList=(GridView) findViewById(R.id.gallery_grid);
-                churchList.setAdapter(adapter);
-               /* churchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                galleryGrid.setAdapter(adapter);
+                galleryGrid.setVisibility(View.VISIBLE);
+                galleryGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(SearchResults.this,ChurchDetails.class);
-                        intent.putExtra("churchID",churchItems.get(position)[0]);
-                        intent.putExtra("churchname",churchItems.get(position)[1]);
-                        intent.putExtra("town",churchItems.get(position)[2]);
-                        intent.putExtra("address",churchItems.get(position)[4]);
-                        startActivity(intent);
-                        finish();
+                        getGalleryItems=new GetGalleryItems(galleryAlbums.get(position)[0]).execute();
                     }
-                });*/
+                });
+            }
+        }
+    }
+    public class GetGalleryItems extends AsyncTask<Void , Void, Void> {
+        int status;StringBuilder sb;
+        String strJson, postData;
+        JSONArray jsonArray;
+        String msg;
+        boolean pass=false;
+        AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
+        ArrayList<String[]> galleryItems=new ArrayList<>();
+        String albumID;
+        public GetGalleryItems(String albumId ){
+            albumID=albumId;
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            loadingIndicator.setVisibility(View.VISIBLE);
+            galleryGrid.setVisibility(View.INVISIBLE);
+            //----------encrypting ---------------------------
+            // usernameString=cryptography.Encrypt(usernameString);
+        }
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetGalleryItems";
+            HttpURLConnection c = null;
+            try {
+                postData =  "{\"albumID\":\"" + albumID+ "\"}";
+                URL u = new URL(url);
+                c = (HttpURLConnection) u.openConnection();
+                c.setRequestMethod("POST");
+                c.setRequestProperty("Content-type", "application/json; charset=utf-16");
+                c.setRequestProperty("Content-length", Integer.toString(postData.length()));
+                c.setDoInput(true);
+                c.setDoOutput(true);
+                c.setUseCaches(false);
+                c.setConnectTimeout(10000);
+                c.setReadTimeout(10000);
+                DataOutputStream wr = new DataOutputStream(c.getOutputStream());
+                wr.writeBytes(postData);
+                wr.flush();
+                wr.close();
+                status = c.getResponseCode();
+                switch (status) {
+                    case 200:
+                    case 201: BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                        sb = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line).append("\n");
+                        }
+                        br.close();
+                        int a=sb.indexOf("[");
+                        int b=sb.lastIndexOf("]");
+                        strJson=sb.substring(a, b + 1);
+                        //   strJson=cryptography.Decrypt(strJson);
+                        strJson="{\"JSON\":" + strJson.replace("\\\"","\"").replace("\\\\","\\") + "}";
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                msg=ex.getMessage();
+            } finally {
+                if (c != null) {
+                    try {
+                        c.disconnect();
+                    } catch (Exception ex) {
+                        Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                        msg=ex.getMessage();
+                    }
+                }
+            }
+            if(strJson!=null)
+            {try {
+                JSONObject jsonRootObject = new JSONObject(strJson);
+                jsonArray = jsonRootObject.optJSONArray("JSON");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    msg=jsonObject.optString("Message");
+                    pass=jsonObject.optBoolean("Flag",true);
+                    String[] data=new String[2];
+                    data[0]=jsonObject.optString("ID");
+                    data[1]=jsonObject.optString("URL");
+                    galleryItems.add(data);
+                }
+            } catch (Exception ex) {
+                msg=ex.getMessage();
+            }}
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            loadingIndicator.setVisibility(View.GONE);
+            if(!pass) {
+                new AlertDialog.Builder(Gallery.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
+                        .setMessage(msg)//R.string.no_items)
+                        .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        }).setCancelable(false).show();
+            }
+            else {
+                CustomAdapter adapter=new CustomAdapter(Gallery.this, galleryItems,"GalleryItems");
+                galleryGrid.setAdapter(adapter);
+                galleryGrid.setVisibility(View.VISIBLE);
+                galleryGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent=new Intent(Gallery.this,ImageViewer.class);
+                        intent.putExtra("URL",galleryItems.get(position)[1]);
+                        startActivity(intent);
+                    }
+                });
             }
         }
     }

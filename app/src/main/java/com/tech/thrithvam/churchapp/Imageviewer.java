@@ -14,7 +14,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import uk.co.senab.photoview.PhotoView;
 
-public class Imageviewer extends AppCompatActivity {
+public class ImageViewer extends AppCompatActivity {
 
     PhotoView photoView;
     Bundle extras;
@@ -27,7 +27,7 @@ public class Imageviewer extends AppCompatActivity {
         photoView=(PhotoView)findViewById(R.id.punchAttachView);
 
         if (isOnline()){
-            Glide.with(Imageviewer.this)
+            Glide.with(ImageViewer.this)
                     .load(getResources().getString(R.string.url) +imageURL.substring((imageURL).indexOf("img")))
                     .thumbnail(0.1f)
                     .crossFade()
@@ -36,7 +36,7 @@ public class Imageviewer extends AppCompatActivity {
                         @Override
                         public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                             photoView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            Glide.with(Imageviewer.this)
+                            Glide.with(ImageViewer.this)
                                     .load(R.drawable.church)
                                     .into(photoView);
                             return true;
@@ -48,7 +48,7 @@ public class Imageviewer extends AppCompatActivity {
                     }).into(photoView);
         }
         else {
-            Toast.makeText(Imageviewer.this,R.string.network_off_alert,Toast.LENGTH_LONG).show();
+            Toast.makeText(ImageViewer.this,R.string.network_off_alert,Toast.LENGTH_LONG).show();
             finish();
         }
     }

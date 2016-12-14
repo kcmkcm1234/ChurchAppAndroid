@@ -99,7 +99,7 @@ public class CustomAdapter extends BaseAdapter {
         ImageView Noticeimage;
             //Gallery-----------------------------
         TextView albumTitle,itemCount;
-        ImageView galleryAlbum;
+        ImageView galleryAlbum,galleryItem;
             //Family------------------------------
         TextView FamilyunitHead;
     }
@@ -463,9 +463,8 @@ public class CustomAdapter extends BaseAdapter {
                 holder.TownHead.setText(objects.get(position)[1]);
                 break;
 
-//------------------------------PriestList-----------------------------
+            //------------------------------PriestList-----------------------------
             case "PriestList":
-
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_priest, null);
@@ -569,6 +568,7 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 lastPosition = position;
                 break;
+            //--------------------Gallery Album grid----------------------
             case "GalleryAlbums":
                 if (convertView == null) {
                     holder = new Holder();
@@ -595,6 +595,24 @@ public class CustomAdapter extends BaseAdapter {
                 holder.albumTitle.setMaxLines(1);
                 holder.albumTitle.setEllipsize(TextUtils.TruncateAt.END);
                 break;
+            //--------------------Gallery Album grid----------------------
+            case "GalleryItems":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_gallery_item, null);
+                    holder.galleryItem =(ImageView)convertView.findViewById(R.id.image);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                if(!objects.get(position)[1].equals("null")){
+                    Glide.with(adapterContext)
+                            .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[1].substring((objects.get(position)[1]).indexOf("img")))
+                            .dontTransform()
+                            .thumbnail(0.1f)
+                            .into(holder.galleryItem);
+                }
+                break;
             //------------------ChurchFamilyunits---------------------------
             case "ChurchFamilyunits":
                 if (convertView == null) {
@@ -605,7 +623,6 @@ public class CustomAdapter extends BaseAdapter {
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
-                //----------------Label loading--------------------
                 holder.FamilyunitHead.setText(objects.get(position)[1]);
                 break;
             default:
