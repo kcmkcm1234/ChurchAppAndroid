@@ -100,6 +100,8 @@ public class CustomAdapter extends BaseAdapter {
             //Gallery-----------------------------
         TextView albumTitle,itemCount;
         ImageView galleryAlbum;
+            //Family------------------------------
+        TextView FamilyunitHead;
     }
 
 
@@ -592,6 +594,19 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 holder.albumTitle.setMaxLines(1);
                 holder.albumTitle.setEllipsize(TextUtils.TruncateAt.END);
+                break;
+            //------------------ChurchFamilyunits---------------------------
+            case "ChurchFamilyunits":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_familyunits, null);
+                    holder.FamilyunitHead = (TextView) convertView.findViewById(R.id.familyunit_name );
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //----------------Label loading--------------------
+                holder.FamilyunitHead.setText(objects.get(position)[1]);
                 break;
             default:
                 break;
