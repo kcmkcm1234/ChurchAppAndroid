@@ -94,8 +94,10 @@ public class CustomAdapter extends BaseAdapter {
         TextView p_name,p_dob,p_about,p_dateordination,p_desgn,p_add,p_email,p_mob,p_parish,p_status,p_baptism;
         ImageView p_image;
         //Events-------------------------------
-        TextView NoticeHead,NoticeType,NoticeDesc;
+        TextView NoticeHead,NoticeType;
         ImageView Noticeimage;
+        //Towns--------------------------------
+        TextView FamilyunitHead;
     }
 
 
@@ -563,7 +565,19 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 lastPosition = position;
                 break;
-
+            //------------------ChurchFamilyunits---------------------------
+            case "ChurchFamilyunits":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_familyunits, null);
+                    holder.FamilyunitHead = (TextView) convertView.findViewById(R.id.familyunit_name );
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //----------------Label loading--------------------
+                holder.FamilyunitHead.setText(objects.get(position)[1]);
+                break;
             default:
                 break;
         }

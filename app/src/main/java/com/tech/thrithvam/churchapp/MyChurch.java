@@ -1,8 +1,10 @@
 package com.tech.thrithvam.churchapp;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class MyChurch extends AppCompatActivity {
@@ -44,4 +46,12 @@ public class MyChurch extends AppCompatActivity {
         timings.setTypeface(typeSegoe);
         about.setTypeface(typeSegoe);
     }
+
+    public void FamilyUnitsClick (View view){
+        Intent intent=new Intent(MyChurch.this,FamilyUnits.class);
+        String ChurchID="99311E06-65DD-471E-904E-04702F2C4FB0";
+        intent.putExtra("ChurchID",ChurchID);
+        startActivity(intent);
+    }
+    //
 }
