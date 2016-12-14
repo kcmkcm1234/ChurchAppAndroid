@@ -32,8 +32,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarStyle="outsideOverlay"
+        android:layout_margin="7dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         android:id="@+id/family_units_list"
+        android:background="@drawable/white_transparent_card"
         android:layout_below="@+id/activity_family_units_head"
-        android:divider="@null"/>
+        android:divider="@color/secondary_text"
+        android:dividerHeight="0.5dp"/>
+
 
 </RelativeLayout>
