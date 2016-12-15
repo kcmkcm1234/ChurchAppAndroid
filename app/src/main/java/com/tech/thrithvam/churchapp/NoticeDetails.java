@@ -71,7 +71,7 @@ public class NoticeDetails extends AppCompatActivity {
     }
 
     public void  imageclick (View view){
-        Intent intent=new Intent(NoticeDetails.this,ImageViewer.class);
+        Intent intent=new Intent(NoticeDetails.this,ImageViewerActivity.class);
         intent.putExtra("URL",URL);
         startActivity(intent);
     }

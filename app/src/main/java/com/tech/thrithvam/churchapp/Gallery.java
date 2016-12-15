@@ -274,7 +274,7 @@ public class Gallery extends AppCompatActivity {
                 galleryGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(Gallery.this,ImageViewer.class);
+                        Intent intent=new Intent(Gallery.this,ImageViewerActivity.class);
                         intent.putExtra("URL",galleryItems.get(position)[1]);
                         startActivity(intent);
                     }
