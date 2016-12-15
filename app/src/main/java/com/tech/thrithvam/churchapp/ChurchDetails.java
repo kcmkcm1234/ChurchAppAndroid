@@ -360,7 +360,7 @@ public class ChurchDetails extends AppCompatActivity {
                                 public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                                     churchImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
                                     Glide.with(ChurchDetails.this)
-                                            .load(R.drawable.church)
+                                            .load(R.drawable.my_church_sample)
                                             .into(churchImage)
                                     ;
                                     return true;

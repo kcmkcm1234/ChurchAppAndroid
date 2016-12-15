@@ -52,9 +52,12 @@ public class MyChurch extends AppCompatActivity {
 
     public void FamilyUnitsClick (View view){
         Intent intent=new Intent(MyChurch.this,FamilyUnits.class);
-        String ChurchID="99311E06-65DD-471E-904E-04702F2C4FB0";
-        intent.putExtra("ChurchID",ChurchID);
+        intent.putExtra("ChurchID",db.GetMyChurch("ChurchID"));
         startActivity(intent);
     }
-    //
+    public void notice_click (View view){
+        Intent intent=new Intent(MyChurch.this,Notices.class);
+        intent.putExtra("churchID",db.GetMyChurch("ChurchID"));
+        startActivity(intent);
+    }
 }
