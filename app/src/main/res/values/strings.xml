@@ -60,4 +60,6 @@
     <string name="status">Status</string>
     <string name="dob">Date of Birth</string>
     <string name="email_id">Email id</string>
+    <string name="set_as_mychurch">Set as MyChurch</string>
+    <string name="mychurch_set_notification">This church is saved as MyChurch</string>
 </resources>

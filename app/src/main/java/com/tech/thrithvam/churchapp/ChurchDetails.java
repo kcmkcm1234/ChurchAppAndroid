@@ -56,18 +56,19 @@ public class ChurchDetails extends AppCompatActivity {
     ScrollView activityScrollView;
     RelativeLayout priestLayout,aboutLayout,contactLayout,massLayout;
     TextView churchName,town,address,about,priestName,parishName,priestMobile;
-    TextView priestAbout,dateOrdination,churchAddress,phone1,phone2,priestviewmore;
+    TextView priestAbout,dateOrdination,churchAddress,phone1,phone2, priestViewMore;
     TextView sundayLabel,mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel;
     TextView sundayTiming,mondayTiming,tuesdayTiming,wednesdayTiming,thursdayTiming,fridayTiming,saturdayTiming;
     TextView aboutLabel,priestLabel,massLabel,contactLabel;
     LinearLayout extraDetails;
-
+    DatabaseHandler db;
     FloatingActionMenu floatingActionMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_church_details);
         extras=getIntent().getExtras();
+        db=DatabaseHandler.getInstance(this);
         ChurchID=extras.getString("churchID");
         if (isOnline()) {
             getChurchDetails=new GetChurchDetails().execute();
@@ -107,7 +108,7 @@ public class ChurchDetails extends AppCompatActivity {
         dateOrdination=(TextView)findViewById(R.id.date_of_ordination);
         churchImage=(ImageView)findViewById(R.id.church_image);
         priestImage=(ImageView)findViewById(R.id.priest_image);
-        priestviewmore=(TextView)findViewById(R.id.priest_viewmore);
+        priestViewMore =(TextView)findViewById(R.id.priest_viewmore);
         contactLabel=(TextView)findViewById(R.id.contact_label);
         churchAddress=(TextView)findViewById(R.id.church_address);
         phone1=(TextView)findViewById(R.id.phone1);
@@ -161,7 +162,7 @@ public class ChurchDetails extends AppCompatActivity {
         fridayTiming.setTypeface(typeSegoe);
         saturdayTiming.setTypeface(typeSegoe);
 
-        priestviewmore.setOnClickListener(new View.OnClickListener() {
+        priestViewMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(ChurchDetails.this,PriestDetails.class);
@@ -853,6 +854,11 @@ public class ChurchDetails extends AppCompatActivity {
         intent.putExtra("from","church");
         floatingActionMenu.close(true);
         startActivity(intent);
+    }
+    public void mychurch_click (View view){
+        db.SetMyChurch(ChurchID);
+        Toast.makeText(ChurchDetails.this,R.string.mychurch_set_notification,Toast.LENGTH_LONG).show();
+        floatingActionMenu.close(true);
     }
 
     public void notice_click (View view){

@@ -6,13 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MyChurch extends AppCompatActivity {
-
+    DatabaseHandler db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_church);
+        db=DatabaseHandler.getInstance(this);
+        Toast.makeText(MyChurch.this,db.GetMyChurch("ChurchID"),Toast.LENGTH_LONG).show();
 
         Typeface typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
         Typeface typeBLKCHCRY = Typeface.createFromAsset(getAssets(),"fonts/blackchancery.ttf");
