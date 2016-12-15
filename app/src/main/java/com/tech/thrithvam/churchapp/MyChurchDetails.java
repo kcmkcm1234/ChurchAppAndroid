@@ -602,7 +602,7 @@ public class MyChurchDetails extends AppCompatActivity {
     public void novenas_click (View view){
         Intent intent=new Intent(MyChurchDetails.this,NovenaDetailsList.class);
         intent.putExtra("churchID",db.GetMyChurch("ChurchID"));
-        intent.putExtra("churchName","Novenas");
+        intent.putExtra("churchName","Novenas at "+db.GetMyChurch("ChurchName"));
         intent.putExtra("from","church");
         startActivity(intent);
     }

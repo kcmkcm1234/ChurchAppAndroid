@@ -3,6 +3,7 @@ package com.tech.thrithvam.churchapp;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -31,7 +32,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //---------------Tables----------------------------------
-        String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS MyChurch (ChurchID TEXT PRIMARY KEY);";
+        String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS MyChurch (ChurchID TEXT PRIMARY KEY,ChurchName TEXT, Town TEXT, Address TEXT);";
         db.execSQL(CREATE_USER_ACCOUNTS_TABLE);
 
         /*String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS Notifications (NotificationIDs TEXT, ExpiryDate DATE);";
@@ -49,11 +50,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
     //--------------------------My Church-----------------------------
-    public void SetMyChurch(String ChurchID)
+    public void SetMyChurch(String ChurchID, String ChurchName,String Town,String Address)
     {
         db=this.getWritableDatabase();
         ClearMyChurch();
-        db.execSQL("INSERT INTO MyChurch (ChurchID) VALUES ('"+ChurchID+"');");
+        db.execSQL("INSERT INTO MyChurch (ChurchID,ChurchName,Town,Address) VALUES ('"+ChurchID+"',"+DatabaseUtils.sqlEscapeString(ChurchName)+","+DatabaseUtils.sqlEscapeString(Town)+","+ DatabaseUtils.sqlEscapeString(Address)+");");
     }
     public void ClearMyChurch()
     {
@@ -62,7 +63,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     public String GetMyChurch(String detail)
     {db=this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT ChurchID FROM MyChurch;",null);
+        Cursor cursor = db.rawQuery("SELECT ChurchID,ChurchName,Town,Address FROM MyChurch;",null);
         if (cursor.getCount()>0)
         {cursor.moveToFirst();
             String result=cursor.getString(cursor.getColumnIndex(detail));

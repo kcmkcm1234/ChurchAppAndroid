@@ -63,6 +63,7 @@ public class ChurchDetails extends AppCompatActivity {
     LinearLayout extraDetails;
     DatabaseHandler db;
     FloatingActionMenu floatingActionMenu;
+    String churchNameStringGlobal,townNameStringGlobal,addressStringGlobal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,7 +210,7 @@ public class ChurchDetails extends AppCompatActivity {
         String msg;
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
-        String churchNameString,aboutString,townNameString,addressString,mapCoOrdinatesString,phone1String,phone2String, townCodeString,imageURLString,priestNameString,priestAboutString,parishString,priestMobileString,dateOrdinationString,priestURLStringString;
+        String aboutString,mapCoOrdinatesString,phone1String,phone2String, townCodeString,imageURLString,priestNameString,priestAboutString,parishString,priestMobileString,dateOrdinationString,priestURLStringString;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -274,10 +275,10 @@ public class ChurchDetails extends AppCompatActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     msg=jsonObject.optString("Message");
                     pass=jsonObject.optBoolean("Flag",true);
-                    churchNameString=jsonObject.optString("ChurchName");
+                    churchNameStringGlobal=jsonObject.optString("ChurchName");
                     aboutString=jsonObject.optString("About");
-                    townNameString=jsonObject.optString("TownName");
-                    addressString=jsonObject.optString("Address");
+                    townNameStringGlobal=jsonObject.optString("TownName");
+                    addressStringGlobal=jsonObject.optString("Address");
                     mapCoOrdinatesString=jsonObject.optString("Latitude")+","+jsonObject.optString("Longitude");
                     phone1String=jsonObject.optString("Phone1");
                     phone2String=jsonObject.optString("Phone2");
@@ -312,8 +313,8 @@ public class ChurchDetails extends AppCompatActivity {
             }
             else {
                 activityScrollView.setVisibility(View.VISIBLE);
-                if(!churchNameString.equals("null")){
-                    churchName.setText(churchNameString);
+                if(!churchNameStringGlobal.equals("null")){
+                    churchName.setText(churchNameStringGlobal);
                     churchName.setVisibility(View.VISIBLE);
                 }
                 else {
@@ -330,18 +331,18 @@ public class ChurchDetails extends AppCompatActivity {
                     aboutGlobal="-";
                 }
 
-                if(!townNameString.equals("null")){
-                    town.setText(townNameString);
+                if(!townNameStringGlobal.equals("null")){
+                    town.setText(townNameStringGlobal);
                     town.setVisibility(View.VISIBLE);
                 }
                 else {
                     town.setText("-");
                 }
 
-                if(!addressString.equals("null")){
-                    address.setText(addressString);
+                if(!addressStringGlobal.equals("null")){
+                    address.setText(addressStringGlobal);
                     address.setVisibility(View.VISIBLE);
-                    churchAddress.setText(addressString);
+                    churchAddress.setText(addressStringGlobal);
                 }
                 else {
                     address.setText("-");
@@ -856,7 +857,7 @@ public class ChurchDetails extends AppCompatActivity {
         startActivity(intent);
     }
     public void mychurch_click (View view){
-        db.SetMyChurch(ChurchID);
+        db.SetMyChurch(ChurchID,churchNameStringGlobal,townNameStringGlobal,addressStringGlobal);
         Toast.makeText(ChurchDetails.this,R.string.mychurch_set_notification,Toast.LENGTH_LONG).show();
         floatingActionMenu.close(true);
     }

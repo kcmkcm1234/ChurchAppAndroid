@@ -62,4 +62,5 @@
     <string name="email_id">Email id</string>
     <string name="set_as_mychurch">Set as MyChurch</string>
     <string name="mychurch_set_notification">This church is saved as MyChurch</string>
+    <string name="select_a_church">Select a church to set as MyChurch</string>
 </resources>

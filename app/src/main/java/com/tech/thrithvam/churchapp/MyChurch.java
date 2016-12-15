@@ -15,7 +15,12 @@ public class MyChurch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_church);
         db=DatabaseHandler.getInstance(this);
-        Toast.makeText(MyChurch.this,db.GetMyChurch("ChurchID"),Toast.LENGTH_LONG).show();
+        if(db.GetMyChurch("ChurchID")==null){
+            Intent intent=new Intent(MyChurch.this,AllTownsList.class);
+            startActivity(intent);
+            Toast.makeText(MyChurch.this,R.string.select_a_church,Toast.LENGTH_LONG).show();
+            finish();
+        }
 
         Typeface typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
         Typeface typeBLKCHCRY = Typeface.createFromAsset(getAssets(),"fonts/blackchancery.ttf");
@@ -48,6 +53,11 @@ public class MyChurch extends AppCompatActivity {
         gallery.setTypeface(typeSegoe);
         timings.setTypeface(typeSegoe);
         about.setTypeface(typeSegoe);
+
+        //Data on labels------
+        churchName.setText(db.GetMyChurch("ChurchName"));
+        churchDetail1.setText(db.GetMyChurch("Town"));
+        churchDetail2.setText(db.GetMyChurch("Address"));
     }
 
     public void FamilyUnitsClick (View view){
