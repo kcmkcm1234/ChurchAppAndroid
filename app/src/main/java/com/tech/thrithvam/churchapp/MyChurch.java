@@ -76,7 +76,12 @@ public class MyChurch extends AppCompatActivity {
     }
     public void timings_click (View view){
         Intent intent=new Intent(MyChurch.this,MyChurchDetails.class);
-        intent.putExtra("ChurchID",db.GetMyChurch("ChurchID"));
+        intent.putExtra("from","timings");
+        startActivity(intent);
+    }
+    public void about_click (View view){
+        Intent intent=new Intent(MyChurch.this,MyChurchDetails.class);
+        intent.putExtra("from","about");
         startActivity(intent);
     }
 }

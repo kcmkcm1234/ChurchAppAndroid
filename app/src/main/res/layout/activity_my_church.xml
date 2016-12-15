@@ -277,7 +277,8 @@
                 android:layout_weight="1"
                 app:cardCornerRadius="4dp"
                 app:cardBackgroundColor="@android:color/white"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:onClick="about_click">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

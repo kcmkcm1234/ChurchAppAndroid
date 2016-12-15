@@ -17,7 +17,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/aboutLayout"
-                    android:layout_below="@+id/church_image"
                     android:layout_margin="7dp"
                     android:background="@drawable/white_transparent_card"
                     android:padding="10dp">

@@ -82,8 +82,8 @@
             android:layout_below="@+id/novena_date"
             android:gravity="right"
             android:textSize="14sp"
-            android:layout_alignLeft="@+id/novena_date"
-            android:layout_alignStart="@+id/novena_date" />
+            android:layout_toRightOf="@+id/detail_image"
+            android:layout_toEndOf="@+id/detail_image"  />
 
     </RelativeLayout>
 </LinearLayout>

@@ -292,5 +292,6 @@ public class Gallery extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         if(getGalleryAlbums!=null)getGalleryAlbums.cancel(true);
+        if(getGalleryItems!=null)getGalleryItems.cancel(true);
     }
 }
