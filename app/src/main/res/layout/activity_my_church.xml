@@ -115,7 +115,8 @@
                 app:cardCornerRadius="4dp"
                 app:cardElevation="3dp"
                 app:cardBackgroundColor="@android:color/white"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:onClick="events_click">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -194,7 +195,8 @@
                 app:cardElevation="3dp"
                 app:cardCornerRadius="4dp"
                 app:cardBackgroundColor="@android:color/white"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:onClick="gallery_click">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -236,7 +238,8 @@
                 app:cardElevation="3dp"
                 app:cardCornerRadius="4dp"
                 app:cardBackgroundColor="@android:color/white"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:onClick="timings_click">
             <RelativeLayout
                android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -318,7 +321,8 @@
         android:layout_marginRight="7dp"
         android:layout_marginBottom="3dp"
         android:textSize="12sp"
-        android:textColor="@color/secondary_text"/>
+        android:textColor="@color/secondary_text"
+        android:onClick="change_my_church_click"/>
 
 
 </RelativeLayout>
