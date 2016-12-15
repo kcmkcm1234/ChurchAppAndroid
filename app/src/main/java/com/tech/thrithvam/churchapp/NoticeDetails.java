@@ -46,7 +46,7 @@ public class NoticeDetails extends AppCompatActivity {
         if (!URL.equals("null")) {
             Glide.with(NoticeDetails.this)
                     .load(getResources().getString(R.string.url) + URL.substring((URL).indexOf("img")))
-                    .placeholder(R.drawable.notices)
+                    .dontTransform()
                     .thumbnail(0.1f)
                     .crossFade()
                     .listener(new RequestListener<String, GlideDrawable>() {
