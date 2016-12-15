@@ -111,6 +111,7 @@
             android:name=".FamilyUnits"
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".MyChurchDetails"></activity>
     </application>
 
 </manifest>

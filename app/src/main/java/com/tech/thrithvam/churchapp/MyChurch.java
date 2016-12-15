@@ -60,4 +60,23 @@ public class MyChurch extends AppCompatActivity {
         intent.putExtra("churchID",db.GetMyChurch("ChurchID"));
         startActivity(intent);
     }
+    public void gallery_click (View view){
+        Intent intent=new Intent(MyChurch.this,Gallery.class);
+        intent.putExtra("ChurchID",db.GetMyChurch("ChurchID"));
+        startActivity(intent);
+    }
+    public void events_click (View view){
+        Intent intent=new Intent(MyChurch.this,Events.class);
+        intent.putExtra("ChurchID",db.GetMyChurch("ChurchID"));
+        startActivity(intent);
+    }
+    public void change_my_church_click (View view){
+        Intent intent=new Intent(MyChurch.this,AllTownsList.class);
+        startActivity(intent);
+    }
+    public void timings_click (View view){
+        Intent intent=new Intent(MyChurch.this,MyChurchDetails.class);
+        intent.putExtra("ChurchID",db.GetMyChurch("ChurchID"));
+        startActivity(intent);
+    }
 }
