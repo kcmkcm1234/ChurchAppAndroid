@@ -37,7 +37,7 @@
         android:scrollbarStyle="outsideOverlay"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
-        android:id="@+id/family_units_list"
+        android:id="@+id/family_list"
         android:background="@drawable/white_transparent_card"
         android:layout_below="@+id/family_units_name_head"
         android:divider="@color/secondary_text"
