@@ -593,7 +593,7 @@
             android:id="@+id/material_design_floating_action_menu_item0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/church"
+            android:src="@drawable/mychurch_small"
             fab:fab_label="@string/set_as_mychurch"
             fab:fab_size="mini"
             fab:fab_colorNormal="#8d62d8"
