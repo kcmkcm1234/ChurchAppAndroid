@@ -102,6 +102,8 @@ public class CustomAdapter extends BaseAdapter {
         ImageView galleryAlbum,galleryItem;
             //Family------------------------------
         TextView FamilyunitHead;
+            //FamilyDetails------------------------
+        TextView FamilyHead,FamilyName;
     }
 
 
@@ -624,6 +626,20 @@ public class CustomAdapter extends BaseAdapter {
                     holder = (Holder) convertView.getTag();
                 }
                 holder.FamilyunitHead.setText(objects.get(position)[1]);
+                break;
+            //------------------FamilyDetails---------------------------
+            case "FamilyDetails":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_family, null);
+                    holder.FamilyHead = (TextView) convertView.findViewById(R.id.family_head );
+                    holder.FamilyName=(TextView) convertView.findViewById(R.id.family_name );
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                holder.FamilyHead.setText(objects.get(position)[2]+" "+objects.get(position)[3]);
+                holder.FamilyName.setText(objects.get(position)[1]);
                 break;
             default:
                 break;

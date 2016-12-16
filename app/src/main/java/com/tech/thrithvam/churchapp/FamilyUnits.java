@@ -161,10 +161,11 @@ public class FamilyUnits extends AppCompatActivity {
                 churchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                      /*  Intent intent=new Intent(FamilyUnits.this,.class);
+                        Intent intent=new Intent(FamilyUnits.this,FamilyUnitsDetails.class);
+                        intent.putExtra("ChurchID",ChurchID);
                         intent.putExtra("ID", FamilyunitListItems.get(position)[0]);
                         intent.putExtra("UnitName", FamilyunitListItems.get(position)[1]);
-                        startActivity(intent);*/
+                        startActivity(intent);
                     }
                 });
             }
