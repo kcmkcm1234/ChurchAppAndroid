@@ -10,12 +10,20 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.ViewGroup.LayoutParams;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -36,8 +44,10 @@ public class FamilyUnitsDetails extends AppCompatActivity {
     String ChurchID,UnitID;
     Typeface typeQuicksand;
     TextView Fam_unit_head;
-    AsyncTask getFamilyList;
-
+    AsyncTask getFamilyList=null,getFamilyExecutiveList=null;
+    View popupView;
+    PopupWindow popupWindow;
+    RelativeLayout mRelativeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +57,12 @@ public class FamilyUnitsDetails extends AppCompatActivity {
         UnitID=extras.getString("ID");
 
 
+        mRelativeLayout = (RelativeLayout) findViewById(R.id.activity_family_units_details);
 
         typeQuicksand = Typeface.createFromAsset(getAssets(), "fonts/quicksandbold.otf");
         Fam_unit_head = (TextView) findViewById(R.id.family_units_name_head);
         Fam_unit_head.setTypeface(typeQuicksand);
+
 
         if(getIntent().hasExtra("UnitName")){
             Fam_unit_head.setText(extras.getString("UnitName"));
@@ -60,6 +72,35 @@ public class FamilyUnitsDetails extends AppCompatActivity {
         } else {
             Toast.makeText(FamilyUnitsDetails.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
+
+
+        final FloatingActionButton btnOpenPopup = (FloatingActionButton)findViewById(R.id.menu_item0);
+        btnOpenPopup.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View arg0) {
+                LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                popupView = layoutInflater.inflate(R.layout.item_popup, null);
+                popupWindow = new PopupWindow(popupView,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+                if (isOnline()) {
+                    getFamilyExecutiveList = new  GetFamilyExecutiveList().execute();
+                } else {
+                    Toast.makeText(FamilyUnitsDetails.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+                }
+
+                ImageButton btnDismiss = (ImageButton)popupView.findViewById(R.id.ib_close);
+                btnDismiss.setOnClickListener(new Button.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        // TODO Auto-generated method stub
+                        Toast.makeText(FamilyUnitsDetails.this, "hai", Toast.LENGTH_SHORT).show();
+                        popupWindow.dismiss();
+                    }});
+                popupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER,0,0);
+            }
+        });
+
+
+
 
     }
 
@@ -74,7 +115,9 @@ public class FamilyUnitsDetails extends AppCompatActivity {
         ArrayList<String[]> FamilyListItems =new ArrayList<>();
         @Override
         protected void onPreExecute() {
+
             super.onPreExecute();
+
             loadingIndicator.setVisibility(View.VISIBLE);
             //----------encrypting ---------------------------
             // usernameString=cryptography.Encrypt(usernameString);
@@ -183,6 +226,121 @@ public class FamilyUnitsDetails extends AppCompatActivity {
         }
     }
 
+
+    //--------------------------------------Async Tasks--------------------------------------
+    public class GetFamilyExecutiveList extends AsyncTask<Void , Void, Void> {
+        int status;StringBuilder sb;
+        String strJson, postData;
+        JSONArray jsonArray;
+        String msg;
+        boolean pass=false;
+        AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)popupView.findViewById(R.id.itemsLoading);
+        ArrayList<String[]> FamilyExecutiveListItems =new ArrayList<>();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            loadingIndicator.setVisibility(View.VISIBLE);
+
+            //----------encrypting ---------------------------
+            // usernameString=cryptography.Encrypt(usernameString);
+        }
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetFamilyExecutives";
+            HttpURLConnection c = null;
+            try {
+                postData =  "{\"ChurchID\":\"" + ChurchID+ "\",\"UnitID\":\"" + UnitID+ "\"}";
+                URL u = new URL(url);
+                c = (HttpURLConnection) u.openConnection();
+                c.setRequestMethod("POST");
+                c.setRequestProperty("Content-type", "application/json; charset=utf-16");
+                c.setRequestProperty("Content-length", Integer.toString(postData.length()));
+                c.setDoInput(true);
+                c.setDoOutput(true);
+                c.setUseCaches(false);
+                c.setConnectTimeout(10000);
+                c.setReadTimeout(10000);
+                DataOutputStream wr = new DataOutputStream(c.getOutputStream());
+                wr.writeBytes(postData);
+                wr.flush();
+                wr.close();
+                status = c.getResponseCode();
+                switch (status) {
+                    case 200:
+                    case 201: BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                        sb = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line).append("\n");
+                        }
+                        br.close();
+                        int a=sb.indexOf("[");
+                        int b=sb.lastIndexOf("]");
+                        strJson=sb.substring(a, b + 1);
+                        //   strJson=cryptography.Decrypt(strJson);
+                        strJson="{\"JSON\":" + strJson.replace("\\\"","\"").replace("\\\\","\\") + "}";
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                msg=ex.getMessage();
+            } finally {
+                if (c != null) {
+                    try {
+                        c.disconnect();
+                    } catch (Exception ex) {
+                        Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                        msg=ex.getMessage();
+                    }
+                }
+            }
+            if(strJson!=null)
+            {try {
+                JSONObject jsonRootObject = new JSONObject(strJson);
+                jsonArray = jsonRootObject.optJSONArray("JSON");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    msg=jsonObject.optString("Message");
+                    pass=jsonObject.optBoolean("Flag",true);
+                    String[] data=new String[7];
+                    data[0]=jsonObject.optString("ID");
+                    data[1]=jsonObject.optString("FirstName");
+                    data[2]=jsonObject.optString("LastName");
+                    data[3]=jsonObject.optString("URL");
+                    data[4]=jsonObject.optString("Position");
+                    data[5]=jsonObject.optString("Phone");
+                    data[6]=jsonObject.optString("UnitName");
+                    FamilyExecutiveListItems.add(data);
+                }
+            } catch (Exception ex) {
+                msg=ex.getMessage();
+            }}
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            loadingIndicator.setVisibility(View.GONE);
+            if(!pass) {
+                new AlertDialog.Builder(FamilyUnitsDetails.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
+                        .setMessage(msg)//R.string.no_items)
+                        .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        }).setCancelable(false).show();
+            }
+            else {
+                CustomAdapter adapter=new CustomAdapter(FamilyUnitsDetails.this, FamilyExecutiveListItems,"FamilyExecutive");
+                ListView Executivelist=(ListView) popupView.findViewById(R.id.popup_listview);
+                Executivelist.setAdapter(adapter);
+
+            }
+        }
+    }
+
+
     public boolean isOnline() {
         ConnectivityManager cm =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -192,5 +350,12 @@ public class FamilyUnitsDetails extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         if(getFamilyList!=null)getFamilyList.cancel(true);
+       if(getFamilyExecutiveList!=null) {
+           getFamilyExecutiveList.cancel(true);
+           popupWindow.dismiss();
+       }
+
     }
+
+
 }

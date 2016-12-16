@@ -104,6 +104,9 @@ public class CustomAdapter extends BaseAdapter {
         TextView FamilyunitHead;
             //FamilyDetails------------------------
         TextView FamilyHead,FamilyName;
+            //Family unit Exexutives---------------
+        TextView PersonName,PersonMob,PersonPostion;
+        ImageView PersonImg;
     }
 
 
@@ -640,6 +643,30 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 holder.FamilyHead.setText(objects.get(position)[2]+" "+objects.get(position)[3]);
                 holder.FamilyName.setText(objects.get(position)[1]);
+                break;
+            //------------------FamilyDetails---------------------------
+            case "FamilyExecutive":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_fam_unit_executives, null);
+                    holder.PersonName = (TextView) convertView.findViewById(R.id.per_name );
+                    holder.PersonMob=(TextView) convertView.findViewById(R.id.per_mobile );
+                    holder.PersonPostion=(TextView) convertView.findViewById(R.id.per_postion );
+                    holder.PersonImg =(ImageView)convertView.findViewById(R.id.person_img );
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                holder.PersonName.setText(objects.get(position)[1]+" "+objects.get(position)[2]);
+                holder.PersonMob.setText(objects.get(position)[5]);
+                holder.PersonPostion.setText(objects.get(position)[4]);
+                if(!objects.get(position)[3].equals("null")){
+                    Glide.with(adapterContext)
+                            .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
+                            .dontTransform()
+                            .thumbnail(0.1f)
+                            .into(holder.PersonImg);
+                }
                 break;
             default:
                 break;
