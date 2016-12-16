@@ -11,7 +11,7 @@ import org.acra.annotation.ReportsCrashes;
 import org.acra.sender.HttpSender;
 
 @ReportsCrashes(
-        formUri =  "http://192.168.1.107:55/WebServices/WebService.asmx/ErrorDetection",
+        formUri =  "http://jdadmin-001-site4.itempurl.com/WebServices/WebService.asmx/ErrorDetection",
         reportType = HttpSender.Type.JSON,
         httpMethod = HttpSender.Method.POST,
         customReportContent = { ReportField.ANDROID_VERSION,
@@ -28,7 +28,6 @@ public class MyApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-
         // The following line triggers the initialization of ACRA
         ACRA.init(this);
     }

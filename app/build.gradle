@@ -31,5 +31,5 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
-
+    compile 'ch.acra:acra:4.9.1'
 }
