@@ -56,21 +56,6 @@ public class PiousOrgDetails extends AppCompatActivity {
                     .thumbnail(0.1f)
                     .crossFade()
                     .dontTransform()
-                    .listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            Patron_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            Glide.with(PiousOrgDetails.this)
-                                    .load(R.drawable.church)
-                                    .into(Patron_image)
-                            ;
-                            return true;
-                        }
-                        @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            return false;
-                        }
-                    })
                     .into(Patron_image)
             ;
         }

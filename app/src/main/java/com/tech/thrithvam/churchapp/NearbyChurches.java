@@ -208,7 +208,7 @@ public class NearbyChurches extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(NearbyChurches.this,nearbyChurchItems ,"nearbyChurchList");
+                CustomAdapter adapter=new CustomAdapter(NearbyChurches.this,nearbyChurchItems ,"NearbyChurchList");
                 ListView nearbyChurchList=(ListView) findViewById(R.id.nearby_church_list);
                 nearbyChurchList.setAdapter(adapter);
                 nearbyChurchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -430,8 +430,6 @@ public class ChurchDetails extends AppCompatActivity {
                 if(!priestURLStringString.equals("null")){
                     Glide.with(ChurchDetails.this)
                             .load(getResources().getString(R.string.url) +priestURLStringString.substring((priestURLStringString).indexOf("img")))
-                        //    .fitCenter()
-                         //   .placeholder(R.drawable.priest)  //stretches image
                             .thumbnail(0.1f)
                             .crossFade()
                             .listener(new RequestListener<String, GlideDrawable>() {
@@ -701,7 +699,7 @@ public class ChurchDetails extends AppCompatActivity {
             String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetChurchExtraDetails";
             HttpURLConnection c = null;
             try {
-                postData =  "{\"ChurchID\":\"" + ChurchID+ "\",\"full\":\""+ "false" + "\"}";
+                postData =  "{\"ChurchID\":\"" + ChurchID+ "\"}";
                 URL u = new URL(url);
                 c = (HttpURLConnection) u.openConnection();
                 c.setRequestMethod("POST");
@@ -861,7 +859,6 @@ public class ChurchDetails extends AppCompatActivity {
         Toast.makeText(ChurchDetails.this,R.string.mychurch_set_notification,Toast.LENGTH_LONG).show();
         floatingActionMenu.close(true);
     }
-
     public void notice_click (View view){
         Intent intent=new Intent(ChurchDetails.this,Notices.class);
         intent.putExtra("churchID",ChurchID);

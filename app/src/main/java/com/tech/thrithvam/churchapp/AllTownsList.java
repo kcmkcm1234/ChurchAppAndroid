@@ -28,15 +28,15 @@ import java.util.logging.Logger;
 
 public class AllTownsList extends AppCompatActivity {
     Typeface typeQuicksand;
-    TextView Towns_head;
+    TextView townsHead;
     AsyncTask getTowns=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alltowns);
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
-        Towns_head=(TextView)findViewById(R.id.activity_town_head);
-        Towns_head.setTypeface(typeQuicksand);
+        townsHead =(TextView)findViewById(R.id.activity_town_head);
+        townsHead.setTypeface(typeQuicksand);
         if (isOnline()) {
             getTowns=new GetAllTowns().execute();
         } else {

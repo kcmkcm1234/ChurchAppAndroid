@@ -35,9 +35,8 @@ public class CustomAdapter extends BaseAdapter {
     private Typeface typeQuicksand;
     private SimpleDateFormat formatted;
     private Calendar cal;
-    Animation animation;
+    private Animation animation;
     private int lastPosition;
-//    DatabaseHandler db;
     public CustomAdapter(Context context, ArrayList<String[]> objects, String calledFrom) {
         // super(context, textViewResourceId, objects);
         adapterContext=context;
@@ -50,7 +49,6 @@ public class CustomAdapter extends BaseAdapter {
         formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
         cal= Calendar.getInstance();
         lastPosition=-1;
-//        db=DatabaseHandler.getInstance(context);
     }
     @Override
     public int getCount() {
@@ -66,6 +64,7 @@ public class CustomAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
+
     private class Holder
     {
             //Searching Church---------------------
@@ -84,35 +83,35 @@ public class CustomAdapter extends BaseAdapter {
         TextView orgName, orgPatronName;
         ImageView orgPatronImage;
             //Institutions-------------------------
-        TextView institution_name, institution_address;
-        ImageView institution_image;
+        TextView institutionName, institutionAddress;
+        ImageView institutionImage;
             //Events-------------------------------
-        TextView EventsHead,EventsDate;
-        ImageView Eventimage;
+        TextView eventsHead, eventsDate;
+        ImageView eventImage;
             //Towns--------------------------------
-        TextView TownHead;
+        TextView townHead;
             //Priest-------------------------------
-        TextView p_name,p_dob,p_about,p_dateordination,p_desgn,p_add,p_email,p_mob,p_parish,p_status,p_baptism;
-        ImageView p_image;
+        TextView pName, pDOB, pAbout, pDateOrdination, pDesign, pAddress, pEmail, pMob, pParish, pStatus, pBaptism;
+        ImageView pImage;
             //Events-------------------------------
-        TextView NoticeHead,NoticeType;
-        ImageView Noticeimage;
+        TextView noticeHead, noticeType;
+        ImageView noticeImage;
             //Gallery-----------------------------
         TextView albumTitle,itemCount;
         ImageView galleryAlbum,galleryItem;
             //Family------------------------------
-        TextView FamilyunitHead;
+        TextView familyUnitHead;
             //FamilyDetails------------------------
-        TextView FamilyHead,FamilyName;
+        TextView familyHead, familyName;
             //Family unit Exexutives---------------
         TextView PersonName,PersonMob,PersonPostion;
         ImageView PersonImg;
     }
 
-
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         final Holder holder;
+        final int fPos=position;
         switch (calledFrom) {
             //--------------------------for home screen items------------------
             case "ChurchTownSearchResults":
@@ -164,6 +163,7 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 lastPosition = position;
                 break;
+            //------------------------------Novenas----------------------------------------------
             case "Novenas":
                 if (convertView == null) {
                     holder = new Holder();
@@ -189,22 +189,38 @@ public class CustomAdapter extends BaseAdapter {
                 holder.patronDescription.setTypeface(typeSegoe);
 
                 if(position%2==0){
+                    holder.patronImg1.setVisibility(View.VISIBLE);
+                    holder.patronImg2.setVisibility(View.GONE);
                         if(!objects.get(position)[3].equals("null")){
-                            holder.patronImg1.setVisibility(View.VISIBLE);
-                            holder.patronImg2.setVisibility(View.GONE);
                             Glide.with(adapterContext)
                                     .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                                     .thumbnail(0.1f)
+                                    .dontTransform()
+                                    .into(holder.patronImg1);
+                        }
+                    else {
+                            Glide.with(adapterContext)
+                                    .load(R.drawable.priest)
+                                    .thumbnail(0.1f)
+                                    .dontTransform()
                                     .into(holder.patronImg1);
                         }
                 }
                 else {
+                    holder.patronImg1.setVisibility(View.GONE);
+                    holder.patronImg2.setVisibility(View.VISIBLE);
                         if(!objects.get(position)[3].equals("null")){
-                            holder.patronImg1.setVisibility(View.GONE);
-                            holder.patronImg2.setVisibility(View.VISIBLE);
                             Glide.with(adapterContext)
                                     .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                                     .thumbnail(0.1f)
+                                    .dontTransform()
+                                    .into(holder.patronImg2);
+                        }
+                        else {
+                            Glide.with(adapterContext)
+                                    .load(R.drawable.priest)
+                                    .thumbnail(0.1f)
+                                    .dontTransform()
                                     .into(holder.patronImg2);
                         }
                 }
@@ -214,6 +230,7 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 lastPosition = position;
                 break;
+            //-----------------------------------Novena Details-------------------------------------
             case "NovenaDetailsList":
                 if (convertView == null) {
                     holder = new Holder();
@@ -268,6 +285,13 @@ public class CustomAdapter extends BaseAdapter {
                                 .into(holder.novenaImg)
                         ;
                 }
+                else{
+                    holder.novenaImg.setPadding(15,15,15,15);
+                    holder.novenaImg.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    Glide.with(adapterContext)
+                            .load(R.drawable.church)
+                            .into(holder.novenaImg);
+                }
 
                 if(!objects.get(position)[7].equals("null")){
                     holder.dayAndTime.setText(objects.get(position)[7]);
@@ -288,7 +312,8 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 lastPosition = position;
                 break;
-            case "nearbyChurchList":
+            //------------------------Near By Church list-----------------------------------
+            case "NearbyChurchList":
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_neaby_church, null);
@@ -311,7 +336,7 @@ public class CustomAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View view) {
                         try {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(position)[3])));
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(fPos)[3])));
                             adapterContext.startActivity(intent);
                         } catch (Exception e) {
                             Toast.makeText(adapterContext, e.toString(), Toast.LENGTH_LONG).show();
@@ -324,7 +349,7 @@ public class CustomAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View view) {
                         try {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(position)[3])));
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(fPos)[3])));
                             adapterContext.startActivity(intent);
                         } catch (Exception e) {
                             Toast.makeText(adapterContext, e.toString(), Toast.LENGTH_LONG).show();
@@ -391,6 +416,12 @@ public class CustomAdapter extends BaseAdapter {
                             .thumbnail(0.1f)
                             .into(holder.orgPatronImage);
                 }
+                else {
+                    Glide.with(adapterContext)
+                            .load(R.drawable.priest)
+                            .thumbnail(0.1f)
+                            .into(holder.orgPatronImage);
+                }
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
                     convertView.startAnimation(animation);
@@ -402,24 +433,33 @@ public class CustomAdapter extends BaseAdapter {
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_institution, null);
-                    holder.institution_image =(ImageView)convertView.findViewById(R.id.institution_image );
-                    holder.institution_name = (TextView) convertView.findViewById(R.id.institution_name );
-                    holder.institution_address =(TextView)convertView.findViewById(R.id.institution_address);
+                    holder.institutionImage =(ImageView)convertView.findViewById(R.id.institution_image );
+                    holder.institutionName = (TextView) convertView.findViewById(R.id.institution_name );
+                    holder.institutionAddress =(TextView)convertView.findViewById(R.id.institution_address);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
                 //----------------Label loading--------------------
-                holder.institution_name.setText(objects.get(position)[1]);
-                holder.institution_address.setText(objects.get(position)[2]);
-                holder.institution_name.setTypeface(typeQuicksand);
-                holder.institution_address.setTypeface(typeSegoe);
+                holder.institutionName.setText(objects.get(position)[1]);
+                holder.institutionAddress.setText(objects.get(position)[2]);
+                holder.institutionName.setTypeface(typeQuicksand);
+                holder.institutionAddress.setTypeface(typeSegoe);
 
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
-                            .into(holder.institution_image);
+                            .dontTransform()
+                            .into(holder.institutionImage);
+                }
+                else{
+                    holder.institutionImage.setPadding(15,15,15,15);
+                    holder.institutionImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    Glide.with(adapterContext)
+                            .load(R.drawable.church)
+                            .into(holder.institutionImage)
+                    ;
                 }
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
@@ -432,21 +472,29 @@ public class CustomAdapter extends BaseAdapter {
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_events, null);
-                    holder.Eventimage =(ImageView)convertView.findViewById(R.id.events_image);
-                    holder.EventsHead = (TextView) convertView.findViewById(R.id.events_head );
-                    holder.EventsDate =(TextView)convertView.findViewById(R.id.events_date);
+                    holder.eventImage =(ImageView)convertView.findViewById(R.id.events_image);
+                    holder.eventsHead = (TextView) convertView.findViewById(R.id.events_head );
+                    holder.eventsDate =(TextView)convertView.findViewById(R.id.events_date);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
                 //----------------Label loading--------------------
-                holder.EventsHead.setText(objects.get(position)[1]);
-                holder.EventsDate.setText(objects.get(position)[2]);
+                holder.eventsHead.setText(objects.get(position)[1]);
+                holder.eventsDate.setText(objects.get(position)[2]);
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
-                            .into(holder.Eventimage);
+                            .into(holder.eventImage);
+                }
+                else{
+                    holder.eventImage.setPadding(15,15,15,15);
+                    holder.eventImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    Glide.with(adapterContext)
+                            .load(R.drawable.church)
+                            .into(holder.eventImage)
+                    ;
                 }
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
@@ -459,13 +507,13 @@ public class CustomAdapter extends BaseAdapter {
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_town, null);
-                    holder.TownHead = (TextView) convertView.findViewById(R.id.town_name);
+                    holder.townHead = (TextView) convertView.findViewById(R.id.town_name);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
                 //----------------Label loading--------------------
-                holder.TownHead.setText(objects.get(position)[1]);
+                holder.townHead.setText(objects.get(position)[1]);
                 break;
 
             //------------------------------PriestList-----------------------------
@@ -473,72 +521,81 @@ public class CustomAdapter extends BaseAdapter {
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_priest, null);
-                    holder.p_image  =(ImageView)convertView.findViewById(R.id.priest_image);
-                    holder.p_name  = (TextView) convertView.findViewById(R.id.priest_name );
-                    holder.p_parish  =(TextView)convertView.findViewById(R.id.parish);
-                    holder.p_baptism = (TextView) convertView.findViewById(R.id.baptismalname);
-                    holder.p_desgn =(TextView)convertView.findViewById(R.id.designation);
-                    holder.p_status = (TextView) convertView.findViewById(R.id.priest_status);
-                    holder.p_dob  =(TextView)convertView.findViewById(R.id.date_of_birth);
-                    holder.p_mob  = (TextView) convertView.findViewById(R.id.priest_mobile);
-                    holder.p_dateordination=(TextView)convertView.findViewById(R.id.date_of_ordination);
-                    holder.p_email =(TextView)convertView.findViewById(R.id.priest_email);
-                    holder.p_add =(TextView)convertView.findViewById(R.id.priest_address);
-                    holder.p_about  =(TextView)convertView.findViewById(R.id.priest_about);
+                    holder.pImage =(ImageView)convertView.findViewById(R.id.priest_image);
+                    holder.pName = (TextView) convertView.findViewById(R.id.priest_name );
+                    holder.pParish =(TextView)convertView.findViewById(R.id.parish);
+                    holder.pBaptism = (TextView) convertView.findViewById(R.id.baptismalname);
+                    holder.pDesign =(TextView)convertView.findViewById(R.id.designation);
+                    holder.pStatus = (TextView) convertView.findViewById(R.id.priest_status);
+                    holder.pDOB =(TextView)convertView.findViewById(R.id.date_of_birth);
+                    holder.pMob = (TextView) convertView.findViewById(R.id.priest_mobile);
+                    holder.pDateOrdination =(TextView)convertView.findViewById(R.id.date_of_ordination);
+                    holder.pEmail =(TextView)convertView.findViewById(R.id.priest_email);
+                    holder.pAddress =(TextView)convertView.findViewById(R.id.priest_address);
+                    holder.pAbout =(TextView)convertView.findViewById(R.id.priest_about);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
                 //----------------Label loading--------------------
 
-                holder.p_name.setText(objects.get(position)[1]);
-                holder.p_add.setText(objects.get(position)[2]);
-                holder.p_about.setText(objects.get(position)[4]);
-                holder.p_parish.setText(objects.get(position)[5]);
-                holder.p_email.setText(objects.get(position)[8]);
-                holder.p_mob.setText(objects.get(position)[9]);
-                holder.p_desgn.setText(objects.get(position)[10]);
-                holder.p_status.setText(objects.get(position)[11]);
-                holder.p_baptism.setText(objects.get(position)[12]);
+                holder.pName.setText(objects.get(position)[1]);
+                holder.pAddress.setText(objects.get(position)[2]);
+                holder.pAbout.setText(objects.get(position)[4]);
+                holder.pParish.setText(objects.get(position)[5]);
+                holder.pEmail.setText(objects.get(position)[8]);
+                holder.pMob.setText(objects.get(position)[9]);
+                holder.pDesign.setText(objects.get(position)[10]);
+                holder.pStatus.setText(objects.get(position)[11]);
+                holder.pBaptism.setText(objects.get(position)[12]);
+
 
                 if(!objects.get(position)[6].equals("null")){
                     cal.setTimeInMillis(Long.parseLong(objects.get(position)[6]));
-                    String date=formatted.format(cal.getTime());
-                    holder.p_dateordination.setText(date);
+                    String dob=formatted.format(cal.getTime());
+                    holder.pDOB.setText(dob);
                 }
                 else {
-                    holder.p_dateordination.setText("-");
+                    holder.pDOB.setText("-");
                 }
+
                 if(!objects.get(position)[7].equals("null")){
                     cal.setTimeInMillis(Long.parseLong(objects.get(position)[7]));
-                    String dob=formatted.format(cal.getTime());
-                    holder.p_dob.setText(dob);
+                    String date=formatted.format(cal.getTime());
+                    holder.pDateOrdination.setText(date);
                 }
                 else {
-                    holder.p_dateordination.setText("-");
+                    holder.pDateOrdination.setText("-");
                 }
 
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
-                            .into(holder.p_image);
+                            .into(holder.pImage);
+                }
+                else {
+                    Glide.with(adapterContext)
+                            .load(R.drawable.priest)
+                            .thumbnail(0.1f)
+                            .into(holder.pImage);
                 }
 
-                holder.p_mob.setOnClickListener(new View.OnClickListener() {
+
+                holder.pMob.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Uri number = Uri.parse("tel:" +objects.get(position)[9]);
+                        Uri number = Uri.parse("tel:" +objects.get(fPos)[9]);
                         Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
                         adapterContext.startActivity(callIntent);
                     }
                 });
-                holder.p_email.setOnClickListener(new View.OnClickListener() {
+                holder.pEmail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(Intent.ACTION_SEND);
                         intent.setType("*/*");
-                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{objects.get(position)[8]});
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{objects.get(fPos)[8]});
                         intent.putExtra(Intent.EXTRA_SUBJECT, "Mail from Church App User");
                         if (intent.resolveActivity(adapterContext.getPackageManager()) != null) {
                             adapterContext.startActivity(intent);
@@ -551,21 +608,27 @@ public class CustomAdapter extends BaseAdapter {
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_notices, null);
-                    holder.Noticeimage =(ImageView)convertView.findViewById(R.id.notice_image );
-                    holder.NoticeHead = (TextView) convertView.findViewById(R.id.notice_name );
-                    holder.NoticeType  =(TextView)convertView.findViewById(R.id.notice_type);
+                    holder.noticeImage =(ImageView)convertView.findViewById(R.id.notice_image );
+                    holder.noticeHead = (TextView) convertView.findViewById(R.id.notice_name );
+                    holder.noticeType =(TextView)convertView.findViewById(R.id.notice_type);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
                 //----------------Label loading--------------------
-                holder.NoticeHead.setText(objects.get(position)[1]);
-                holder.NoticeType.setText(objects.get(position)[4]);
+                holder.noticeHead.setText(objects.get(position)[1]);
+                holder.noticeType.setText(objects.get(position)[4]);
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
-                            .into(holder.Noticeimage);
+                            .into(holder.noticeImage);
+                }
+                else {
+                    Glide.with(adapterContext)
+                            .load(R.drawable.notices)
+                            .thumbnail(0.1f)
+                            .into(holder.noticeImage);
                 }
                 if(position>lastPosition){
                     animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
@@ -591,11 +654,15 @@ public class CustomAdapter extends BaseAdapter {
                 holder.albumTitle.setTypeface(typeQuicksand);
                 holder.itemCount.setTypeface(typeSegoe);
                 if(!objects.get(position)[3].equals("null")){
+                    holder.galleryAlbum.setVisibility(View.VISIBLE);
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .dontTransform()
                             .thumbnail(0.1f)
                             .into(holder.galleryAlbum);
+                }
+                else {
+                    holder.galleryAlbum.setVisibility(View.INVISIBLE);
                 }
                 holder.albumTitle.setMaxLines(1);
                 holder.albumTitle.setEllipsize(TextUtils.TruncateAt.END);
@@ -617,32 +684,39 @@ public class CustomAdapter extends BaseAdapter {
                             .thumbnail(0.1f)
                             .into(holder.galleryItem);
                 }
+                else {
+                    Glide.with(adapterContext)
+                            .load(R.drawable.church)
+                            .dontTransform()
+                            .thumbnail(0.1f)
+                            .into(holder.galleryItem);
+                }
                 break;
-            //------------------ChurchFamilyunits---------------------------
-            case "ChurchFamilyunits":
+            //------------------Church family units---------------------------
+            case "ChurchFamilyUnits":
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_familyunits, null);
-                    holder.FamilyunitHead = (TextView) convertView.findViewById(R.id.familyunit_name );
+                    holder.familyUnitHead = (TextView) convertView.findViewById(R.id.familyunit_name );
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
-                holder.FamilyunitHead.setText(objects.get(position)[1]);
+                holder.familyUnitHead.setText(objects.get(position)[1]);
                 break;
             //------------------FamilyDetails---------------------------
             case "FamilyDetails":
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_family, null);
-                    holder.FamilyHead = (TextView) convertView.findViewById(R.id.family_head );
-                    holder.FamilyName=(TextView) convertView.findViewById(R.id.family_name );
+                    holder.familyHead = (TextView) convertView.findViewById(R.id.family_head );
+                    holder.familyName =(TextView) convertView.findViewById(R.id.family_name );
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
-                holder.FamilyHead.setText(objects.get(position)[2]+" "+objects.get(position)[3]);
-                holder.FamilyName.setText(objects.get(position)[1]);
+                holder.familyHead.setText(objects.get(position)[2]+" "+objects.get(position)[3]);
+                holder.familyName.setText(objects.get(position)[1]);
                 break;
             //------------------FamilyDetails---------------------------
             case "FamilyExecutive":

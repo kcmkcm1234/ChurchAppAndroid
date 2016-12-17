@@ -155,7 +155,7 @@ public class FamilyUnits extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(FamilyUnits.this, FamilyunitListItems,"ChurchFamilyunits");
+                CustomAdapter adapter=new CustomAdapter(FamilyUnits.this, FamilyunitListItems,"ChurchFamilyUnits");
                 ListView churchList=(ListView) findViewById(R.id.family_units_list);
                 churchList.setAdapter(adapter);
                 churchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

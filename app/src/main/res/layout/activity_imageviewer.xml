@@ -20,7 +20,7 @@
         android:id="@+id/rotateimage"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/rotateprimary"
+        android:src="@drawable/rotateaccent"
         android:onClick="rotateImage"
         android:clickable="true"/>
 </RelativeLayout>

@@ -37,7 +37,7 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ImageView searchImage =(ImageView)findViewById(R.id.searchImage);
-        TextView alltownsview=(TextView)findViewById(R.id.view_all_towns);
+        TextView view_all_towns=(TextView)findViewById(R.id.view_all_towns);
         searchText=(AutoCompleteTextView) findViewById(R.id.searchView);
         searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -51,11 +51,10 @@ public class Home extends AppCompatActivity {
                 return false;
             }
         });
-        alltownsview.setOnClickListener(new View.OnClickListener() {
+        view_all_towns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(Home.this,AllTownsList.class);
-                /*intent.putExtra("searchkey",searchText.getText().toString());*/
                 startActivity(intent);
             }
         });
@@ -76,7 +75,6 @@ public class Home extends AppCompatActivity {
         //Fonts--------------
         Typeface typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
         searchText.setTypeface(typeSegoe);
-        TextView view_all_towns=(TextView)findViewById(R.id.view_all_towns);
         TextView novenas=(TextView)findViewById(R.id.novenasText);
         TextView my_church=(TextView)findViewById(R.id.mychurch);
         TextView nearby_church=(TextView)findViewById(R.id.nearbychurch);
@@ -197,5 +195,10 @@ public class Home extends AppCompatActivity {
         ConnectivityManager cm =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(getTowns!=null)getTowns.cancel(true);
     }
 }
