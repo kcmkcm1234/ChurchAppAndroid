@@ -31,13 +31,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FamilyUnits extends AppCompatActivity {
-
     Bundle extras;
     String ChurchID;
     Typeface typeQuicksand;
-    TextView Fam_unit_head;
-    AsyncTask getFamilyunitList;
-
+    TextView familyUnitHead;
+    AsyncTask getFamilyUnitList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,17 +43,15 @@ public class FamilyUnits extends AppCompatActivity {
         extras=getIntent().getExtras();
         ChurchID = extras.getString("ChurchID");
         typeQuicksand = Typeface.createFromAsset(getAssets(), "fonts/quicksandbold.otf");
-        Fam_unit_head = (TextView) findViewById(R.id.activity_family_units_head);
-        Fam_unit_head.setTypeface(typeQuicksand);
-
-
+        familyUnitHead = (TextView) findViewById(R.id.activity_family_units_head);
+        familyUnitHead.setTypeface(typeQuicksand);
         if (isOnline()) {
-            getFamilyunitList = new GetFamilyUnitList().execute();
+            getFamilyUnitList = new GetFamilyUnitList().execute();
         } else {
             Toast.makeText(FamilyUnits.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
     }
-    //--------------------------------------Async Tasks--------------------------------------
+    //-----------------------------Async Tasks--------------------------------
     public class GetFamilyUnitList extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData;
@@ -180,6 +176,6 @@ public class FamilyUnits extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(getFamilyunitList!=null)getFamilyunitList.cancel(true);
+        if(getFamilyUnitList !=null) getFamilyUnitList.cancel(true);
     }
 }
