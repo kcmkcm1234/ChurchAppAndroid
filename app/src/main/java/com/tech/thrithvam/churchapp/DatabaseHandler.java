@@ -56,7 +56,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ClearMyChurch();
         db.execSQL("INSERT INTO MyChurch (ChurchID,ChurchName,Town,Address) VALUES ('"+ChurchID+"',"+DatabaseUtils.sqlEscapeString(ChurchName)+","+DatabaseUtils.sqlEscapeString(Town)+","+ DatabaseUtils.sqlEscapeString(Address)+");");
     }
-    public void ClearMyChurch()
+    private void ClearMyChurch()
     {
         db=this.getWritableDatabase();
         db.execSQL("DELETE FROM MyChurch;");

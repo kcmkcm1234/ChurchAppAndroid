@@ -103,9 +103,9 @@ public class CustomAdapter extends BaseAdapter {
         TextView familyUnitHead;
             //FamilyDetails------------------------
         TextView familyHead, familyName;
-            //Family unit Exexutives---------------
-        TextView PersonName,PersonMob,PersonPostion;
-        ImageView PersonImg;
+            //Family unit Executives---------------
+        TextView personName, personMob, personPosition;
+        ImageView personImg;
     }
 
     @Override
@@ -467,8 +467,8 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 lastPosition = position;
                 break;
-            //-------------------ChurchEventsResults-------------------------------
-            case "ChurchEventsResults":
+            //-------------------Church Events-------------------------------
+            case "ChurchEvents":
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_events, null);
@@ -481,7 +481,17 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 //----------------Label loading--------------------
                 holder.eventsHead.setText(objects.get(position)[1]);
-                holder.eventsDate.setText(objects.get(position)[2]);
+                holder.eventsHead.setTypeface(typeSegoe);
+                holder.eventsDate.setTypeface(typeSegoe);
+
+                if(!objects.get(position)[0].equals("null")){
+                    cal.setTimeInMillis(Long.parseLong(objects.get(position)[0]));
+                    String startDate=formatted.format(cal.getTime());
+                    holder.eventsDate.setText(startDate);
+                }
+                else {
+                    holder.eventsDate.setText("");
+                }
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
@@ -492,7 +502,7 @@ public class CustomAdapter extends BaseAdapter {
                     holder.eventImage.setPadding(15,15,15,15);
                     holder.eventImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                     Glide.with(adapterContext)
-                            .load(R.drawable.church)
+                            .load(R.drawable.events)
                             .into(holder.eventImage)
                     ;
                 }
@@ -723,23 +733,23 @@ public class CustomAdapter extends BaseAdapter {
                 if (convertView == null) {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_fam_unit_executives, null);
-                    holder.PersonName = (TextView) convertView.findViewById(R.id.per_name );
-                    holder.PersonMob=(TextView) convertView.findViewById(R.id.per_mobile );
-                    holder.PersonPostion=(TextView) convertView.findViewById(R.id.per_postion );
-                    holder.PersonImg =(ImageView)convertView.findViewById(R.id.person_img );
+                    holder.personName = (TextView) convertView.findViewById(R.id.per_name );
+                    holder.personMob =(TextView) convertView.findViewById(R.id.per_mobile );
+                    holder.personPosition =(TextView) convertView.findViewById(R.id.per_postion );
+                    holder.personImg =(ImageView)convertView.findViewById(R.id.person_img );
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
-                holder.PersonName.setText(objects.get(position)[1]+" "+objects.get(position)[2]);
-                holder.PersonMob.setText(objects.get(position)[5]);
-                holder.PersonPostion.setText(objects.get(position)[4]);
+                holder.personName.setText(objects.get(position)[1]+" "+objects.get(position)[2]);
+                holder.personMob.setText(objects.get(position)[5]);
+                holder.personPosition.setText(objects.get(position)[4]);
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .dontTransform()
                             .thumbnail(0.1f)
-                            .into(holder.PersonImg);
+                            .into(holder.personImg);
                 }
                 break;
             default:
@@ -747,5 +757,4 @@ public class CustomAdapter extends BaseAdapter {
         }
         return convertView;
     }
-
 }

@@ -39,7 +39,7 @@ public class Events extends AppCompatActivity {
     Typeface typeQuicksand;
     TextView Events_head;
     Calendar event_start =Calendar.getInstance() ;
-
+    AsyncTask getEvents=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,22 +53,20 @@ public class Events extends AppCompatActivity {
         Events_head.setTypeface(typeQuicksand);
 
         if (isOnline()) {
-            new EventsSearchResults().execute();
+            getEvents=new GetEvents().execute();
         } else {
             Toast.makeText(Events.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
     }
-
-
-    public class EventsSearchResults extends AsyncTask<Void , Void, Void> {
+    //-----------------------------Async Tasks----------------------------------------
+    public class GetEvents extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData;
         JSONArray jsonArray;
         String msg;
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
-
-        ArrayList<String[]> EventsListItems=new ArrayList<>();
+        ArrayList<String[]> eventsListItems =new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -141,7 +139,7 @@ public class Events extends AppCompatActivity {
                     data[3]=jsonObject.optString("URL");
 
                     event_start.setTimeInMillis(Long.parseLong(data[0]));
-                    EventsListItems.add(data);
+                    eventsListItems.add(data);
                 }
             } catch (Exception ex) {
                 msg=ex.getMessage();
@@ -164,20 +162,20 @@ public class Events extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(Events.this, EventsListItems,"ChurchEventsResults");
-                ListView Eventslist=(ListView) findViewById(R.id.Events_list);
-                Eventslist.setAdapter(adapter);
-                Eventslist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                CustomAdapter adapter=new CustomAdapter(Events.this, eventsListItems,"ChurchEvents");
+                ListView eventsList=(ListView) findViewById(R.id.Events_list);
+                eventsList.setAdapter(adapter);
+                eventsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent=new Intent(Events.this,EventDetails.class);
-                        intent.putExtra("startDate",EventsListItems.get(position)[0]);
-                        intent.putExtra("EventName",EventsListItems.get(position)[1]);
-                        intent.putExtra("Descrtiption",EventsListItems.get(position)[2]);
-                        intent.putExtra("URL",EventsListItems.get(position)[3]);
+                        intent.putExtra("startDate", eventsListItems.get(position)[0]);
+                        intent.putExtra("EventName", eventsListItems.get(position)[1]);
+                        intent.putExtra("Description", eventsListItems.get(position)[2]);
+                        intent.putExtra("URL", eventsListItems.get(position)[3]);
 
                         SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
-                        event_start.setTimeInMillis(Long.parseLong(EventsListItems.get(position)[0]));
+                        event_start.setTimeInMillis(Long.parseLong(eventsListItems.get(position)[0]));
                         String startDate=formatted.format(event_start.getTime());
                         intent.putExtra("StartDate",startDate);
                         startActivity(intent);
@@ -191,5 +189,10 @@ public class Events extends AppCompatActivity {
         ConnectivityManager cm =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(getEvents!=null)getEvents.cancel(true);
     }
 }
