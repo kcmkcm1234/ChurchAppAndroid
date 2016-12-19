@@ -3,19 +3,17 @@ package com.tech.thrithvam.churchapp;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 
 public class PiousOrgDetails extends AppCompatActivity {
     Bundle extras;
     String URL;
     TextView activityHead,P_Name,about,history_label;
-    ImageView Patron_image;
+    ImageView patronImage;
     Typeface typeQuicksand;
     Typeface typeSegoe;
     @Override
@@ -33,7 +31,7 @@ public class PiousOrgDetails extends AppCompatActivity {
         P_Name=(TextView)findViewById(R.id.patron_name);
         history_label=(TextView)findViewById(R.id.history_label);
         about=(TextView)findViewById(R.id.history_details);
-        Patron_image =(ImageView)findViewById(R.id.patron_img);
+        patronImage =(ImageView)findViewById(R.id.patron_img);
         activityHead.setTypeface(typeQuicksand);
         P_Name.setTypeface(typeSegoe);
         history_label.setTypeface(typeQuicksand);
@@ -56,8 +54,11 @@ public class PiousOrgDetails extends AppCompatActivity {
                     .thumbnail(0.1f)
                     .crossFade()
                     .dontTransform()
-                    .into(Patron_image)
+                    .into(patronImage)
             ;
+        }
+        else {
+            patronImage.setVisibility(View.GONE);
         }
     }
 }

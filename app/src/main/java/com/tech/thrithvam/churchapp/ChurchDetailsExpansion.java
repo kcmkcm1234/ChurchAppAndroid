@@ -35,7 +35,6 @@ public class ChurchDetailsExpansion extends AppCompatActivity {
         if(!extras.getString("image").equals("null")){
             Glide.with(ChurchDetailsExpansion.this)
                     .load(getResources().getString(R.string.url) +extras.getString("image").substring((extras.getString("image")).indexOf("img")))
-                    .placeholder(R.drawable.church)
                     .thumbnail(0.1f)
                     .dontTransform()
                     .into(detailImage)

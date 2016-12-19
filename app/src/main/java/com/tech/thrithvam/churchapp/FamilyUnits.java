@@ -59,7 +59,7 @@ public class FamilyUnits extends AppCompatActivity {
         String msg;
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
-        ArrayList<String[]> FamilyunitListItems =new ArrayList<>();
+        ArrayList<String[]> familyUnitListItems =new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -127,7 +127,7 @@ public class FamilyUnits extends AppCompatActivity {
                     String[] data=new String[2];
                     data[0]=jsonObject.optString("ID");
                     data[1]=jsonObject.optString("UnitName");
-                    FamilyunitListItems.add(data);
+                    familyUnitListItems.add(data);
                 }
             } catch (Exception ex) {
                 msg=ex.getMessage();
@@ -151,7 +151,7 @@ public class FamilyUnits extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(FamilyUnits.this, FamilyunitListItems,"ChurchFamilyUnits");
+                CustomAdapter adapter=new CustomAdapter(FamilyUnits.this, familyUnitListItems,"ChurchFamilyUnits");
                 ListView churchList=(ListView) findViewById(R.id.family_units_list);
                 churchList.setAdapter(adapter);
                 churchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -159,8 +159,8 @@ public class FamilyUnits extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent=new Intent(FamilyUnits.this,FamilyUnitsDetails.class);
                         intent.putExtra("ChurchID",ChurchID);
-                        intent.putExtra("ID", FamilyunitListItems.get(position)[0]);
-                        intent.putExtra("UnitName", FamilyunitListItems.get(position)[1]);
+                        intent.putExtra("ID", familyUnitListItems.get(position)[0]);
+                        intent.putExtra("UnitName", familyUnitListItems.get(position)[1]);
                         startActivity(intent);
                     }
                 });

@@ -32,10 +32,10 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:maxHeight="200dp"
                 android:id="@+id/patron_img"
-                android:scaleType="centerInside"
+                android:scaleType="fitCenter"
                 android:layout_marginRight="7dp"
                 android:layout_marginLeft="7dp"
                 android:layout_centerHorizontal="true"

@@ -14,14 +14,11 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
 public class NoticeDetails extends AppCompatActivity {
-
     Bundle extras;
     String URL;
-    TextView NoticeHead,Notice_content;
-    ImageView Notice_image;
+    TextView noticeHead, noticeContent;
+    ImageView noticeImage;
     Typeface typeQuicksand;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,17 +27,17 @@ public class NoticeDetails extends AppCompatActivity {
 
         URL = extras.getString("URL");
         typeQuicksand = Typeface.createFromAsset(getAssets(), "fonts/quicksandbold.otf");
-        NoticeHead = (TextView) findViewById(R.id.activity_notice_head);
-        NoticeHead.setTypeface(typeQuicksand);
+        noticeHead = (TextView) findViewById(R.id.activity_notice_head);
+        noticeHead.setTypeface(typeQuicksand);
 
-        Notice_content = (TextView) findViewById(R.id.notice_details);
-        Notice_image = (ImageView) findViewById(R.id.notice_img);
+        noticeContent = (TextView) findViewById(R.id.notice_details);
+        noticeImage = (ImageView) findViewById(R.id.notice_img);
 
         if (getIntent().hasExtra("NoticeName")) {
-            NoticeHead.setText(extras.getString("NoticeName"));
+            noticeHead.setText(extras.getString("NoticeName"));
         }
         if (getIntent().hasExtra("Description")) {
-            Notice_content.setText(extras.getString("Description"));
+            noticeContent.setText(extras.getString("Description"));
         }
         //image loading using url
         if (!URL.equals("null")) {
@@ -52,10 +49,11 @@ public class NoticeDetails extends AppCompatActivity {
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            Notice_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            noticeImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
                             Glide.with(NoticeDetails.this)
                                     .load(R.drawable.events)
-                                    .into(Notice_image)
+                                    .dontTransform()
+                                    .into(noticeImage)
                             ;
                             return true;
                         }
@@ -65,8 +63,11 @@ public class NoticeDetails extends AppCompatActivity {
                             return false;
                         }
                     })
-                    .into(Notice_image)
+                    .into(noticeImage)
             ;
+        }
+        else {
+            noticeImage.setVisibility(View.GONE);
         }
     }
 

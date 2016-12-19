@@ -92,6 +92,11 @@ public class NearbyChurches extends AppCompatActivity {
             stringLatitude=String.format(Locale.US,"%.6f",Double.parseDouble(stringLatitude));
             stringLongitude=String.format(Locale.US,"%.6f",Double.parseDouble(stringLongitude));
 
+            if(Double.parseDouble(stringLatitude)==0 || Double.parseDouble(stringLongitude)==0){
+                Toast.makeText(NearbyChurches.this,R.string.not_find_location,Toast.LENGTH_LONG).show();
+                onBackPressed();
+            }
+
             Toast.makeText(NearbyChurches.this,"Found your location as\nLatitude: "+stringLatitude+"\nLongitude: "+stringLongitude,Toast.LENGTH_LONG).show();
             if (isOnline()) {
                 getNearbyChurchList=new GetNearbyChurchList().execute();

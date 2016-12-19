@@ -2,18 +2,19 @@ package com.tech.thrithvam.churchapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.ViewGroup.LayoutParams;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -48,6 +50,7 @@ public class FamilyUnitsDetails extends AppCompatActivity {
     View popupView;
     PopupWindow popupWindow;
     RelativeLayout mRelativeLayout;
+    FloatingActionMenu floatingActionMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +59,7 @@ public class FamilyUnitsDetails extends AppCompatActivity {
         ChurchID = extras.getString("ChurchID");
         UnitID=extras.getString("ID");
 
-
+        floatingActionMenu=(FloatingActionMenu)findViewById(R.id.material_design_android_floating_action_menu);
         mRelativeLayout = (RelativeLayout) findViewById(R.id.activity_family_units_details);
 
         typeQuicksand = Typeface.createFromAsset(getAssets(), "fonts/quicksandbold.otf");
@@ -86,13 +89,11 @@ public class FamilyUnitsDetails extends AppCompatActivity {
                 } else {
                     Toast.makeText(FamilyUnitsDetails.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
                 }
-
+                floatingActionMenu.close(true);
                 ImageButton btnDismiss = (ImageButton)popupView.findViewById(R.id.ib_close);
                 btnDismiss.setOnClickListener(new Button.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        // TODO Auto-generated method stub
-                        Toast.makeText(FamilyUnitsDetails.this, "hai", Toast.LENGTH_SHORT).show();
                         popupWindow.dismiss();
                     }});
                 popupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER,0,0);
@@ -225,9 +226,6 @@ public class FamilyUnitsDetails extends AppCompatActivity {
             }
         }
     }
-
-
-    //--------------------------------------Async Tasks--------------------------------------
     public class GetFamilyExecutiveList extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData;
@@ -333,14 +331,32 @@ public class FamilyUnitsDetails extends AppCompatActivity {
             }
             else {
                 CustomAdapter adapter=new CustomAdapter(FamilyUnitsDetails.this, FamilyExecutiveListItems,"FamilyExecutive");
-                ListView Executivelist=(ListView) popupView.findViewById(R.id.popup_listview);
-                Executivelist.setAdapter(adapter);
+                ListView executiveList=(ListView) popupView.findViewById(R.id.popup_listview);
+                executiveList.setAdapter(adapter);
 
             }
         }
     }
-
-
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event){
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (floatingActionMenu.isOpened()) {
+                Rect outRect = new Rect();
+                floatingActionMenu.getGlobalVisibleRect(outRect);
+                if(!outRect.contains((int)event.getRawX(), (int)event.getRawY()))
+                    floatingActionMenu.close(true);
+            }
+            if(popupView!=null){
+                    if (popupView.isShown()) {
+                        Rect outRect = new Rect();
+                        popupView.getGlobalVisibleRect(outRect);
+                        if(!outRect.contains((int)event.getRawX(), (int)event.getRawY()))
+                            popupWindow.dismiss();
+                    }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
     public boolean isOnline() {
         ConnectivityManager cm =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -354,8 +370,5 @@ public class FamilyUnitsDetails extends AppCompatActivity {
            getFamilyExecutiveList.cancel(true);
            popupWindow.dismiss();
        }
-
     }
-
-
 }

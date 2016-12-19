@@ -38,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:maxHeight="200dp"
                         android:adjustViewBounds="true"
-                        android:scaleType="centerInside"
+                        android:scaleType="fitCenter"
                         android:layout_below="@+id/heading"
                         android:id="@+id/detail_image"
                         android:layout_marginTop="5dp"

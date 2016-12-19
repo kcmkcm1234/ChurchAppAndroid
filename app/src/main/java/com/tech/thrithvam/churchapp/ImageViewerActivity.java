@@ -34,10 +34,8 @@ public class ImageViewerActivity extends AppCompatActivity {
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            photoView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            Glide.with(ImageViewerActivity.this)
-                                    .load(R.drawable.church)
-                                    .into(photoView);
+                            Toast.makeText(ImageViewerActivity.this,R.string.error_loading_image, Toast.LENGTH_LONG).show();
+                            finish();
                             return true;
                         }
                         @Override

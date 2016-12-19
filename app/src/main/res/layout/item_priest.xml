@@ -19,7 +19,7 @@
                     android:layout_height="70dp"
                     android:id="@+id/priest_image"
                     android:src="@drawable/priest"
-                    android:scaleType="centerInside"
+                    android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"

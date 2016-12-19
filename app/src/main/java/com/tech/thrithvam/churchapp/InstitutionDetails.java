@@ -190,5 +190,8 @@ public class InstitutionDetails extends AppCompatActivity {
                     .into(institution_image)
             ;
         }
+        else {
+            institution_image.setVisibility(View.GONE);
+        }
     }
 }

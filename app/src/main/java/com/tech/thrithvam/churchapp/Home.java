@@ -61,9 +61,11 @@ public class Home extends AppCompatActivity {
         searchImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Home.this,SearchResults.class);
-                intent.putExtra("searchkey",searchText.getText().toString());
-                startActivity(intent);
+                if(!searchText.getText().toString().equals("")) {
+                    Intent intent = new Intent(Home.this, SearchResults.class);
+                    intent.putExtra("searchkey", searchText.getText().toString());
+                    startActivity(intent);
+                }
             }
         });
         //Getting towns for autocomplete---------

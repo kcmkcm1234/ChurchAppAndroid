@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true" />
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbarStyle="outsideOverlay"
         android:id="@+id/Events_list"
         android:layout_below="@+id/Events_head"

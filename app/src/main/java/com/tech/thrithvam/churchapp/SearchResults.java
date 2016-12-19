@@ -56,11 +56,13 @@ public class SearchResults extends AppCompatActivity {
         searchImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!searchText.getText().toString().equals("")) {
                 Intent intent=new Intent(SearchResults.this,SearchResults.class);
                 intent.putExtra("searchkey",searchText.getText().toString());
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
+                }
             }
         });
 

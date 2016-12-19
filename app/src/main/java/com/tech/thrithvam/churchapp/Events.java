@@ -169,7 +169,7 @@ public class Events extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent=new Intent(Events.this,EventDetails.class);
-                        intent.putExtra("startDate", eventsListItems.get(position)[0]);
+                        intent.putExtra("StartDate", eventsListItems.get(position)[0]);
                         intent.putExtra("EventName", eventsListItems.get(position)[1]);
                         intent.putExtra("Description", eventsListItems.get(position)[2]);
                         intent.putExtra("URL", eventsListItems.get(position)[3]);

@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Church App</string>
-    <string name="url" translatable="false">http://192.168.1.107:55/</string>
-    <!--<string name="url" translatable="false">http://jdadmin-001-site4.itempurl.com/</string>-->
+    <string name="app_name">goChurch</string>
+    <!--<string name="url" translatable="false">http://192.168.1.107:55/</string>-->
+    <string name="url" translatable="false">http://jdadmin-001-site4.itempurl.com/</string>
     <string name="network_off_alert">Please turn on internet</string>
     <string name="ok_button">OK</string>
     <string name="church_name">Church Name</string>
@@ -40,6 +40,7 @@
     <string name="loading">Loading…</string>
     <string name="novena_dates">%1$s to %2$s</string>
     <string name="loc_permission_denied">Location Permission denied</string>
+    <string name="not_find_location">Sorry, could not find your location</string>
     <string name="pious_org">Pious Org.</string>
     <string name="pious_org_full">Pious Organisations</string>
     <string name="org_name">Organisation Name</string>
@@ -64,4 +65,5 @@
     <string name="mychurch_set_notification">This church is saved as MyChurch</string>
     <string name="select_a_church">Select a church to set as MyChurch</string>
     <string name="unitexe">Unit Executives</string>
+    <string name="error_loading_image">Error loading image</string>
 </resources>

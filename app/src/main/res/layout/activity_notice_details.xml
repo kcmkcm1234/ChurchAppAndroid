@@ -32,10 +32,10 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:maxHeight="200dp"
                 android:id="@+id/notice_img"
-                android:scaleType="centerInside"
+                android:scaleType="fitCenter"
                 android:layout_centerHorizontal="true"
                 android:adjustViewBounds="true"
                 android:onClick="imageclick"/>

@@ -34,7 +34,7 @@
         android:layout_centerHorizontal="true" />
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbarStyle="outsideOverlay"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
@@ -86,17 +86,6 @@
              fab:menu_shadowYOffset="2dp"
              fab:menu_showShadow="true"-->
 
-      <!--  <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/material_design_floating_action_menu_item0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/mychurch_small"
-            fab:fab_label="@string/set_as_mychurch"
-            fab:fab_size="mini"
-            fab:fab_colorNormal="#8d62d8"
-            fab:fab_colorPressed="#2e2248"
-            android:onClick="mychurch_click"
-            />-->
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/menu_item0"
@@ -109,12 +98,5 @@
             fab:fab_colorPressed="#2e2248"
             />
 
-
-
-
-
     </com.github.clans.fab.FloatingActionMenu>
-
-
-
 </RelativeLayout>

@@ -3,6 +3,7 @@ package com.tech.thrithvam.churchapp;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,9 +45,11 @@ public class EventDetails extends AppCompatActivity {
                     .load(getResources().getString(R.string.url) +URL.substring((URL).indexOf("img")))
                     .dontTransform()
                     .thumbnail(0.1f)
-                    .crossFade()
                     .into(eventsImage)
             ;
+        }
+        else {
+            eventsImage.setVisibility(View.GONE);
         }
     }
 }
