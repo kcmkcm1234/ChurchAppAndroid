@@ -95,6 +95,7 @@ public class NearbyChurches extends AppCompatActivity {
             if(Double.parseDouble(stringLatitude)==0 || Double.parseDouble(stringLongitude)==0){
                 Toast.makeText(NearbyChurches.this,R.string.not_find_location,Toast.LENGTH_LONG).show();
                 onBackPressed();
+                return;
             }
 
             Toast.makeText(NearbyChurches.this,"Found your location as\nLatitude: "+stringLatitude+"\nLongitude: "+stringLongitude,Toast.LENGTH_LONG).show();
