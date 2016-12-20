@@ -82,7 +82,7 @@ public class FamilyUnitsDetails extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                popupView = layoutInflater.inflate(R.layout.item_popup, null);
+                popupView = layoutInflater.inflate(R.layout.item_popup_family, null);
                 popupWindow = new PopupWindow(popupView,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
                 if (isOnline()) {
                     getFamilyExecutiveList = new  GetFamilyExecutiveList().execute();
