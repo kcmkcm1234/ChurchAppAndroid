@@ -137,8 +137,6 @@ public class Events extends AppCompatActivity {
                     data[1]=jsonObject.optString("EventName");
                     data[2]=jsonObject.optString("Descrtiption");
                     data[3]=jsonObject.optString("URL");
-
-                    event_start.setTimeInMillis(Long.parseLong(data[0]));
                     eventsListItems.add(data);
                 }
             } catch (Exception ex) {

@@ -132,7 +132,7 @@ public class NearbyChurches extends AppCompatActivity {
             String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetNearByChurches";
             HttpURLConnection c = null;
             try {
-                postData = "{\"Latitude\":\"" + stringLatitude + "\",\"Longitude\":\"" + stringLongitude + "\",\"churchcount\":\"" + "100" + "\",\"maxdistance\":\"" + "100" +"\"}";
+                postData = "{\"Latitude\":\"" + stringLatitude + "\",\"Longitude\":\"" + stringLongitude + "\",\"churchcount\":\"" + "50" + "\",\"maxdistance\":\"" + "10000" +"\"}";
                 URL u = new URL(url);
                 c = (HttpURLConnection) u.openConnection();
                 c.setRequestMethod("POST");
