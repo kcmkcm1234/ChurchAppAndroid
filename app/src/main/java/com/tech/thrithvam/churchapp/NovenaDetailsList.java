@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 
 public class NovenaDetailsList extends AppCompatActivity {
     Typeface typeQuicksand;
-    AsyncTask getNovenaChurchList;
+    AsyncTask getNovenaChurchList=null;
     Bundle extras;
     String patronID;
     String churchID;

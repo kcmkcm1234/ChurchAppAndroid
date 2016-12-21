@@ -35,7 +35,7 @@ public class Notices extends AppCompatActivity {
     String ChurchID;
     Typeface typeQuicksand;
     TextView activity_notice_head;
-    AsyncTask getNoticeList;
+    AsyncTask getNoticeList=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

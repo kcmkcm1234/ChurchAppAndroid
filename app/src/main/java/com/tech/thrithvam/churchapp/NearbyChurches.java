@@ -36,7 +36,7 @@ import java.util.logging.Logger;
 
 public class NearbyChurches extends AppCompatActivity {
     Typeface typeQuicksand;
-    AsyncTask getNearbyChurchList;
+    AsyncTask getNearbyChurchList=null;
     final int MY_PERMISSIONS_LOCATION=555;
     String stringLatitude;
     String stringLongitude;

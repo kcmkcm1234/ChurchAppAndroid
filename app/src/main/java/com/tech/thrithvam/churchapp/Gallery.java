@@ -33,7 +33,7 @@ import java.util.logging.Logger;
 public class Gallery extends AppCompatActivity {
     Typeface typeQuicksand;
     Bundle extras;
-    AsyncTask getGalleryAlbums,getGalleryItems;
+    AsyncTask getGalleryAlbums=null,getGalleryItems=null;
     String churchID;
     GridView galleryGrid;
     @Override

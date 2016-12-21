@@ -31,12 +31,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PiousOrgs extends AppCompatActivity {
-
     Bundle extras;
     String ChurchID;
     Typeface typeQuicksand;
     TextView Pious_head;
-    AsyncTask getPiousOrgList;
+    AsyncTask getPiousOrgList=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

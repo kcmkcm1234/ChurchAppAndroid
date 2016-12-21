@@ -36,7 +36,7 @@ public class PriestDetails extends AppCompatActivity {
     String ChurchID;
     Typeface typeQuicksand;
     TextView Priest_head;
-
+    AsyncTask getPriestList=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +49,7 @@ public class PriestDetails extends AppCompatActivity {
         Priest_head.setTypeface(typeQuicksand);
 
         if (isOnline()) {
-             new GetPriestList().execute();
+            getPriestList= new GetPriestList().execute();
         } else {
             Toast.makeText(PriestDetails.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
@@ -178,5 +178,9 @@ public class PriestDetails extends AppCompatActivity {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(getPriestList!=null)getPriestList.cancel(true);
+    }
 }

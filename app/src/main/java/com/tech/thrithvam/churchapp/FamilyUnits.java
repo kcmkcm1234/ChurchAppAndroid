@@ -35,7 +35,7 @@ public class FamilyUnits extends AppCompatActivity {
     String ChurchID;
     Typeface typeQuicksand;
     TextView familyUnitHead;
-    AsyncTask getFamilyUnitList;
+    AsyncTask getFamilyUnitList=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

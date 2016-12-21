@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 
 public class Novenas extends AppCompatActivity {
     Typeface typeQuicksand;
-    AsyncTask getPatrons;
+    AsyncTask getPatrons=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -38,7 +38,7 @@ public class Institutions extends AppCompatActivity {
     String ChurchID;
     Typeface typeQuicksand;
     TextView activity_head;
-    AsyncTask getInstitutionsList;
+    AsyncTask getInstitutionsList=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

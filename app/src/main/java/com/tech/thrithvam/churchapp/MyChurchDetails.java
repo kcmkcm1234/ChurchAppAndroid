@@ -611,4 +611,10 @@ public class MyChurchDetails extends AppCompatActivity {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(getChurchDetails !=null) getChurchDetails.cancel(true);
+        if(getMassTimings !=null) getMassTimings.cancel(true);
+    }
 }
