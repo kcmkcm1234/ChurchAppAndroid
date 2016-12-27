@@ -185,9 +185,12 @@ public class Institutions extends AppCompatActivity {
                         intent.putExtra("Website", institutionListItems.get(position)[11]);
                         SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
                         Calendar date=Calendar.getInstance();
-                        date.setTimeInMillis(Long.parseLong(institutionListItems.get(position)[7]));
-                        intent.putExtra("Founded",formatted.format(date.getTime()));
-
+                        if(!institutionListItems.get(position)[7].equals("null"))
+                        {date.setTimeInMillis(Long.parseLong(institutionListItems.get(position)[7]));
+                        intent.putExtra("Founded",formatted.format(date.getTime()));}
+                        else {
+                            intent.putExtra("Founded","-");
+                        }
                         intent.putExtra("Mobile", institutionListItems.get(position)[8]);
                         startActivity(intent);
                     }

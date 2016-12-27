@@ -11,6 +11,15 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/novenas">
 
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/info"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="5dp"
+            android:padding="10dp"
+            android:id="@+id/info"/>
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

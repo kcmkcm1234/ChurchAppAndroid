@@ -1,12 +1,14 @@
 package com.tech.thrithvam.churchapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -32,6 +34,7 @@ import java.util.logging.Logger;
 public class Home extends AppCompatActivity {
     AsyncTask getTowns=null;
     AutoCompleteTextView searchText;
+    View popupView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +88,46 @@ public class Home extends AppCompatActivity {
         novenas.setTypeface(typeSegoe);
         my_church.setTypeface(typeSegoe);
         nearby_church.setTypeface(typeSegoe);
+
+        //Information button-----------
+        ImageView info=(ImageView) findViewById(R.id.info);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupView = getLayoutInflater().inflate(R.layout.item_app_info, null);
+                final TextView email=(TextView)popupView.findViewById(R.id.email);
+                email.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("*/*");
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email.getText().toString()});
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Mail from Church App User");
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivity(intent);
+                        }
+                    }
+                });
+                TextView shareApp=(TextView)popupView.findViewById(R.id.share_app);
+                shareApp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent shareIntent = new Intent();
+                        shareIntent.setAction(Intent.ACTION_SEND);
+                        shareIntent.setType("text/*");
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, "Here is an innovative app to stay connected with Churches & Novenas in town \nhttps://goo.gl/jDMq6M");
+                        startActivity(Intent.createChooser(shareIntent, "Share goChurch app"));
+                    }
+                });
+                new AlertDialog.Builder(Home.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
+                        .setView(popupView)
+                        .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        }).setCancelable(false).show();
+            }
+        });
     }
     public void mychurch(View view){
         Intent intent=new Intent(Home.this,MyChurch.class);

@@ -40,6 +40,7 @@ public class NearbyChurches extends AppCompatActivity {
     final int MY_PERMISSIONS_LOCATION=555;
     String stringLatitude;
     String stringLongitude;
+    static boolean active = false; //to check whether activity is running when location is found
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +79,17 @@ public class NearbyChurches extends AppCompatActivity {
                 }
             }
         }
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
     }
 
     public void getLatLong(){
@@ -204,6 +216,7 @@ public class NearbyChurches extends AppCompatActivity {
             super.onPostExecute(result);
             loadingIndicator.setVisibility(View.GONE);
             if(!pass) {
+                if(active){//show only if activity is active
                 new AlertDialog.Builder(NearbyChurches.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
                         .setMessage(msg)//R.string.no_items)
                         .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
@@ -212,6 +225,7 @@ public class NearbyChurches extends AppCompatActivity {
                                 finish();
                             }
                         }).setCancelable(false).show();
+                }
             }
             else {
                 CustomAdapter adapter=new CustomAdapter(NearbyChurches.this,nearbyChurchItems ,"NearbyChurchList");
