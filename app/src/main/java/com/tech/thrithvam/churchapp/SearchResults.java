@@ -49,8 +49,9 @@ public class SearchResults extends AppCompatActivity {
         }
         //Search Text box--------------
         Typeface typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
+        Typeface typeCopperplateGothic = Typeface.createFromAsset(getAssets(),"fonts/copperplate-gothic.ttf");
         searchText=(AutoCompleteTextView) findViewById(R.id.searchViewText);
-        searchText.setTypeface(typeSegoe);
+        searchText.setTypeface(typeCopperplateGothic);
         searchText.setText(searchKey);
         ImageView searchImage =(ImageView)findViewById(R.id.searchImage);
         searchImage.setOnClickListener(new View.OnClickListener() {

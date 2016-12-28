@@ -36,7 +36,7 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/search"
+        android:src="@drawable/church"
         android:id="@+id/searchImage"
         android:layout_alignTop="@+id/searchView"
         android:layout_alignRight="@+id/searchView"

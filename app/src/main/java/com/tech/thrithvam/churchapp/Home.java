@@ -40,7 +40,6 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ImageView searchImage =(ImageView)findViewById(R.id.searchImage);
-        TextView view_all_towns=(TextView)findViewById(R.id.view_all_towns);
         searchText=(AutoCompleteTextView) findViewById(R.id.searchView);
         searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -52,13 +51,6 @@ public class Home extends AppCompatActivity {
                     return true;
                 }
                 return false;
-            }
-        });
-        view_all_towns.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(Home.this,AllTownsList.class);
-                startActivity(intent);
             }
         });
         searchImage.setOnClickListener(new View.OnClickListener() {
@@ -78,17 +70,22 @@ public class Home extends AppCompatActivity {
             Toast.makeText(Home.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
         //Fonts--------------
-        Typeface typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
-        searchText.setTypeface(typeSegoe);
+        Typeface typeCopperplateGothic = Typeface.createFromAsset(getAssets(),"fonts/copperplate-gothic.ttf");
+        Typeface typeoldeng = Typeface.createFromAsset(getAssets(),"fonts/oldeng.ttf");
+        TextView appName=(TextView)findViewById(R.id.app_name);
+        TextView searchLabel=(TextView)findViewById(R.id.search_label);
+        TextView view_all_towns=(TextView)findViewById(R.id.view_all_towns);
         TextView novenas=(TextView)findViewById(R.id.novenasText);
         TextView my_church=(TextView)findViewById(R.id.mychurch);
         TextView nearby_church=(TextView)findViewById(R.id.nearbychurch);
 
-        view_all_towns.setTypeface(typeSegoe);
-        novenas.setTypeface(typeSegoe);
-        my_church.setTypeface(typeSegoe);
-        nearby_church.setTypeface(typeSegoe);
-
+        view_all_towns.setTypeface(typeCopperplateGothic);
+        novenas.setTypeface(typeCopperplateGothic);
+        my_church.setTypeface(typeCopperplateGothic);
+        nearby_church.setTypeface(typeCopperplateGothic);
+        appName.setTypeface(typeoldeng);
+        searchText.setTypeface(typeCopperplateGothic);
+        searchLabel.setTypeface(typeCopperplateGothic);
         //Information button-----------
         ImageView info=(ImageView) findViewById(R.id.info);
         info.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +136,10 @@ public class Home extends AppCompatActivity {
     }
     public void nearby_church(View view){
         Intent intent=new Intent(Home.this,NearbyChurches.class);
+        startActivity(intent);
+    }
+    public void view_all_towns(View view){
+        Intent intent=new Intent(Home.this,AllTownsList.class);
         startActivity(intent);
     }
     //----------------------AsyncTasks----------------------------

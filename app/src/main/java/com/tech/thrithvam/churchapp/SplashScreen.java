@@ -24,7 +24,7 @@ public class SplashScreen extends AppCompatActivity {
         TextView txtapp =(TextView)findViewById(R.id.title);
         txtapp.startAnimation(appnametext);
 
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/blackchancery.ttf");
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/oldeng.ttf");
         txtapp.setTypeface(type);
 
         Handler handler = new Handler();
