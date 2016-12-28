@@ -84,6 +84,31 @@
             android:textSize="14sp"
             android:layout_toRightOf="@+id/detail_image"
             android:layout_toEndOf="@+id/detail_image"  />
-
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_in_map"
+            android:layout_below="@id/novena_time"
+            android:layout_toRightOf="@+id/detail_image"
+            android:layout_toEndOf="@+id/detail_image">
+            <ImageView
+                android:layout_margin="5dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/map"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/map_icon"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/view_church_in_map"
+                android:textSize="14sp"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/map_label"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/map_icon" />
+        </RelativeLayout>
     </RelativeLayout>
+
 </LinearLayout>

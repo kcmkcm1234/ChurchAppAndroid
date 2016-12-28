@@ -48,7 +48,6 @@ public class SearchResults extends AppCompatActivity {
             Toast.makeText(SearchResults.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
         //Search Text box--------------
-        Typeface typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
         Typeface typeCopperplateGothic = Typeface.createFromAsset(getAssets(),"fonts/copperplate-gothic.ttf");
         searchText=(AutoCompleteTextView) findViewById(R.id.searchViewText);
         searchText.setTypeface(typeCopperplateGothic);

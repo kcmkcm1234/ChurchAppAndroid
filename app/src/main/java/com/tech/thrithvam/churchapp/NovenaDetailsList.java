@@ -150,7 +150,7 @@ public class NovenaDetailsList extends AppCompatActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     msg=jsonObject.optString("Message");
                     pass=jsonObject.optBoolean("Flag",true);
-                    String[] data=new String[8];
+                    String[] data=new String[9];
                     data[0]=jsonObject.optString("ID");
                     data[1]=jsonObject.optString("NovenaCaption");
                     data[2]=jsonObject.optString("ChurchName");
@@ -159,6 +159,7 @@ public class NovenaDetailsList extends AppCompatActivity {
                     data[5]=jsonObject.optString("EndDate").replace("/Date(", "").replace(")/", "");
                     data[6]=jsonObject.optString("URL");
                     data[7]=jsonObject.optString("DayAndTime").replace("Dai-", "");
+                    data[8]=jsonObject.optString("Latitude","null")+","+jsonObject.optString("Longitude","null");
                     novenaChurchItems.add(data);
                 }
             } catch (Exception ex) {

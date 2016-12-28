@@ -87,7 +87,8 @@
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/search_label"
             android:background="@android:color/transparent"
-            android:layout_toRightOf="@+id/search_label" />
+            android:layout_toRightOf="@+id/search_label"
+            android:selectAllOnFocus="true"/>
         <ImageView
             android:layout_width="40dp"
             android:layout_height="wrap_content"

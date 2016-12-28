@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,6 +77,7 @@ public class CustomAdapter extends BaseAdapter {
             //Novena Church list-------------------
         TextView novenaCaption,novenaChurchName,novenaDescription,novenaDate,dayAndTime;
         ImageView novenaImg;
+        RelativeLayout viewMap;
             //Nearby Church List-------------------
         TextView nearbyChurchName,nearbyChurchAddress,distance;
         ImageView nearChurchImg,nearbyViewMap;
@@ -241,6 +243,7 @@ public class CustomAdapter extends BaseAdapter {
                     holder.novenaDate=(TextView)convertView.findViewById(R.id.novena_date);
                     holder.novenaImg=(ImageView)convertView.findViewById(R.id.detail_image);
                     holder.dayAndTime=(TextView)convertView.findViewById(R.id.novena_time);
+                    holder.viewMap=(RelativeLayout)convertView.findViewById(R.id.view_in_map);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
@@ -299,6 +302,25 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 else holder.dayAndTime.setVisibility(View.INVISIBLE);
                 holder.dayAndTime.setTypeface(typeSegoe);
+
+                if(!objects.get(position)[8].equals("null,null")){
+                    holder.viewMap.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            try {
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(fPos)[8])));
+                                adapterContext.startActivity(intent);
+                            } catch (Exception e) {
+                                Toast.makeText(adapterContext.getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    holder.viewMap.setVisibility(View.VISIBLE);
+                }
+                else {
+                    holder.viewMap.setVisibility(View.GONE);
+                }
+
 
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
