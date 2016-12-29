@@ -26,7 +26,7 @@ public class InstitutionDetails extends AppCompatActivity {
         setContentView(R.layout.activity_institution_details);
         extras=getIntent().getExtras();
 
-        String imageURL=extras.getString("URL");
+        final String imageURL=extras.getString("URL");
 
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
         typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
@@ -189,6 +189,14 @@ public class InstitutionDetails extends AppCompatActivity {
                     })
                     .into(institution_image)
             ;
+            institution_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent photoIntent=new Intent(InstitutionDetails.this,ImageViewerActivity.class);
+                    photoIntent.putExtra("URL",imageURL);
+                    startActivity(photoIntent);
+                }
+            });
         }
         else {
             institution_image.setVisibility(View.GONE);
