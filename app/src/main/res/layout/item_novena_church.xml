@@ -65,11 +65,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/towns"
+            android:textColor="@color/secondary_text"
+            android:layout_below="@+id/church_name"
+            android:gravity="end"
+            android:layout_toRightOf="@+id/detail_image"
+            android:layout_toEndOf="@+id/detail_image"
+            android:textSize="12sp"
+            android:id="@+id/town_name"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/novena_date"
             android:textColor="@color/primary_text"
             android:text="20-Nov-2016 to 25-Nov-2016"
-            android:layout_below="@+id/church_name"
-            android:gravity="right"
+            android:layout_below="@+id/town_name"
+            android:gravity="end"
             android:textSize="13sp"
             android:layout_toRightOf="@+id/detail_image"
             android:layout_toEndOf="@+id/detail_image" />
@@ -80,7 +91,7 @@
             android:textColor="@color/primary_text"
             android:text="Mon-9:00AM|Sun-9:00AM"
             android:layout_below="@+id/novena_date"
-            android:gravity="right"
+            android:gravity="end"
             android:textSize="14sp"
             android:layout_toRightOf="@+id/detail_image"
             android:layout_toEndOf="@+id/detail_image"  />
@@ -93,21 +104,26 @@
             android:layout_toEndOf="@+id/detail_image">
             <ImageView
                 android:layout_margin="5dp"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/map"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/map_icon"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/view_church_in_map"
-                android:textSize="14sp"
+                android:text="@string/locate"
+                android:textSize="10sp"
                 android:textColor="@color/colorAccent"
                 android:id="@+id/map_label"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/map_icon" />
+                android:gravity="end"
+                android:layout_alignBottom="@+id/map_icon"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/map_icon"
+                android:layout_toStartOf="@+id/map_icon" />
         </RelativeLayout>
     </RelativeLayout>
 

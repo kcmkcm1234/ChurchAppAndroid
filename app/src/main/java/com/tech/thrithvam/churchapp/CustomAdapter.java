@@ -75,7 +75,7 @@ public class CustomAdapter extends BaseAdapter {
         TextView patronName,patronDescription;
         ImageView patronImg1,patronImg2;
             //Novena Church list-------------------
-        TextView novenaCaption,novenaChurchName,novenaDescription,novenaDate,dayAndTime;
+        TextView novenaCaption,novenaChurchName,townName,novenaDescription,novenaDate,dayAndTime;
         ImageView novenaImg;
         RelativeLayout viewMap;
             //Nearby Church List-------------------
@@ -239,6 +239,7 @@ public class CustomAdapter extends BaseAdapter {
                     convertView = inflater.inflate(R.layout.item_novena_church, null);
                     holder.novenaCaption=(TextView)convertView.findViewById(R.id.novena_caption);
                     holder.novenaChurchName=(TextView)convertView.findViewById(R.id.church_name);
+                    holder.townName=(TextView)convertView.findViewById(R.id.town_name);
                     holder.novenaDescription=(TextView)convertView.findViewById(R.id.novena_description);
                     holder.novenaDate=(TextView)convertView.findViewById(R.id.novena_date);
                     holder.novenaImg=(ImageView)convertView.findViewById(R.id.detail_image);
@@ -253,6 +254,8 @@ public class CustomAdapter extends BaseAdapter {
                 holder.novenaCaption.setTypeface(typeQuicksand);
                 holder.novenaChurchName.setText(objects.get(position)[2]);
                 holder.novenaChurchName.setTypeface(typeBLKCHCRY);
+                holder.townName.setText(objects.get(position)[9]);
+                holder.townName.setTypeface(typeSegoe);
 
                 if(!objects.get(position)[3].equals("null")){
                     holder.novenaDescription.setText(objects.get(position)[3]);
@@ -300,7 +303,7 @@ public class CustomAdapter extends BaseAdapter {
                     holder.dayAndTime.setText(objects.get(position)[7]);
                     holder.dayAndTime.setVisibility(View.VISIBLE);
                 }
-                else holder.dayAndTime.setVisibility(View.INVISIBLE);
+                else holder.dayAndTime.setVisibility(View.GONE);
                 holder.dayAndTime.setTypeface(typeSegoe);
 
                 if(!objects.get(position)[8].equals("null,null")){
