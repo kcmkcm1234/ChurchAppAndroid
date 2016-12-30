@@ -16,7 +16,7 @@ public class MyChurch extends AppCompatActivity {
         setContentView(R.layout.activity_my_church);
         db=DatabaseHandler.getInstance(this);
         if(db.GetMyChurch("ChurchID")==null){
-            Intent intent=new Intent(MyChurch.this,AllTownsList.class);
+            Intent intent=new Intent(MyChurch.this,MyChurchWizard.class);
             startActivity(intent);
             Toast.makeText(MyChurch.this,R.string.select_a_church,Toast.LENGTH_LONG).show();
             finish();
@@ -27,12 +27,12 @@ public class MyChurch extends AppCompatActivity {
         Typeface typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
 
         //Fonts---------------
-        TextView activtyHead=(TextView)findViewById(R.id.activity_head);
+        TextView activityHead=(TextView)findViewById(R.id.activity_head);
         TextView churchName=(TextView)findViewById(R.id.church_name);
         TextView churchDetail1=(TextView)findViewById(R.id.church_detail1);
         TextView churchDetail2=(TextView)findViewById(R.id.church_detail2);
 
-        activtyHead.setTypeface(typeQuicksand);
+        activityHead.setTypeface(typeQuicksand);
         churchName.setTypeface(typeBLKCHCRY);
         churchDetail1.setTypeface(typeSegoe);
         churchDetail2.setTypeface(typeSegoe);
@@ -60,7 +60,7 @@ public class MyChurch extends AppCompatActivity {
         churchDetail2.setText(db.GetMyChurch("Address"));
     }
 
-    public void FamilyUnitsClick (View view){
+    public void family_units_click(View view){
         Intent intent=new Intent(MyChurch.this,FamilyUnits.class);
         intent.putExtra("ChurchID",db.GetMyChurch("ChurchID"));
         startActivity(intent);
@@ -81,8 +81,9 @@ public class MyChurch extends AppCompatActivity {
         startActivity(intent);
     }
     public void change_my_church_click (View view){
-        Intent intent=new Intent(MyChurch.this,AllTownsList.class);
+        Intent intent=new Intent(MyChurch.this,MyChurchWizard.class);
         startActivity(intent);
+        finish();
     }
     public void timings_click (View view){
         Intent intent=new Intent(MyChurch.this,MyChurchDetails.class);

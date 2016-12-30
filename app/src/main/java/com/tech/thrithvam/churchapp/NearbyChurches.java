@@ -110,7 +110,7 @@ public class NearbyChurches extends AppCompatActivity {
                 return;
             }
 
-            Toast.makeText(NearbyChurches.this,"Found your location as\nLatitude: "+stringLatitude+"\nLongitude: "+stringLongitude,Toast.LENGTH_LONG).show();
+            //Toast.makeText(NearbyChurches.this,"Found your location as\nLatitude: "+stringLatitude+"\nLongitude: "+stringLongitude,Toast.LENGTH_LONG).show();
             if (isOnline()) {
                 getNearbyChurchList=new GetNearbyChurchList().execute();
             } else {

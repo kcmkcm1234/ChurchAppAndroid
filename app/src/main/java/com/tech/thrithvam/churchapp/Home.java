@@ -56,6 +56,7 @@ public class Home extends AppCompatActivity {
         searchImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                searchText.setText(searchText.getText().toString().trim());
                 if(!searchText.getText().toString().equals("")) {
                     Intent intent = new Intent(Home.this, SearchResults.class);
                     intent.putExtra("searchkey", searchText.getText().toString());

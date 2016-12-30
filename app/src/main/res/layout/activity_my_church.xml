@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.tech.thrithvam.churchapp.MyChurch"
-    android:background="@drawable/sky_bg">
+    android:background="@drawable/sky_bg_full">
     <TextView
         android:text="@string/my_church"
         android:layout_width="wrap_content"
@@ -162,7 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:onClick="FamilyUnitsClick">
+                android:onClick="family_units_click">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

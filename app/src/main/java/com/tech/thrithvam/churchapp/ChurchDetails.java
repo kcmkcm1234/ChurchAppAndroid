@@ -768,7 +768,7 @@ public class ChurchDetails extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             if(!pass) {
-                massLayout.setVisibility(View.GONE);
+                extraDetails.setVisibility(View.GONE);
             }
             else {
                extraDetails.setVisibility(View.VISIBLE);

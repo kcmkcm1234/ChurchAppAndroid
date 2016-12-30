@@ -56,6 +56,7 @@ public class SearchResults extends AppCompatActivity {
         searchImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                searchText.setText(searchText.getText().toString().trim());
                 if(!searchText.getText().toString().equals("")) {
                 Intent intent=new Intent(SearchResults.this,SearchResults.class);
                 intent.putExtra("searchkey",searchText.getText().toString());
@@ -185,7 +186,6 @@ public class SearchResults extends AppCompatActivity {
             getTowns=new GetAllTowns().execute();
         }
     }
-    //----------------------AsyncTasks----------------------------
     public class GetAllTowns extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson;
