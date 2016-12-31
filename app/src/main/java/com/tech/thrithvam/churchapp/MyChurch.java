@@ -18,7 +18,6 @@ public class MyChurch extends AppCompatActivity {
         if(db.GetMyChurch("ChurchID")==null){
             Intent intent=new Intent(MyChurch.this,MyChurchWizard.class);
             startActivity(intent);
-            Toast.makeText(MyChurch.this,R.string.select_a_church,Toast.LENGTH_LONG).show();
             finish();
         }
 

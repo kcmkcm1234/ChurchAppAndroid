@@ -41,18 +41,7 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ImageView searchImage =(ImageView)findViewById(R.id.searchImage);
         searchText=(AutoCompleteTextView) findViewById(R.id.searchView);
-        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {    //for clicking enter on keyboard
-                if (i == EditorInfo.IME_ACTION_GO) {
-                    Intent intent=new Intent(Home.this,SearchResults.class);
-                    intent.putExtra("searchkey",searchText.getText().toString());
-                    startActivity(intent);
-                    return true;
-                }
-                return false;
-            }
-        });
+
         searchImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +49,7 @@ public class Home extends AppCompatActivity {
                 if(!searchText.getText().toString().equals("")) {
                     Intent intent = new Intent(Home.this, SearchResults.class);
                     intent.putExtra("searchkey", searchText.getText().toString());
+                    searchText.setText("");
                     startActivity(intent);
                 }
             }
@@ -233,6 +223,7 @@ public class Home extends AppCompatActivity {
                         Intent intent=new Intent(Home.this,SearchResults.class);
                         intent.putExtra("searchkey",searchText.getText().toString());
                         startActivity(intent);
+                        searchText.setText("");
                     }
                 });
             }

@@ -28,7 +28,6 @@
         android:background="@drawable/boarder_white"
         android:id="@+id/searchViewText"
         android:textColor="@color/edit_text"
-        android:imeActionLabel="actionGo"
         android:singleLine="true"
         android:maxLines="1"
         android:selectAllOnFocus="true"/>

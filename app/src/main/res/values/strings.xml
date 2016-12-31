@@ -61,8 +61,7 @@
     <string name="dob">Date of Birth</string>
     <string name="email_id">Email id</string>
     <string name="set_as_mychurch">Set as MyChurch</string>
-    <string name="mychurch_set_notification">This church is saved as MyChurch</string>
-    <string name="select_a_church">Select a church to set as MyChurch</string>
+    <string name="mychurch_set_notification">%1$s is set as MyChurch</string>
     <string name="unitexe">Unit Executives</string>
     <string name="error_loading_image">Error loading image</string>
     <string name="locate">Locate</string>

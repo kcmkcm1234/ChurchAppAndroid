@@ -7,5 +7,6 @@
     <color name="secondary_text">#727272</color>
     <color name="white_patch">#aeffffff</color>
     <color name="edit_text">#0c0229</color>
+    <color name="green">#ad81c784</color>
 
 </resources>

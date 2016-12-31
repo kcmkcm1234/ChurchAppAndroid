@@ -856,7 +856,7 @@ public class ChurchDetails extends AppCompatActivity {
     }
     public void mychurch_click (View view){
         db.SetMyChurch(ChurchID,churchNameStringGlobal,townNameStringGlobal,addressStringGlobal);
-        Toast.makeText(ChurchDetails.this,R.string.mychurch_set_notification,Toast.LENGTH_LONG).show();
+        Toast.makeText(ChurchDetails.this,getResources().getString(R.string.mychurch_set_notification,churchName.getText().toString()),Toast.LENGTH_LONG).show();
         floatingActionMenu.close(true);
     }
     public void notice_click (View view){

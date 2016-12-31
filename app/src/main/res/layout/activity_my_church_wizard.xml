@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_my_church_wizard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,18 +28,12 @@
         android:layout_margin="5dp"
         android:padding="5dp"
         android:focusableInTouchMode="true">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Search for your church to set it as your MyChurch"
-            android:textColor="@color/primary_text"
-            android:id="@+id/instruction1"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="5dp"/>
+
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:queryHint="Search"
+            android:textSize="14sp"
             android:padding="7dp"
             android:hint="@string/search_by_town_church"
             android:textColorHint="@color/edit_text"
@@ -47,11 +42,9 @@
             android:background="@drawable/boarder_white"
             android:id="@+id/searchViewText"
             android:textColor="@color/edit_text"
-            android:imeActionLabel="actionGo"
             android:singleLine="true"
             android:maxLines="1"
-            android:selectAllOnFocus="true"
-            android:layout_below="@+id/instruction1"/>
+            android:selectAllOnFocus="true"/>
         <ImageView
         android:layout_width="40dp"
         android:layout_height="wrap_content"
@@ -60,9 +53,82 @@
         android:layout_alignTop="@+id/searchViewText"
         android:layout_alignRight="@+id/searchViewText"
         android:layout_alignEnd="@+id/searchViewText"
-        android:layout_margin="5dp"
+        android:layout_margin="3dp"
         android:layout_alignBottom="@+id/searchViewText"
         />
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search your church &amp;\nset it as 'MyChurch'"
+        android:textColor="@android:color/white"
+        android:id="@+id/instruction1"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_centerVertical="true"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarStyle="outsideOverlay"
+        android:id="@+id/resultsGrid"
+        android:layout_below="@+id/searchView"
+        android:divider="@null"
+        android:dividerHeight="0.5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:choiceMode="singleChoice"
+        android:layout_above="@+id/set_mychurch_button" />
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/itemsLoading"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="invisible"
+        app:indicator="BallTrianglePath"
+        app:indicator_color="@color/white_patch"
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/searchView"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"
+        android:padding="5dp"
+        android:id="@+id/set_mychurch_button"
+        android:layout_margin="5dp"
+        android:onClick="set_as_mychurch"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/set_as_mychurch"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:text="@string/set_as_mychurch"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/mychurch"
+            android:id="@+id/icon1"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/set_as_mychurch"
+            android:layout_toStartOf="@+id/set_as_mychurch"
+            android:padding="1dp"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

@@ -81,7 +81,6 @@
             android:textColorHint="@color/edit_text"
             android:maxLength="100"
             android:textColor="@color/edit_text"
-            android:imeActionLabel="actionGo"
             android:singleLine="true"
             android:maxLines="1"
             android:layout_alignParentTop="true"
