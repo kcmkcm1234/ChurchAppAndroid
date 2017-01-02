@@ -1,20 +1,28 @@
 package com.tech.thrithvam.churchapp;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionMenu;
+
 public class MyChurch extends AppCompatActivity {
     DatabaseHandler db;
+    FloatingActionMenu floatingActionMenu;
+    String churchID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_church);
         db=DatabaseHandler.getInstance(this);
+        churchID=db.GetMyChurch("ChurchID");
+        floatingActionMenu=(FloatingActionMenu)findViewById(R.id.material_design_android_floating_action_menu);
         if(db.GetMyChurch("ChurchID")==null){
             Intent intent=new Intent(MyChurch.this,MyChurchWizard.class);
             startActivity(intent);
@@ -61,22 +69,22 @@ public class MyChurch extends AppCompatActivity {
 
     public void family_units_click(View view){
         Intent intent=new Intent(MyChurch.this,FamilyUnits.class);
-        intent.putExtra("ChurchID",db.GetMyChurch("ChurchID"));
+        intent.putExtra("ChurchID",churchID);
         startActivity(intent);
     }
     public void notice_click (View view){
         Intent intent=new Intent(MyChurch.this,Notices.class);
-        intent.putExtra("churchID",db.GetMyChurch("ChurchID"));
+        intent.putExtra("churchID",churchID);
         startActivity(intent);
     }
     public void gallery_click (View view){
         Intent intent=new Intent(MyChurch.this,Gallery.class);
-        intent.putExtra("ChurchID",db.GetMyChurch("ChurchID"));
+        intent.putExtra("ChurchID",churchID);
         startActivity(intent);
     }
     public void events_click (View view){
         Intent intent=new Intent(MyChurch.this,Events.class);
-        intent.putExtra("ChurchID",db.GetMyChurch("ChurchID"));
+        intent.putExtra("ChurchID",churchID);
         startActivity(intent);
     }
     public void change_my_church_click (View view){
@@ -90,8 +98,46 @@ public class MyChurch extends AppCompatActivity {
         startActivity(intent);
     }
     public void about_click (View view){
-        Intent intent=new Intent(MyChurch.this,MyChurchDetails.class);
-        intent.putExtra("from","about");
+        Intent intent=new Intent(MyChurch.this,ChurchDetails.class);
+        intent.putExtra("churchID",churchID);
+        intent.putExtra("churchname", db.GetMyChurch("ChurchName"));
+     //   churchDetail1.setText(db.GetMyChurch("Town"));
+     //   churchDetail2.setText(db.GetMyChurch("Address"));
+     //   intent.putExtra("town",churchItems.get(position)[2]);
+     //   intent.putExtra("address",churchItems.get(position)[4]);
         startActivity(intent);
+    }
+
+    public void pious_org_click (View view){
+        Intent intent=new Intent(MyChurch.this,PiousOrgs.class);
+        intent.putExtra("ChurchID",churchID);
+        floatingActionMenu.close(true);
+        startActivity(intent);
+    }
+    public void institutions_click (View view){
+        Intent intent=new Intent(MyChurch.this,Institutions.class);
+        intent.putExtra("ChurchID",churchID);
+        floatingActionMenu.close(true);
+        startActivity(intent);
+    }
+    public void novenas_click (View view){
+        Intent intent=new Intent(MyChurch.this,NovenaDetailsList.class);
+        intent.putExtra("churchID",churchID);
+        intent.putExtra("churchName","Novenas at "+db.GetMyChurch("ChurchName"));
+        intent.putExtra("from","church");
+        floatingActionMenu.close(true);
+        startActivity(intent);
+    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event){
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (floatingActionMenu.isOpened()) {
+                Rect outRect = new Rect();
+                floatingActionMenu.getGlobalVisibleRect(outRect);
+                if(!outRect.contains((int)event.getRawX(), (int)event.getRawY()))
+                    floatingActionMenu.close(true);
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
 }

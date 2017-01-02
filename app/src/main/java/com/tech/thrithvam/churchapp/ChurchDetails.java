@@ -28,6 +28,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -189,6 +190,12 @@ public class ChurchDetails extends AppCompatActivity {
         else {
             town.setVisibility(View.INVISIBLE);
         }
+        //Hiding set as mychurch button----
+        if(ChurchID.equals(db.GetMyChurch("ChurchID"))){
+            FloatingActionButton setMychurch=(FloatingActionButton)findViewById(R.id.material_design_floating_action_menu_item0);
+            setMychurch.setVisibility(View.GONE);
+        }
+
     }
     @Override
     public boolean dispatchTouchEvent(MotionEvent event){

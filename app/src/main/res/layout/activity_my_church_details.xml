@@ -24,49 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!--About screen-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/aboutLayout"
-                android:layout_margin="7dp"
-                android:background="@drawable/white_transparent_card"
-                android:padding="10dp"
-                android:visibility="gone">
-                <TextView
-                    android:text="@string/about"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:id="@+id/about_title"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/white"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxHeight="200dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerInside"
-                    android:layout_below="@+id/about_title"
-                    android:id="@+id/church_image"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_centerHorizontal="true"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Description"
-                    android:id="@+id/about"
-                    android:layout_below="@id/church_image"
-                    android:textColor="@color/primary_text"
-                    android:layout_margin="5dp"
-                    android:textSize="15sp"/>
-            </RelativeLayout>
+
             <!--Timings screen-->
             <RelativeLayout
                 android:layout_width="match_parent"

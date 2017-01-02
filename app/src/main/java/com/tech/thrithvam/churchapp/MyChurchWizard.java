@@ -283,6 +283,7 @@ public class MyChurchWizard extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         view.setSelected(true);
+
                         selectedChurchPosition=position;
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             setMychurchButton.setBackgroundColor(getColor(R.color.colorAccent));
@@ -308,6 +309,8 @@ public class MyChurchWizard extends AppCompatActivity {
                     churchItems.get(selectedChurchPosition)[2],
                     churchItems.get(selectedChurchPosition)[4]
                     );
+            Intent intent=new Intent(MyChurchWizard.this,MyChurch.class);
+            startActivity(intent);
             finish();
         }
 

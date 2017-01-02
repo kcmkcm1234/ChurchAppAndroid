@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_my_church"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -322,8 +323,79 @@
         android:layout_marginRight="7dp"
         android:layout_marginBottom="3dp"
         android:textSize="12sp"
-        android:textColor="@color/secondary_text"
+        android:textColor="@color/white_patch"
         android:onClick="change_my_church_click"/>
 
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/material_design_android_floating_action_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:menu_animationDelayPerItem="55"
+        fab:menu_backgroundColor="@android:color/transparent"
+        fab:menu_buttonSpacing="0dp"
+        fab:menu_colorNormal="@color/colorAccent"
+        fab:menu_colorPressed="#543b7d"
+        fab:menu_colorRipple="#ffffff"
+        fab:menu_fab_label=""
+        fab:menu_fab_size="mini"
+        fab:menu_icon="@drawable/left_arrow"
+        fab:menu_labels_colorNormal="#fff"
+        fab:menu_labels_colorPressed="#2e2248"
+        fab:menu_labels_colorRipple="#ffffff"
+        fab:menu_labels_cornerRadius="3dp"
+        fab:menu_labels_ellipsize="none"
+        fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+        fab:menu_labels_margin="0dp"
+        fab:menu_labels_maxLines="-1"
+        fab:menu_labels_padding="8dp"
+        fab:menu_labels_position="left"
+        fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        fab:menu_labels_showShadow="true"
+        fab:menu_labels_singleLine="false"
+        fab:menu_labels_textColor="#8d62d8"
+        fab:menu_labels_textSize="15sp"
+        fab:menu_openDirection="down"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/institutions"
+            fab:fab_label="@string/institutions"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="#8d62d8"
+            fab:fab_colorPressed="#2e2248"
+            android:onClick="institutions_click"
+            />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pious_org"
+            fab:fab_label="@string/pious_org"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="#8d62d8"
+            fab:fab_colorPressed="#2e2248"
+            android:onClick="pious_org_click"
+            />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/novenas_saint"
+            fab:fab_label="@string/novenas"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="#8d62d8"
+            fab:fab_colorPressed="#2e2248"
+            android:onClick="novenas_click"/>
+
+    </com.github.clans.fab.FloatingActionMenu>
 
 </RelativeLayout>
