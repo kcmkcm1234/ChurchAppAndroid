@@ -183,8 +183,7 @@ public class MyChurchWizard extends AppCompatActivity {
         String msg;
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
-        ListView churchList=(ListView) findViewById(R.id.resultsGrid);;
-        RelativeLayout setMychurchButton=(RelativeLayout)findViewById(R.id.set_mychurch_button);
+        ListView churchList=(ListView) findViewById(R.id.resultsGrid);
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -192,7 +191,6 @@ public class MyChurchWizard extends AppCompatActivity {
             searchKey=searchText.getText().toString();
             churchItems=new ArrayList<>();
             selectedChurchPosition=-1;
-            setMychurchButton.setVisibility(View.INVISIBLE);
             churchList.setVisibility(View.INVISIBLE);
             TextView instruction1=(TextView)findViewById(R.id.instruction1);
             instruction1.setVisibility(View.GONE);
@@ -277,27 +275,18 @@ public class MyChurchWizard extends AppCompatActivity {
             if(!pass) {
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(MyChurchWizard.this, churchItems,"ChurchTownSearchResults");
+                final CustomAdapter adapter=new CustomAdapter(MyChurchWizard.this, churchItems,"ChurchTownMyChurchSearchResults");
                 churchList.setAdapter(adapter);
                 churchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         view.setSelected(true);
-
+                        adapter.notifyDataSetChanged();
                         selectedChurchPosition=position;
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            setMychurchButton.setBackgroundColor(getColor(R.color.colorAccent));
-                        }
-                        else {
-                            setMychurchButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                        }
                     }
                 });
                 searchText.setSelectAllOnFocus(true);
                 churchList.setVisibility(View.VISIBLE);
-                setMychurchButton.setVisibility(View.VISIBLE);
-                setMychurchButton.setBackgroundResource(R.drawable.white_transparent_card);
-
             }
         }
     }

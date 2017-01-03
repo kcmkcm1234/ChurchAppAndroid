@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,7 @@ public class CustomAdapter extends BaseAdapter {
             //Searching Church---------------------
         TextView churchName,address,town;
         ImageView churchImage;
+        RelativeLayout setAsMyChurch;
             //Novenas------------------------------
         TextView patronName,patronDescription;
         ImageView patronImg1,patronImg2;
@@ -775,6 +777,71 @@ public class CustomAdapter extends BaseAdapter {
                             .dontTransform()
                             .thumbnail(0.1f)
                             .into(holder.personImg);
+                }
+                break;
+            //--------------------------for home screen items------------------
+            case "ChurchTownMyChurchSearchResults":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_church_for_mychurch, null);
+                    holder.churchName = (TextView) convertView.findViewById(R.id.church_name);
+                    holder.address=(TextView)convertView.findViewById(R.id.address);
+                    holder.town=(TextView)convertView.findViewById(R.id.town);
+                    holder.churchImage=(ImageView)convertView.findViewById(R.id.church_image);
+                    holder.setAsMyChurch=(RelativeLayout)convertView.findViewById(R.id.set_mychurch_button);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //Label loading--------------------
+                holder.churchName.setText(objects.get(position)[1]);
+                if(!objects.get(position)[2].equals("null")) {
+                    holder.town.setText(objects.get(position)[2]);
+                    holder.town.setVisibility(View.VISIBLE);
+                }
+                else holder.town.setVisibility(View.INVISIBLE);
+
+                if(!objects.get(position)[3].equals("null")){
+                    holder.churchImage.setPadding(0,0,0,0);
+                    holder.churchImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    Glide.with(adapterContext)
+                            .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
+                            .thumbnail(0.1f)
+                            .into(holder.churchImage);
+                }
+                else{
+                    holder.churchImage.setPadding(15,15,15,15);
+                    holder.churchImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    Glide.with(adapterContext)
+                            .load(R.drawable.church)
+                            .into(holder.churchImage);
+                }
+                if(!objects.get(position)[4].equals("null")){
+                    holder.address.setText(objects.get(position)[4]);
+                    holder.address.setVisibility(View.VISIBLE);
+                }
+                else holder.address.setVisibility(View.INVISIBLE);
+                holder.churchName.setTypeface(typeQuicksand);
+                holder.town.setTypeface(typeSegoe);
+                holder.address.setTypeface(typeSegoe);
+                if(convertView.isSelected())
+                {
+                    holder.setAsMyChurch.setVisibility(View.VISIBLE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        convertView.setBackgroundColor(adapterContext.getColor(R.color.selection_colour));
+                    }
+                    else {
+                        convertView.setBackgroundColor(adapterContext.getResources().getColor(R.color.selection_colour));
+                    }
+                }
+                else {
+                    holder.setAsMyChurch.setVisibility(View.INVISIBLE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        convertView.setBackgroundColor(adapterContext.getColor(R.color.white_patch));
+                    }
+                    else {
+                        convertView.setBackgroundColor(adapterContext.getResources().getColor(R.color.white_patch));
+                    }
                 }
                 break;
             default:
