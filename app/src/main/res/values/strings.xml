@@ -66,4 +66,5 @@
     <string name="error_loading_image">Error loading image</string>
     <string name="locate">Locate</string>
     <string name="set_my_church">Set My Church</string>
+    <string name="no_results_found">No results found</string>
 </resources>

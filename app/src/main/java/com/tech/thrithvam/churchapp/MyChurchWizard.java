@@ -6,9 +6,8 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -16,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -184,15 +182,16 @@ public class MyChurchWizard extends AppCompatActivity {
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
         ListView churchList=(ListView) findViewById(R.id.resultsGrid);
+        TextView instruction1=(TextView)findViewById(R.id.instruction1);
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             loadingIndicator.setVisibility(View.VISIBLE);
+            searchText.clearFocus();
             searchKey=searchText.getText().toString();
             churchItems=new ArrayList<>();
             selectedChurchPosition=-1;
             churchList.setVisibility(View.INVISIBLE);
-            TextView instruction1=(TextView)findViewById(R.id.instruction1);
             instruction1.setVisibility(View.GONE);
             //----------encrypting ---------------------------
             // usernameString=cryptography.Encrypt(usernameString);
@@ -273,6 +272,8 @@ public class MyChurchWizard extends AppCompatActivity {
             super.onPostExecute(result);
             loadingIndicator.setVisibility(View.GONE);
             if(!pass) {
+                instruction1.setText(R.string.no_results_found);
+                instruction1.setVisibility(View.VISIBLE);
             }
             else {
                 final CustomAdapter adapter=new CustomAdapter(MyChurchWizard.this, churchItems,"ChurchTownMyChurchSearchResults");
@@ -302,7 +303,6 @@ public class MyChurchWizard extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
     }
     public boolean isOnline() {
         ConnectivityManager cm =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
