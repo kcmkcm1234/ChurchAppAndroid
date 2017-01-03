@@ -141,14 +141,11 @@ public class FamilyUnits extends AppCompatActivity {
             loadingIndicator.setVisibility(View.GONE);
 
             if(!pass) {
-                new AlertDialog.Builder(FamilyUnits.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
-                        .setMessage(msg)//R.string.no_items)
-                        .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        }).setCancelable(false).show();
+                Intent noItemsIntent=new Intent(FamilyUnits.this,NothingToDisplay.class);
+                noItemsIntent.putExtra("msg",msg);
+                noItemsIntent.putExtra("activityHead","Family Units");
+                startActivity(noItemsIntent);
+                finish();
             }
             else {
                 CustomAdapter adapter=new CustomAdapter(FamilyUnits.this, familyUnitListItems,"ChurchFamilyUnits");

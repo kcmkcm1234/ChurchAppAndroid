@@ -134,14 +134,11 @@ public class Novenas extends AppCompatActivity {
             super.onPostExecute(result);
             loadingIndicator.setVisibility(View.GONE);
             if(!pass) {
-                new AlertDialog.Builder(Novenas.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
-                        .setMessage(msg)//R.string.no_items)
-                        .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        }).setCancelable(false).show();
+                Intent noItemsIntent=new Intent(Novenas.this,NothingToDisplay.class);
+                noItemsIntent.putExtra("msg",msg);
+                noItemsIntent.putExtra("activityHead","Novenas");
+                startActivity(noItemsIntent);
+                finish();
             }
             else {
                 CustomAdapter adapter=new CustomAdapter(Novenas.this, patronItems,"Novenas");

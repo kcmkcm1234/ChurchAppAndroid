@@ -128,14 +128,11 @@ public class AllTownsList extends AppCompatActivity {
             super.onPostExecute(result);
             loadingIndicator.setVisibility(View.GONE);
             if(!pass) {
-                new AlertDialog.Builder(AllTownsList.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
-                        .setMessage(msg)
-                        .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        }).setCancelable(false).show();
+                Intent noItemsIntent=new Intent(AllTownsList.this,NothingToDisplay.class);
+                noItemsIntent.putExtra("msg",msg);
+                noItemsIntent.putExtra("activityHead","Towns");
+                startActivity(noItemsIntent);
+                finish();
             }
             else {
                 CustomAdapter adapter=new CustomAdapter(AllTownsList.this, townListItems,"AllTownsList");

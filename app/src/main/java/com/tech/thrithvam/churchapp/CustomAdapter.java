@@ -191,6 +191,13 @@ public class CustomAdapter extends BaseAdapter {
 
                 holder.patronName.setTypeface(typeQuicksand);
                 holder.patronDescription.setTypeface(typeSegoe);
+                holder.patronDescription.setOnClickListener(new View.OnClickListener() {//Expanding novena details
+                    @Override
+                    public void onClick(View view) {
+                        holder.patronDescription.setMaxLines(1000);
+                        holder.patronDescription.setClickable(false);
+                    }
+                });
 
                 if(position%2==0){
                     holder.patronImg1.setVisibility(View.VISIBLE);

@@ -2,6 +2,7 @@ package com.tech.thrithvam.churchapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -154,14 +155,11 @@ public class PriestDetails extends AppCompatActivity {
             loadingIndicator.setVisibility(View.GONE);
 
             if(!pass) {
-                new AlertDialog.Builder(PriestDetails.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
-                        .setMessage(msg)
-                        .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        }).setCancelable(false).show();
+                Intent noItemsIntent=new Intent(PriestDetails.this,NothingToDisplay.class);
+                noItemsIntent.putExtra("msg",msg);
+                noItemsIntent.putExtra("activityHead","Priests");
+                startActivity(noItemsIntent);
+                finish();
             }
             else {
                 CustomAdapter adapter=new CustomAdapter(PriestDetails.this, priestListItems,"PriestList");

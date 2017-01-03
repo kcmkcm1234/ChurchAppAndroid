@@ -217,14 +217,11 @@ public class NearbyChurches extends AppCompatActivity {
             loadingIndicator.setVisibility(View.GONE);
             if(!pass) {
                 if(active){//show only if activity is active
-                new AlertDialog.Builder(NearbyChurches.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
-                        .setMessage(msg)//R.string.no_items)
-                        .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        }).setCancelable(false).show();
+                    Intent noItemsIntent=new Intent(NearbyChurches.this,NothingToDisplay.class);
+                    noItemsIntent.putExtra("msg",msg);
+                    noItemsIntent.putExtra("activityHead","Institutions");
+                    startActivity(noItemsIntent);
+                    finish();
                 }
             }
             else {

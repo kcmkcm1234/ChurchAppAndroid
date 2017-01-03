@@ -2,6 +2,7 @@ package com.tech.thrithvam.churchapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
@@ -201,14 +202,11 @@ public class FamilyUnitsDetails extends AppCompatActivity {
             loadingIndicator.setVisibility(View.GONE);
 
             if(!pass) {
-                new AlertDialog.Builder(FamilyUnitsDetails.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
-                        .setMessage(msg)//R.string.no_items)
-                        .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        }).setCancelable(false).show();
+                Intent noItemsIntent=new Intent(FamilyUnitsDetails.this,NothingToDisplay.class);
+                noItemsIntent.putExtra("msg",msg);
+                noItemsIntent.putExtra("activityHead","Family Units");
+                startActivity(noItemsIntent);
+                finish();
             }
             else {
                 CustomAdapter adapter=new CustomAdapter(FamilyUnitsDetails.this, FamilyListItems,"FamilyDetails");
