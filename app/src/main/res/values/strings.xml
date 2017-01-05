@@ -69,4 +69,5 @@
     <string name="no_results_found">No results found</string>
     <string name="no_items_to_display">No items to display</string>
     <string name="back">Back</string>
+    <string name="nearby">Nearby</string>
 </resources>

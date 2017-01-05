@@ -177,7 +177,7 @@
                 android:layout_below="@id/icon3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Towns"
+                android:text="@string/towns"
                 android:id="@+id/view_all_towns"
                 android:gravity="center"
                 android:textSize="12sp"
@@ -210,7 +210,7 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="10"
-                android:text="Nearby"/>
+                android:text="@string/nearby"/>
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
