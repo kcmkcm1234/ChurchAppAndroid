@@ -261,10 +261,25 @@ public class CustomAdapter extends BaseAdapter {
                 //Label loading--------------------
                 holder.novenaCaption.setText(objects.get(position)[1]);
                 holder.novenaCaption.setTypeface(typeQuicksand);
-                holder.novenaChurchName.setText(objects.get(position)[2]);
-                holder.novenaChurchName.setTypeface(typeBLKCHCRY);
-                holder.townName.setText(objects.get(position)[9]);
-                holder.townName.setTypeface(typeSegoe);
+
+                if(!objects.get(position)[2].equals("null")){
+                    holder.novenaChurchName.setText(objects.get(position)[2]);
+                    holder.novenaChurchName.setTypeface(typeBLKCHCRY);
+                    holder.novenaChurchName.setVisibility(View.VISIBLE);
+                }
+                else {  //from novena list of a known church
+                    holder.novenaChurchName.setVisibility(View.GONE);
+                }
+
+                if(!objects.get(position)[9].equals("null")){
+                    holder.townName.setText(objects.get(position)[9]);
+                    holder.townName.setTypeface(typeBLKCHCRY);
+                    holder.townName.setVisibility(View.VISIBLE);
+                }
+                else {  //from novena list of a known church
+                    holder.townName.setVisibility(View.GONE);
+                }
+
 
                 if(!objects.get(position)[3].equals("null")){
                     holder.novenaDescription.setText(objects.get(position)[3]);
