@@ -49,12 +49,7 @@ public class NoticeDetails extends AppCompatActivity {
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            noticeImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            Glide.with(NoticeDetails.this)
-                                    .load(R.drawable.events)
-                                    .dontTransform()
-                                    .into(noticeImage)
-                            ;
+                            noticeImage.setVisibility(View.GONE);
                             return true;
                         }
 

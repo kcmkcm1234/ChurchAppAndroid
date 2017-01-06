@@ -175,11 +175,7 @@ public class InstitutionDetails extends AppCompatActivity {
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            institution_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            Glide.with(InstitutionDetails.this)
-                                    .load(R.drawable.church)
-                                    .into(institution_image)
-                            ;
+                            institution_image.setVisibility(View.GONE);
                             return true;
                         }
                         @Override
