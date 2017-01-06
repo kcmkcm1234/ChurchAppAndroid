@@ -491,7 +491,7 @@ public class ChurchDetails extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             try {
-                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (mapCoOrdinatesString)));
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (mapCoOrdinatesString)+"("+churchName.getText().toString()+")"));
                                 startActivity(intent);
                             } catch (Exception e) {
                                 Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();

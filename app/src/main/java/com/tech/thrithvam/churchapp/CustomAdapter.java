@@ -335,7 +335,7 @@ public class CustomAdapter extends BaseAdapter {
                         @Override
                         public void onClick(View v) {
                             try {
-                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(fPos)[8])));
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(fPos)[8])+"("+objects.get(fPos)[2]+")"));
                                 adapterContext.startActivity(intent);
                             } catch (Exception e) {
                                 Toast.makeText(adapterContext.getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
@@ -385,7 +385,7 @@ public class CustomAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View view) {
                         try {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(fPos)[3])));
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(fPos)[3])+"("+ objects.get(fPos)[1]+")"));
                             adapterContext.startActivity(intent);
                         } catch (Exception e) {
                             Toast.makeText(adapterContext, e.toString(), Toast.LENGTH_LONG).show();
@@ -398,7 +398,7 @@ public class CustomAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View view) {
                         try {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(fPos)[3])));
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(fPos)[3])+"("+ objects.get(fPos)[1]+")"));
                             adapterContext.startActivity(intent);
                         } catch (Exception e) {
                             Toast.makeText(adapterContext, e.toString(), Toast.LENGTH_LONG).show();
