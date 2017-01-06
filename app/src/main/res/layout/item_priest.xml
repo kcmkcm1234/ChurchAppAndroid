@@ -26,15 +26,15 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"/>
 
-    <!--            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/priest_name_label"
-                    android:text="@string/name"
-                    android:textSize="12sp"
-                    android:textColor="@color/secondary_text"
-                    android:layout_toRightOf="@+id/priest_image"
-                    android:layout_toEndOf="@+id/priest_image"/>-->
+                <!--            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/priest_name_label"
+                                android:text="@string/name"
+                                android:textSize="12sp"
+                                android:textColor="@color/secondary_text"
+                                android:layout_toRightOf="@+id/priest_image"
+                                android:layout_toEndOf="@+id/priest_image"/>-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Parish Name"
+                    android:text="-"
                     android:textSize="14sp"
                     android:textColor="@color/primary_text"
                     android:layout_toRightOf="@+id/priest_image"
@@ -82,7 +82,7 @@
                 <TextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="baptism Name"
+                    android:text="-"
                     android:textSize="14sp"
                     android:textColor="@color/primary_text"
                     android:layout_toRightOf="@+id/priest_image"
@@ -106,7 +106,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="manager"
+                    android:text="-"
                     android:textSize="14sp"
                     android:textColor="@color/primary_text"
                     android:id="@+id/designation"
@@ -129,7 +129,7 @@
                 <TextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="vicar"
+                    android:text="-"
                     android:textColor="@color/primary_text"
                     android:textSize="14sp"
                     android:layout_toRightOf="@+id/priest_image"
@@ -153,7 +153,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="12-Oct-1971"
+                    android:text="-"
                     android:textSize="14sp"
                     android:textColor="@color/primary_text"
                     android:id="@+id/date_of_birth"
@@ -176,7 +176,7 @@
                 <TextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="9999999999"
+                    android:text="-"
                     android:textSize="14sp"
                     android:textColor="@color/colorAccent"
                     android:layout_toRightOf="@+id/priest_image"
@@ -200,7 +200,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="16-Nov-2016"
+                    android:text="-"
                     android:textSize="14sp"
                     android:textColor="@color/primary_text"
                     android:id="@+id/date_of_ordination"
@@ -222,7 +222,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email@gmail.com"
+                    android:text="-"
                     android:textSize="14sp"
                     android:textColor="@color/colorAccent"
                     android:layout_toRightOf="@+id/priest_image"
@@ -244,7 +244,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Address"
+                    android:text="-"
                     android:textSize="14sp"
                     android:textColor="@color/primary_text"
                     android:layout_toRightOf="@+id/priest_image"
@@ -266,7 +266,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/priest_about"
-                    android:text="About Priest"
+                    android:text="-"
                     android:textSize="14sp"
                     android:textColor="@color/primary_text"
                     android:layout_toRightOf="@+id/priest_image"

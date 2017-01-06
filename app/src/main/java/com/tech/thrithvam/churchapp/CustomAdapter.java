@@ -599,14 +599,50 @@ public class CustomAdapter extends BaseAdapter {
                 //----------------Label loading--------------------
 
                 holder.pName.setText(objects.get(position)[1]);
-                holder.pAddress.setText(objects.get(position)[2]);
-                holder.pAbout.setText(objects.get(position)[4]);
-                holder.pParish.setText(objects.get(position)[5]);
-                holder.pEmail.setText(objects.get(position)[8]);
-                holder.pMob.setText(objects.get(position)[9]);
-                holder.pDesign.setText(objects.get(position)[10]);
-                holder.pStatus.setText(objects.get(position)[11]);
-                holder.pBaptism.setText(objects.get(position)[12]);
+                if(!objects.get(position)[2].equals("null")){
+                    holder.pAddress.setText(objects.get(position)[2]);
+                }
+                if(!objects.get(position)[4].equals("null")){
+                    holder.pAbout.setText(objects.get(position)[4]);
+                }
+                if(!objects.get(position)[5].equals("null")) {
+                    holder.pParish.setText(objects.get(position)[5]);
+                }
+                if(!objects.get(position)[8].equals("null")){
+                    holder.pEmail.setText(objects.get(position)[8]);
+                    holder.pEmail.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Intent.ACTION_SEND);
+                            intent.setType("*/*");
+                            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{objects.get(fPos)[8]});
+                            intent.putExtra(Intent.EXTRA_SUBJECT, "Mail from Church App User");
+                            if (intent.resolveActivity(adapterContext.getPackageManager()) != null) {
+                                adapterContext.startActivity(intent);
+                            }
+                        }
+                    });
+                }
+                if(!objects.get(position)[9].equals("null")){
+                    holder.pMob.setText(objects.get(position)[9]);
+                    holder.pMob.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Uri number = Uri.parse("tel:" +objects.get(fPos)[9]);
+                            Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+                            adapterContext.startActivity(callIntent);
+                        }
+                    });
+                }
+                if(!objects.get(position)[10].equals("null")){
+                    holder.pDesign.setText(objects.get(position)[10]);
+                }
+                if(!objects.get(position)[11].equals("null")){
+                    holder.pStatus.setText(objects.get(position)[11]);
+                }
+                if(!objects.get(position)[12].equals("null")){
+                    holder.pBaptism.setText(objects.get(position)[12]);
+                }
 
 
                 if(!objects.get(position)[6].equals("null")){
@@ -639,28 +675,6 @@ public class CustomAdapter extends BaseAdapter {
                             .thumbnail(0.1f)
                             .into(holder.pImage);
                 }
-
-
-                holder.pMob.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Uri number = Uri.parse("tel:" +objects.get(fPos)[9]);
-                        Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
-                        adapterContext.startActivity(callIntent);
-                    }
-                });
-                holder.pEmail.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_SEND);
-                        intent.setType("*/*");
-                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{objects.get(fPos)[8]});
-                        intent.putExtra(Intent.EXTRA_SUBJECT, "Mail from Church App User");
-                        if (intent.resolveActivity(adapterContext.getPackageManager()) != null) {
-                            adapterContext.startActivity(intent);
-                        }
-                    }
-                });
                 break;
             //------------------ChurchNotices---------------------------
             case "ChurchNotices":
