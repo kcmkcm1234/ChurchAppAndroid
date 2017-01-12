@@ -77,12 +77,15 @@ public class SearchResults extends AppCompatActivity {
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
         TextView loadingText=(TextView)findViewById(R.id.loading_text);
+        TextView requestChurch=(TextView)findViewById(R.id.request_church);
         ArrayList<String[]> churchItems=new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             loadingIndicator.setVisibility(View.VISIBLE);
             loadingText.setVisibility(View.VISIBLE);
+            loadingText.setOnLongClickListener(null);
+            requestChurch.setVisibility(View.INVISIBLE);
             //----------encrypting ---------------------------
             // usernameString=cryptography.Encrypt(usernameString);
         }
@@ -162,7 +165,15 @@ public class SearchResults extends AppCompatActivity {
             super.onPostExecute(result);
             loadingIndicator.setVisibility(View.GONE);
             if(!pass) {
-                                loadingText.setText(msg);
+                                loadingText.setText(R.string.no_items_to_display);
+                                loadingText.setOnLongClickListener(new View.OnLongClickListener() {
+                                    @Override
+                                    public boolean onLongClick(View view) {
+                                        loadingText.setText(msg);
+                                        return true;
+                                    }
+                                });
+                                requestChurch.setVisibility(View.VISIBLE);
             }
             else {
                 loadingText.setVisibility(View.GONE);
@@ -286,7 +297,12 @@ public class SearchResults extends AppCompatActivity {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
-
+    public void request_church(View view)
+    {
+        Intent intent=new Intent(SearchResults.this,RequestChurch.class);
+        startActivity(intent);
+        finish();
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
