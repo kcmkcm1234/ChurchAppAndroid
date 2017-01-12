@@ -31,10 +31,12 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
+        android:maxHeight="200dp"
         android:id="@+id/new_image"
-        android:src="@drawable/church"
-        android:scaleType="fitCenter"/>
+        android:src="@drawable/add_church"
+        android:scaleType="center"
+        android:adjustViewBounds="true"/>
     <TextView
         android:text="@string/upload_church_image"
         android:gravity="center"

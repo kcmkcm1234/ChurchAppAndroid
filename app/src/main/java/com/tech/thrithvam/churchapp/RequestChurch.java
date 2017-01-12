@@ -79,11 +79,18 @@ public class RequestChurch extends AppCompatActivity {
             Cursor cursor =cursorLoader.loadInBackground();
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
             cursor.moveToFirst();
-            String selectedImagePath = cursor.getString(column_index);
-            bitmap = BitmapFactory.decodeFile(selectedImagePath);
-            newImage.setImageBitmap(bitmap);
-            imageFile =new File(cursor.getString(column_index));
-            fileName.setText(imageFile.getName());
+            File imageFileTemp =new File(cursor.getString(column_index));
+            if(((imageFileTemp.length()/1024)/1024)>5){
+                Toast.makeText(RequestChurch.this,"Please make the image file smaller size",Toast.LENGTH_LONG).show();
+                return;
+            }
+            else {
+                imageFile=imageFileTemp;
+                String selectedImagePath = cursor.getString(column_index);
+                bitmap = BitmapFactory.decodeFile(selectedImagePath);
+                newImage.setImageBitmap(bitmap);
+                fileName.setText(imageFile.getName());
+            }
             cursor.close();
         }
     }
