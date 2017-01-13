@@ -15,7 +15,6 @@
                 android:layout_width="65dp"
                 android:layout_height="60dp"
                 android:layout_margin="11dp"
-                android:src="@drawable/church"
                 android:id="@+id/person_img"
                 android:adjustViewBounds="true"
                 android:scaleType="centerInside"/>

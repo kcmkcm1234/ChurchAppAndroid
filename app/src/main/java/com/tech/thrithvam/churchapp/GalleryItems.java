@@ -6,8 +6,8 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -28,50 +28,52 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Gallery extends AppCompatActivity {
+public class GalleryItems extends AppCompatActivity {
     Typeface typeQuicksand;
     Bundle extras;
-    AsyncTask getGalleryAlbums=null;
-    String churchID;
+    AsyncTask getGalleryItems=null;
+    String albumID,albumName;
     GridView galleryGrid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gallery);
+        setContentView(R.layout.activity_gallery_items);
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
         extras=getIntent().getExtras();
-        churchID=extras.getString("ChurchID");
+        albumID=extras.getString("albumID");
+        albumName=extras.getString("albumName");
         TextView activityHead=(TextView)findViewById(R.id.activity_head);
         activityHead.setTypeface(typeQuicksand);
+        activityHead.setText(albumName);
         galleryGrid =(GridView) findViewById(R.id.gallery_grid);
         if (isOnline()) {
-            getGalleryAlbums=new GetGalleryAlbums().execute();
+            getGalleryItems=new GetGalleryItems().execute();
         } else {
-            Toast.makeText(Gallery.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            Toast.makeText(GalleryItems.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
     }
-    //--------------------------------Async Tasks-----------------------------------
-    public class GetGalleryAlbums extends AsyncTask<Void , Void, Void> {
+    public class GetGalleryItems extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData;
         JSONArray jsonArray;
         String msg;
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
-        ArrayList<String[]> galleryAlbums=new ArrayList<>();
+        ArrayList<String[]> galleryItems=new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             loadingIndicator.setVisibility(View.VISIBLE);
+            galleryGrid.setVisibility(View.INVISIBLE);
             //----------encrypting ---------------------------
             // usernameString=cryptography.Encrypt(usernameString);
         }
         @Override
         protected Void doInBackground(Void... arg0) {
-            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetGalleryAlbums";
+            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetGalleryItems";
             HttpURLConnection c = null;
             try {
-                postData =  "{\"ChurchID\":\"" + churchID+ "\"}";
+                postData =  "{\"albumID\":\"" + albumID+ "\"}";
                 URL u = new URL(url);
                 c = (HttpURLConnection) u.openConnection();
                 c.setRequestMethod("POST");
@@ -123,12 +125,10 @@ public class Gallery extends AppCompatActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     msg=jsonObject.optString("Message");
                     pass=jsonObject.optBoolean("Flag",true);
-                    String[] data=new String[4];
-                    data[0]=jsonObject.optString("AlbumID");
-                    data[1]=jsonObject.optString("AlbumName");
-                    data[2]=jsonObject.optString("ItemCount");
-                    data[3]=jsonObject.optString("URL");
-                    galleryAlbums.add(data);
+                    String[] data=new String[2];
+                    data[0]=jsonObject.optString("ID");
+                    data[1]=jsonObject.optString("URL");
+                    galleryItems.add(data);
                 }
             } catch (Exception ex) {
                 msg=ex.getMessage();
@@ -141,22 +141,21 @@ public class Gallery extends AppCompatActivity {
             super.onPostExecute(result);
             loadingIndicator.setVisibility(View.GONE);
             if(!pass) {
-                Intent noItemsIntent=new Intent(Gallery.this,NothingToDisplay.class);
+                Intent noItemsIntent=new Intent(GalleryItems.this,NothingToDisplay.class);
                 noItemsIntent.putExtra("msg",msg);
                 noItemsIntent.putExtra("activityHead","Gallery");
                 startActivity(noItemsIntent);
                 finish();
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(Gallery.this, galleryAlbums,"GalleryAlbums");
+                CustomAdapter adapter=new CustomAdapter(GalleryItems.this, galleryItems,"GalleryItems");
                 galleryGrid.setAdapter(adapter);
                 galleryGrid.setVisibility(View.VISIBLE);
                 galleryGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(Gallery.this,GalleryItems.class);
-                        intent.putExtra("albumID",galleryAlbums.get(position)[0]);
-                        intent.putExtra("albumName",galleryAlbums.get(position)[1]);
+                        Intent intent=new Intent(GalleryItems.this,ImageViewerActivity.class);
+                        intent.putExtra("URL",galleryItems.get(position)[1]);
                         startActivity(intent);
                     }
                 });
@@ -172,6 +171,6 @@ public class Gallery extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(getGalleryAlbums!=null)getGalleryAlbums.cancel(true);
+        if(getGalleryItems!=null)getGalleryItems.cancel(true);
     }
 }
