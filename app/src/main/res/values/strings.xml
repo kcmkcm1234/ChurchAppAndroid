@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">goChurch</string>
-    <!--<string name="url" translatable="false">http://192.168.1.109:55/</string>-->
-    <string name="url" translatable="false">http://jdadmin-001-site4.itempurl.com/</string>
+    <string name="url" translatable="false">http://192.168.1.109:55/</string>
+    <!--<string name="url" translatable="false">http://jdadmin-001-site4.itempurl.com/</string>-->
     <string name="network_off_alert">Please turn on internet</string>
     <string name="ok_button">OK</string>
     <string name="church_name">Church Name</string>
@@ -78,4 +78,5 @@
     <string name="your_contact_number">Your Contact Number</string>
     <string name="remarks">Remarks</string>
     <string name="want_to_add_this_church">Want to add this church?</string>
+    <string name="old_events">Old events</string>
 </resources>

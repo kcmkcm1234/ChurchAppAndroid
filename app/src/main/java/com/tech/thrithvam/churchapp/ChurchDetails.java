@@ -355,15 +355,15 @@ public class ChurchDetails extends AppCompatActivity {
                 if(!imageURLString.equals("null")){
                     Glide.with(ChurchDetails.this)
                             .load(getResources().getString(R.string.url) +imageURLString.substring((imageURLString).indexOf("img")))
-                            .placeholder(R.drawable.my_church_sample)
                             .thumbnail(0.1f)
-                            .crossFade()
+                            .dontTransform()
                             .listener(new RequestListener<String, GlideDrawable>() {
                                 @Override
                                 public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                                     churchImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
                                     Glide.with(ChurchDetails.this)
                                             .load(R.drawable.my_church_sample)
+                                            .centerCrop()
                                             .into(churchImage)
                                     ;
                                     return true;

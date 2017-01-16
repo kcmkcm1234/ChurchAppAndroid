@@ -48,7 +48,8 @@
         android:layout_marginRight="7dp"
         android:layout_marginLeft="7dp"
         android:id="@+id/church_image"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"/>
 
     <View
         android:layout_width="match_parent"
