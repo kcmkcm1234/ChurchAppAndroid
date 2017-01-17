@@ -84,6 +84,7 @@ public class MyChurch extends AppCompatActivity {
     public void events_click (View view){
         Intent intent=new Intent(MyChurch.this,Events.class);
         intent.putExtra("ChurchID",churchID);
+        intent.putExtra("ChurchName",db.GetMyChurch("ChurchName"));
         startActivity(intent);
     }
     public void change_my_church_click (View view){

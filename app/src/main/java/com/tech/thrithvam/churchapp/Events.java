@@ -39,7 +39,6 @@ public class Events extends AppCompatActivity {
     String ChurchID;
     Typeface typeQuicksand;
     TextView eventsHead;
-    Calendar event_start =Calendar.getInstance() ;
     AsyncTask getEvents=null;
     Boolean latestEvents;
     FloatingActionMenu floatingActionMenu;
@@ -182,11 +181,8 @@ public class Events extends AppCompatActivity {
                         intent.putExtra("EventName", eventsListItems.get(position)[1]);
                         intent.putExtra("Description", eventsListItems.get(position)[2]);
                         intent.putExtra("URL", eventsListItems.get(position)[3]);
-
-                        SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
-                        event_start.setTimeInMillis(Long.parseLong(eventsListItems.get(position)[0]));
-                        String startDate=formatted.format(event_start.getTime());
-                        intent.putExtra("StartDate",startDate);
+                        intent.putExtra("StartDateInMillis",eventsListItems.get(position)[0]);
+                        intent.putExtra("ChurchName",extras.getString("ChurchName"));
                         startActivity(intent);
                     }
                 });

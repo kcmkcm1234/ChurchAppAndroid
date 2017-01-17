@@ -845,6 +845,7 @@ public class ChurchDetails extends AppCompatActivity {
     public void events_click (View view){
         Intent intent=new Intent(ChurchDetails.this,Events.class);
         intent.putExtra("ChurchID",ChurchID);
+        intent.putExtra("ChurchName",churchNameStringGlobal);
         floatingActionMenu.close(true);
         startActivity(intent);
     }

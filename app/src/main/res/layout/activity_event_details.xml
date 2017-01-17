@@ -43,17 +43,18 @@
                      android:gravity="center"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:id="@+id/Event_date"
+                     android:id="@+id/event_date"
                      android:textSize="18sp"
                      android:textColor="@android:color/white"
                      android:layout_below="@+id/event_img"
                      android:maxLines="1"/>
 
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/EventsLayout"
-                android:layout_below="@+id/Event_date"
+                android:id="@+id/eventsLayout"
+                android:layout_below="@+id/event_date"
                 android:layout_margin="7dp"
                 android:background="@drawable/white_transparent_card"
                 android:padding="10dp">
@@ -62,18 +63,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/details"
-                    android:id="@+id/Event_details"
+                    android:id="@+id/event_details"
                     android:textColor="@color/primary_text"
                     android:layout_marginTop="5dp"
                     android:textSize="14sp"
                     android:ellipsize="end"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_reminder"
+                    android:textColor="@color/colorAccent"
+                    android:layout_below="@id/event_details"
+                    android:id="@+id/set_reminder"
+                    android:padding="5dp"
+                    android:gravity="right"
+                    />
 
             </RelativeLayout>
-
         </RelativeLayout>
-
-
-
     </ScrollView>
-
 </RelativeLayout>

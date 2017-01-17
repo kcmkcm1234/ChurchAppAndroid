@@ -18,7 +18,7 @@ public class NoticeDetails extends AppCompatActivity {
     String URL;
     TextView noticeHead, noticeContent;
     ImageView noticeImage;
-    Typeface typeQuicksand;
+    Typeface typeQuicksand,typeSegoe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +27,12 @@ public class NoticeDetails extends AppCompatActivity {
 
         URL = extras.getString("URL");
         typeQuicksand = Typeface.createFromAsset(getAssets(), "fonts/quicksandbold.otf");
+        typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
         noticeHead = (TextView) findViewById(R.id.activity_notice_head);
         noticeHead.setTypeface(typeQuicksand);
 
         noticeContent = (TextView) findViewById(R.id.notice_details);
+        noticeContent.setTypeface(typeSegoe);
         noticeImage = (ImageView) findViewById(R.id.notice_img);
 
         if (getIntent().hasExtra("NoticeName")) {
