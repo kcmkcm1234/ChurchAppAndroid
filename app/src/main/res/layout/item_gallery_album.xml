@@ -26,6 +26,16 @@
             android:paddingBottom="22dp"
             android:adjustViewBounds="true"
             />
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/video"
+            android:layout_alignRight="@+id/grid_img"
+            android:layout_alignEnd="@id/grid_img"
+            android:layout_alignTop="@+id/grid_img"
+            android:id="@+id/video_icon"
+            android:layout_marginTop="20dp"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,7 +59,6 @@
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        android:text="TextView"
         android:textColor="@android:color/white"
         android:maxLines="1"
         android:ellipsize="end"

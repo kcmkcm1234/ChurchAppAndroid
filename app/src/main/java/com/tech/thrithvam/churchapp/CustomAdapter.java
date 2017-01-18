@@ -102,7 +102,7 @@ public class CustomAdapter extends BaseAdapter {
         ImageView noticeImage;
             //Gallery-----------------------------
         TextView albumTitle,itemCount;
-        ImageView galleryAlbum,galleryItem;
+        ImageView galleryAlbum,galleryItem,videoIcon;
             //Family------------------------------
         TextView familyUnitHead;
             //FamilyDetails------------------------
@@ -715,6 +715,7 @@ public class CustomAdapter extends BaseAdapter {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_gallery_album, null);
                     holder.galleryAlbum =(ImageView)convertView.findViewById(R.id.grid_img );
+                    holder.videoIcon=(ImageView)convertView.findViewById(R.id.video_icon);
                     holder.albumTitle = (TextView) convertView.findViewById(R.id.grid_txt );
                     holder.itemCount  =(TextView)convertView.findViewById(R.id.item_count);
                     convertView.setTag(holder);
@@ -722,17 +723,40 @@ public class CustomAdapter extends BaseAdapter {
                     holder = (Holder) convertView.getTag();
                 }
                 //----------------Label loading--------------------
-                holder.albumTitle.setText(objects.get(position)[1]);
-                holder.itemCount.setText(objects.get(position)[2]);
+                if(!objects.get(position)[1].equals("null"))
+                    holder.albumTitle.setText(objects.get(position)[1]);
+                if(!objects.get(position)[2].equals("null"))
+                    holder.itemCount.setText(objects.get(position)[2]);
                 holder.albumTitle.setTypeface(typeQuicksand);
                 holder.itemCount.setTypeface(typeSegoe);
+
                 if(!objects.get(position)[3].equals("null")){
                     holder.galleryAlbum.setVisibility(View.VISIBLE);
-                    Glide.with(adapterContext)
-                            .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
-                            .dontTransform()
-                            .thumbnail(0.1f)
-                            .into(holder.galleryAlbum);
+                    if(objects.get(position)[4].equals("video")){   //it is a video album
+                        holder.videoIcon.setVisibility(View.VISIBLE);
+                        if(objects.get(position)[3].contains("youtube")||objects.get(position)[3].contains("vimeo")){//youtube or vimeo link of thumbnail
+                            Glide.with(adapterContext)
+                                    .load(objects.get(position)[3])
+                                    .dontTransform()
+                                    .thumbnail(0.1f)
+                                    .into(holder.galleryAlbum);
+                        }
+                        else {//video is from own server
+                            Glide.with(adapterContext)
+                                    .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("vid")))
+                                    .dontTransform()
+                                    .thumbnail(0.1f)
+                                    .into(holder.galleryAlbum);
+                        }
+                    }
+                    else {  //It is an image album
+                        holder.videoIcon.setVisibility(View.INVISIBLE);
+                            Glide.with(adapterContext)
+                                    .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
+                                    .dontTransform()
+                                    .thumbnail(0.1f)
+                                    .into(holder.galleryAlbum);
+                    }
                 }
                 else {
                     holder.galleryAlbum.setVisibility(View.INVISIBLE);

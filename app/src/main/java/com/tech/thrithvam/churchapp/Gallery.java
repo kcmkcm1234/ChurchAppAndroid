@@ -123,11 +123,12 @@ public class Gallery extends AppCompatActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     msg=jsonObject.optString("Message");
                     pass=jsonObject.optBoolean("Flag",true);
-                    String[] data=new String[4];
+                    String[] data=new String[5];
                     data[0]=jsonObject.optString("AlbumID");
                     data[1]=jsonObject.optString("AlbumName");
                     data[2]=jsonObject.optString("ItemCount");
                     data[3]=jsonObject.optString("URL");
+                    data[4]=jsonObject.optString("AlbumType");
                     galleryAlbums.add(data);
                 }
             } catch (Exception ex) {
