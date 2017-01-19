@@ -740,7 +740,7 @@ public class CustomAdapter extends BaseAdapter {
                     holder.galleryAlbum.setVisibility(View.VISIBLE);
                     if(objects.get(position)[4].equals("video")){   //it is a video album
                         holder.videoIcon.setVisibility(View.VISIBLE);
-                        if(objects.get(position)[3].contains("youtube")||objects.get(position)[3].contains("vimeo")){//youtube or vimeo link of thumbnail
+                        if(objects.get(position)[3].contains("youtube")){//||objects.get(position)[3].contains("vimeo")){//youtube or vimeo link of thumbnail
                             Glide.with(adapterContext)
                                     .load(objects.get(position)[3])
                                     .dontTransform()
@@ -776,23 +776,43 @@ public class CustomAdapter extends BaseAdapter {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_gallery_item, null);
                     holder.galleryItem =(ImageView)convertView.findViewById(R.id.image);
+                    holder.videoIcon=(ImageView)convertView.findViewById(R.id.video_icon);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
-                if(!objects.get(position)[1].equals("null")){
-                    Glide.with(adapterContext)
-                            .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[1].substring((objects.get(position)[1]).indexOf("img")))
-                            .dontTransform()
-                            .thumbnail(0.1f)
-                            .into(holder.galleryItem);
+                if(!objects.get(position)[4].equals("null")){
+                    holder.galleryItem.setVisibility(View.VISIBLE);
+                    if(objects.get(position)[2].equals("video")){   //it is a video item
+                        holder.videoIcon.setVisibility(View.VISIBLE);
+                        if(objects.get(position)[1].contains("youtube")){//||objects.get(position)[1].contains("vimeo")){//youtube or vimeo link of thumbnail
+                            Glide.with(adapterContext)
+                                    .load(objects.get(position)[1])
+                                    .dontTransform()
+                                    .thumbnail(0.1f)
+                                    .into(holder.galleryItem);
+                        }
+                        else {//video is from own server
+                            if(!objects.get(position)[1].equals("null")) {
+                                Glide.with(adapterContext)
+                                        .load(adapterContext.getResources().getString(R.string.url) + objects.get(position)[1].substring((objects.get(position)[1]).indexOf("vid")))
+                                        .dontTransform()
+                                        .thumbnail(0.1f)
+                                        .into(holder.galleryItem);
+                            }
+                        }
+                    }
+                    else {  //It is an image item
+                        holder.videoIcon.setVisibility(View.INVISIBLE);
+                        Glide.with(adapterContext)
+                                .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[4].substring((objects.get(position)[4]).indexOf("img")))
+                                .dontTransform()
+                                .thumbnail(0.1f)
+                                .into(holder.galleryItem);
+                    }
                 }
                 else {
-                    Glide.with(adapterContext)
-                            .load(R.drawable.church)
-                            .dontTransform()
-                            .thumbnail(0.1f)
-                            .into(holder.galleryItem);
+                    holder.galleryItem.setVisibility(View.INVISIBLE);
                 }
                 break;
             //------------------Church family units---------------------------

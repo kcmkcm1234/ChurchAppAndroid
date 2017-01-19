@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -125,9 +126,12 @@ public class GalleryItems extends AppCompatActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     msg=jsonObject.optString("Message");
                     pass=jsonObject.optBoolean("Flag",true);
-                    String[] data=new String[2];
+                    String[] data=new String[5];
                     data[0]=jsonObject.optString("ID");
-                    data[1]=jsonObject.optString("URL");
+                    data[1]=jsonObject.optString("Thumbnail",null);
+                    data[2]=jsonObject.optString("Type");
+                    data[3]=jsonObject.optString("Source");
+                    data[4]=jsonObject.optString("URL");
                     galleryItems.add(data);
                 }
             } catch (Exception ex) {
@@ -154,9 +158,22 @@ public class GalleryItems extends AppCompatActivity {
                 galleryGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(GalleryItems.this,ImageViewerActivity.class);
-                        intent.putExtra("URL",galleryItems.get(position)[1]);
-                        startActivity(intent);
+                        if(galleryItems.get(position)[2].equals("video")){  //Video item
+                            if(galleryItems.get(position)[3].equals("EXTL")){
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(galleryItems.get(position)[4]));
+                                startActivity(browserIntent);
+                            }
+                            else {//video can be played within app
+                                Intent intent=new Intent(GalleryItems.this,VideoPlayer.class);
+                                intent.putExtra("URL",getResources().getString(R.string.url) +galleryItems.get(position)[4].substring((galleryItems.get(position)[4]).indexOf("vid")));
+                                startActivity(intent);
+                            }
+                        }
+                        else {  //image item
+                            Intent intent=new Intent(GalleryItems.this,ImageViewerActivity.class);
+                            intent.putExtra("URL",galleryItems.get(position)[4]);
+                            startActivity(intent);
+                        }
                     }
                 });
             }

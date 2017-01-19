@@ -8,12 +8,13 @@ import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
 public class VideoPlayer extends AppCompatActivity {
-
+    Bundle extras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
-        String vidAddress = "http://jdadmin-001-site4.itempurl.com/vid/e54fbbe7-7b2c-4f8c-aa16-0669e5ad4b0a.mp4";
+        extras=getIntent().getExtras();
+        String vidAddress=extras.getString("URL");
         Uri vidUri = Uri.parse(vidAddress);
 
         VideoView vidView=(VideoView)findViewById(R.id.video_view);
