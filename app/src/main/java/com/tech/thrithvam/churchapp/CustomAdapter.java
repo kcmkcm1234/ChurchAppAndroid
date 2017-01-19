@@ -725,8 +725,14 @@ public class CustomAdapter extends BaseAdapter {
                 //----------------Label loading--------------------
                 if(!objects.get(position)[1].equals("null"))
                     holder.albumTitle.setText(objects.get(position)[1]);
+                else
+                    holder.albumTitle.setText("");
+
                 if(!objects.get(position)[2].equals("null"))
                     holder.itemCount.setText(objects.get(position)[2]);
+                else
+                    holder.itemCount.setText("");
+
                 holder.albumTitle.setTypeface(typeQuicksand);
                 holder.itemCount.setTypeface(typeSegoe);
 
