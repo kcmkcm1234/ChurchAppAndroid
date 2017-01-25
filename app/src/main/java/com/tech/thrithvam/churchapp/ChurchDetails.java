@@ -28,6 +28,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -70,13 +71,14 @@ public class ChurchDetails extends AppCompatActivity {
         extras=getIntent().getExtras();
         db=DatabaseHandler.getInstance(this);
         ChurchID=extras.getString("churchID");
+        floatingActionMenu=(FloatingActionMenu)findViewById(R.id.material_design_android_floating_action_menu);
+        floatingActionMenu.setVisibility(View.INVISIBLE);
         if (isOnline()) {
             getChurchDetails=new GetChurchDetails().execute();
         } else {
             Toast.makeText(ChurchDetails.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
         //Layouts-----------------------------------
-        floatingActionMenu=(FloatingActionMenu)findViewById(R.id.material_design_android_floating_action_menu);
         priestLayout=(RelativeLayout)findViewById(R.id.priestLayout);
         aboutLayout=(RelativeLayout)findViewById(R.id.aboutLayout);
         contactLayout=(RelativeLayout)findViewById(R.id.contactLayout);
@@ -220,6 +222,7 @@ public class ChurchDetails extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             loadingIndicator.setVisibility(View.VISIBLE);
+            floatingActionMenu.setVisibility(View.INVISIBLE);
             //----------encrypting ---------------------------
             // usernameString=cryptography.Encrypt(usernameString);
         }
@@ -315,6 +318,7 @@ public class ChurchDetails extends AppCompatActivity {
             }
             else {
                 activityScrollView.setVisibility(View.VISIBLE);
+                floatingActionMenu.setVisibility(View.VISIBLE);
                 if(!churchNameStringGlobal.equals("null")){
                     churchName.setText(churchNameStringGlobal);
                     churchName.setVisibility(View.VISIBLE);
@@ -858,6 +862,9 @@ public class ChurchDetails extends AppCompatActivity {
         startActivity(intent);
     }
     public void mychurch_click (View view){
+        if(db.GetMyChurch("ChurchID")!=null)
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(db.GetMyChurch("ChurchID"));
+        FirebaseMessaging.getInstance().subscribeToTopic(ChurchID);
         db.SetMyChurch(ChurchID,churchNameStringGlobal,townNameStringGlobal,addressStringGlobal);
         Toast.makeText(ChurchDetails.this,getResources().getString(R.string.mychurch_set_notification,churchName.getText().toString()),Toast.LENGTH_LONG).show();
         floatingActionMenu.close(true);

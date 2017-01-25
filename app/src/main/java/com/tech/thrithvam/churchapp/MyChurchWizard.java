@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -294,6 +295,10 @@ public class MyChurchWizard extends AppCompatActivity {
     public void set_as_mychurch(View view){
         if(selectedChurchPosition>-1){
             Toast.makeText(MyChurchWizard.this,getResources().getString(R.string.mychurch_set_notification,churchItems.get(selectedChurchPosition)[1]),Toast.LENGTH_SHORT).show();
+
+            if(db.GetMyChurch("ChurchID")!=null)
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(db.GetMyChurch("ChurchID"));
+            FirebaseMessaging.getInstance().subscribeToTopic(churchItems.get(selectedChurchPosition)[0]);
             db.SetMyChurch(churchItems.get(selectedChurchPosition)[0],
                     churchItems.get(selectedChurchPosition)[1],
                     churchItems.get(selectedChurchPosition)[2],

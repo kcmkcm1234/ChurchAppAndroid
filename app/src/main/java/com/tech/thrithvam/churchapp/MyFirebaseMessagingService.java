@@ -43,7 +43,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             PendingIntent resultPendingIntent = PendingIntent.getActivity(MyFirebaseMessagingService.this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             mBuilder.setContentIntent(resultPendingIntent);
             mBuilder.setAutoCancel(true);
-            mNotificationManager.notify(5555, mBuilder.build());
+            mNotificationManager.notify((int)remoteMessage.getSentTime(), mBuilder.build());
         }
     }
 }
