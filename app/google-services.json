@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "929123363163",
+    "firebase_url": "https://churchappandroid-bfdfb.firebaseio.com",
+    "project_id": "churchappandroid-bfdfb",
+    "storage_bucket": "churchappandroid-bfdfb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929123363163:android:699311903e1e9eb8",
+        "android_client_info": {
+          "package_name": "com.tech.thrithvam.churchapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929123363163-dug2bu4ipjeof60pe4ttiab2bfmmrmlu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tech.thrithvam.churchapp",
+            "certificate_hash": "7DBFB38C2B2C776425AF4D6F8457B4AD705A25BB"
+          }
+        },
+        {
+          "client_id": "929123363163-n36q1tiqjtlb5j0ntsm6meso9kmg1qcg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSxviw1bRwNd5_vT-Fri4Ke4xP1Gejax8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929123363163-n36q1tiqjtlb5j0ntsm6meso9kmg1qcg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

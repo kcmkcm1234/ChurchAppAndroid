@@ -7,9 +7,11 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class DatabaseHandler extends SQLiteOpenHelper {
     // All Static variables
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     // Database Name
     private static final String DATABASE_NAME = "ChurchApp.db";
     private SQLiteDatabase db;
@@ -35,9 +37,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS MyChurch (ChurchID TEXT PRIMARY KEY,ChurchName TEXT, Town TEXT, Address TEXT);";
         db.execSQL(CREATE_USER_ACCOUNTS_TABLE);
 
-        /*String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS Notifications (NotificationIDs TEXT, ExpiryDate DATE);";
+        String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS Notifications (NotificationIDs TEXT,Title TEXT,Description TEXT, NotDate TEXT);";
         db.execSQL(CREATE_NOTIFICATIONS_TABLE);
-        //Locally storing Requests and responses----
+      /*  //Locally storing Requests and responses----
         String CREATE_LOCALRESPONSE_TABLE = "CREATE TABLE IF NOT EXISTS Responses (URL TEXT,Request TEXT, Response TEXT, RequestIdentifier TEXT NULL,UsedFlag TEXT NULL, PRIMARY KEY (URL, Request));";
         db.execSQL(CREATE_LOCALRESPONSE_TABLE);*/
     }
@@ -45,7 +47,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + DATABASE_NAME );
+//        db.execSQL("DROP TABLE IF EXISTS " + DATABASE_NAME );
+        String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS Notifications (NotificationIDs TEXT,Title TEXT,Description TEXT, NotDate TEXT);";
+        db.execSQL(CREATE_NOTIFICATIONS_TABLE);
         // Create tables again
         onCreate(db);
     }
@@ -76,31 +80,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
     //------------------------Notifications table------------------------------
- /*   public void insertNotificationIDs(String notIds, String date)
+    public void InsertNotificationIDs(String notificationIDs, String title, String description, String notDate)
     {
         db=this.getWritableDatabase();
-        db.execSQL("INSERT INTO Notifications (NotificationIDs,ExpiryDate) VALUES ('"+notIds+"','"+date+"');");
+        db.execSQL("INSERT INTO Notifications (NotificationIDs, Title,Description, NotDate) VALUES ('"+notificationIDs+"',"+DatabaseUtils.sqlEscapeString(title)+","+DatabaseUtils.sqlEscapeString(description)+",'"+notDate+"');");
         //db.close();
     }
-    public String getNotificationIDs()
+    public ArrayList<String[]> GetNotifications()
     {
         db=this.getReadableDatabase();
-        String nIDs="";
-        Cursor cursor = db.rawQuery("SELECT (NotificationIDs) FROM Notifications;",null);
+        ArrayList<String[]> nots=new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT Title,Description,NotDate FROM Notifications ORDER BY NotDate DESC;",null);
         if (cursor.getCount()>0)
         {cursor.moveToFirst();
-            nIDs=cursor.getString(cursor.getColumnIndex("NotificationIDs"));
             do {
-                nIDs=nIDs+","+cursor.getString(cursor.getColumnIndex("NotificationIDs"));
+                String[] data = new String[3];
+                data[0] = cursor.getString(cursor.getColumnIndex("Title"));
+                data[1] = cursor.getString(cursor.getColumnIndex("Description"));
+                data[2] = cursor.getString(cursor.getColumnIndex("NotDate"));
+                nots.add(data);
             }while (cursor.moveToNext());
             cursor.close();
-            //db.close();
-            return nIDs;
+            //db.close;
+            return nots;
         }
-        else {
-            //db.close();
+        else
+        {
+            //db.close;
             cursor.close();
-            return "";
+            return nots;//empty array list to avoid exception in custom adapter
         }
     }
     public void flushNotifications()
@@ -109,7 +117,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         long time= System.currentTimeMillis();
         db.execSQL("DELETE FROM Notifications WHERE ExpiryDate<"+time+";");
         //db.close;
-    }*/
+    }
    /* //------------------------------Chat table---------------------------------------
     public void insertMessage(String MsgIDs,String Msg,String Direction,String MsgTime,String ProductID)
     {

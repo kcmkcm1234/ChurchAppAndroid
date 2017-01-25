@@ -110,6 +110,8 @@ public class CustomAdapter extends BaseAdapter {
             //Family unit Executives---------------
         TextView personName, personMob, personPosition;
         ImageView personImg;
+            //Notifications----------------------
+        TextView notTitle,notDesc,notDate;
     }
 
     @Override
@@ -929,6 +931,26 @@ public class CustomAdapter extends BaseAdapter {
                         convertView.setBackgroundColor(adapterContext.getResources().getColor(R.color.white_patch));
                     }
                 }
+                break;
+            //------------------Notifications list---------------------------
+            case "Notifications":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_notification, null);
+                    holder.notTitle = (TextView) convertView.findViewById(R.id.title);
+                    holder.notDesc =(TextView) convertView.findViewById(R.id.description );
+                    holder.notDate =(TextView) convertView.findViewById(R.id.date );
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                holder.notTitle.setText(objects.get(position)[0]);
+                holder.notDesc.setText(objects.get(position)[1]);
+                cal.setTimeInMillis(Long.parseLong(objects.get(position)[2]));
+                holder.notDate.setText(formatted.format(cal.getTime()));
+                holder.notTitle.setTypeface(typeQuicksand);
+                holder.notDesc.setTypeface(typeSegoe);
+                holder.notDate.setTypeface(typeSegoe);
                 break;
             default:
                 break;

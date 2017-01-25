@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -37,6 +39,8 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        FirebaseMessaging.getInstance().subscribeToTopic("common");
+
         ImageView searchImage =(ImageView)findViewById(R.id.searchImage);
         searchText=(AutoCompleteTextView) findViewById(R.id.searchView);
 
@@ -129,6 +133,10 @@ public class Home extends AppCompatActivity {
     }
     public void view_all_towns(View view){
         Intent intent=new Intent(Home.this,AllTownsList.class);
+        startActivity(intent);
+    }
+    public void notification(View view){
+        Intent intent=new Intent(Home.this,Notifications.class);
         startActivity(intent);
     }
     //----------------------AsyncTasks----------------------------
