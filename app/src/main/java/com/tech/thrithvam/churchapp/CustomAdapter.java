@@ -119,7 +119,7 @@ public class CustomAdapter extends BaseAdapter {
         final Holder holder;
         final int fPos=position;
         switch (calledFrom) {
-            //--------------------------for home screen items------------------
+            //--------------------------for search results------------------
             case "ChurchTownSearchResults":
                 if (convertView == null) {
                     holder = new Holder();
@@ -188,6 +188,7 @@ public class CustomAdapter extends BaseAdapter {
                 if(!objects.get(position)[2].equals("null")){
                     holder.patronDescription.setText(objects.get(position)[2]);
                     holder.patronDescription.setVisibility(View.VISIBLE);
+                    holder.patronDescription.setMaxLines(4);
                 }
                 else holder.patronDescription.setVisibility(View.INVISIBLE);
 
