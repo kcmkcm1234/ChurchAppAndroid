@@ -111,7 +111,6 @@
         <activity
             android:name=".Gallery"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".AllTownsList"
@@ -171,7 +170,6 @@
         <activity
             android:name=".GalleryItems"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".VideoPlayer"
