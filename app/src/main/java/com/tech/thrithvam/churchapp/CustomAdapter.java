@@ -287,9 +287,10 @@ public class CustomAdapter extends BaseAdapter {
                 if(!objects.get(position)[3].equals("null")){
                     holder.novenaDescription.setText(objects.get(position)[3]);
                     holder.novenaDescription.setVisibility(View.VISIBLE);
+                    holder.novenaDescription.setTypeface(typeSegoe);
                 }
                 else holder.novenaDescription.setVisibility(View.INVISIBLE);
-                holder.novenaDescription.setTypeface(typeSegoe);
+
 
                 if(!objects.get(position)[4].equals("null")){
                     holder.novenaDate.setVisibility(View.VISIBLE);
@@ -329,9 +330,9 @@ public class CustomAdapter extends BaseAdapter {
                 if(!objects.get(position)[7].equals("null")){
                     holder.dayAndTime.setText(objects.get(position)[7]);
                     holder.dayAndTime.setVisibility(View.VISIBLE);
+                    holder.dayAndTime.setTypeface(typeSegoe);
                 }
                 else holder.dayAndTime.setVisibility(View.GONE);
-                holder.dayAndTime.setTypeface(typeSegoe);
 
                 if(!objects.get(position)[8].equals("null,null")){
                     holder.viewMap.setOnClickListener(new View.OnClickListener() {
@@ -355,7 +356,7 @@ public class CustomAdapter extends BaseAdapter {
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        holder.novenaDescription.setMaxLines(100);//Expand description
+                        holder.novenaDescription.setMaxLines(1000);//Expand description
                     }
                 });
                 if(position>lastPosition){
