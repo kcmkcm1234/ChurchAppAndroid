@@ -511,7 +511,10 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 //----------------Label loading--------------------
                 holder.institutionName.setText(objects.get(position)[1]);
-                holder.institutionAddress.setText(objects.get(position)[2]);
+                if(!objects.get(position)[2].equals("null"))
+                    holder.institutionAddress.setText(objects.get(position)[2]);
+                else
+                    holder.institutionAddress.setText("");
                 holder.institutionName.setTypeface(typeQuicksand);
                 holder.institutionAddress.setTypeface(typeSegoe);
 
@@ -617,15 +620,22 @@ public class CustomAdapter extends BaseAdapter {
                 //----------------Label loading--------------------
 
                 holder.pName.setText(objects.get(position)[1]);
+
                 if(!objects.get(position)[2].equals("null")){
                     holder.pAddress.setText(objects.get(position)[2]);
                 }
+                else holder.pAddress.setText("-");
+
                 if(!objects.get(position)[4].equals("null")){
                     holder.pAbout.setText(objects.get(position)[4]);
                 }
+                else holder.pAbout.setText("-");
+
                 if(!objects.get(position)[5].equals("null")) {
                     holder.pParish.setText(objects.get(position)[5]);
                 }
+                else holder.pParish.setText("-");
+
                 if(!objects.get(position)[8].equals("null")){
                     holder.pEmail.setText(objects.get(position)[8]);
                     holder.pEmail.setOnClickListener(new View.OnClickListener() {
@@ -641,6 +651,8 @@ public class CustomAdapter extends BaseAdapter {
                         }
                     });
                 }
+                else holder.pEmail.setText("");
+
                 if(!objects.get(position)[9].equals("null")){
                     holder.pMob.setText(objects.get(position)[9]);
                     holder.pMob.setOnClickListener(new View.OnClickListener() {
@@ -652,15 +664,22 @@ public class CustomAdapter extends BaseAdapter {
                         }
                     });
                 }
+                else holder.pMob.setText("");
+
                 if(!objects.get(position)[10].equals("null")){
                     holder.pDesign.setText(objects.get(position)[10]);
                 }
+                else holder.pDesign.setText("-");
+
                 if(!objects.get(position)[11].equals("null")){
                     holder.pStatus.setText(objects.get(position)[11]);
                 }
+                else holder.pStatus.setText("-");
+
                 if(!objects.get(position)[12].equals("null")){
                     holder.pBaptism.setText(objects.get(position)[12]);
                 }
+                else holder.pBaptism.setText("-");
 
 
                 if(!objects.get(position)[6].equals("null")){
