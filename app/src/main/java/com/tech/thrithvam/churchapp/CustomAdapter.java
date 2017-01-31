@@ -147,6 +147,7 @@ public class CustomAdapter extends BaseAdapter {
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
                             .into(holder.churchImage);
+                    holder.churchImage.setPadding(0,0,0,0);
                 }
                 else{
                     holder.churchImage.setPadding(15,15,15,15);
@@ -318,6 +319,7 @@ public class CustomAdapter extends BaseAdapter {
                                 .thumbnail(0.1f)
                                 .into(holder.novenaImg)
                         ;
+                    holder.novenaImg.setPadding(0,0,0,0);
                 }
                 else{
                     holder.novenaImg.setPadding(15,15,15,15);
@@ -436,12 +438,14 @@ public class CustomAdapter extends BaseAdapter {
                                     return true;
                                 }
                                 @Override
-                                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                                    return false;
+                                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource)
+                                {
+                                    return true;
                                 }
                             })
                             .into(holder.nearChurchImg)
                     ;
+                    holder.nearChurchImg.setPadding(0,0,0,0);
                 }
                 else{
                     holder.nearChurchImg.setPadding(15,15,15,15);
@@ -477,6 +481,7 @@ public class CustomAdapter extends BaseAdapter {
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
+                            .fitCenter()
                             .thumbnail(0.1f)
                             .into(holder.orgPatronImage);
                 }
@@ -518,7 +523,6 @@ public class CustomAdapter extends BaseAdapter {
                             .into(holder.institutionImage);
                 }
                 else{
-                    holder.institutionImage.setPadding(15,15,15,15);
                     holder.institutionImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                     Glide.with(adapterContext)
                             .load(R.drawable.church)
@@ -563,7 +567,6 @@ public class CustomAdapter extends BaseAdapter {
                             .into(holder.eventImage);
                 }
                 else{
-                    holder.eventImage.setPadding(15,15,15,15);
                     holder.eventImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                     Glide.with(adapterContext)
                             .load(R.drawable.events)
@@ -909,6 +912,7 @@ public class CustomAdapter extends BaseAdapter {
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
                             .thumbnail(0.1f)
                             .into(holder.churchImage);
+                    holder.churchImage.setPadding(0,0,0,0);
                 }
                 else{
                     holder.churchImage.setPadding(15,15,15,15);

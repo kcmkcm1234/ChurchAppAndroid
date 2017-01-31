@@ -157,7 +157,7 @@
                     android:id="@+id/priest_image"
                     android:layout_margin="10dp"
                     android:src="@drawable/priest"
-                    android:scaleType="centerInside"
+                    android:scaleType="fitCenter"
                     android:layout_below="@+id/priest_label"
                     android:adjustViewBounds="true"/>
                 <TextView

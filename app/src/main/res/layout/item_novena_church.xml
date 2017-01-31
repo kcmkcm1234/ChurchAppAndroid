@@ -35,7 +35,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
             android:src="@drawable/priest"
-            android:scaleType="centerInside"
+            android:scaleType="fitCenter"
             android:layout_centerVertical="true"/>
 
         <TextView
