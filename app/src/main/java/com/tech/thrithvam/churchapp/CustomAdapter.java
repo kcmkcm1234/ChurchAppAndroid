@@ -727,7 +727,10 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 //----------------Label loading--------------------
                 holder.noticeHead.setText(objects.get(position)[1]);
-                holder.noticeType.setText(objects.get(position)[4]);
+                if(!objects.get(position)[4].equals("null"))
+                    holder.noticeType.setText(objects.get(position)[4]);
+                else holder.noticeType.setText("");
+
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
@@ -876,7 +879,10 @@ public class CustomAdapter extends BaseAdapter {
                     holder = (Holder) convertView.getTag();
                 }
                 holder.familyHead.setText(objects.get(position)[2]+" "+objects.get(position)[3]);
-                holder.familyName.setText(objects.get(position)[1]);
+                if(!objects.get(position)[1].equals("null"))
+                    holder.familyName.setText(objects.get(position)[1]);
+                else
+                    holder.familyName.setText("");
                 break;
             //------------------FamilyDetails---------------------------
             case "FamilyExecutive":
@@ -892,8 +898,16 @@ public class CustomAdapter extends BaseAdapter {
                     holder = (Holder) convertView.getTag();
                 }
                 holder.personName.setText(objects.get(position)[1]+" "+objects.get(position)[2]);
-                holder.personMob.setText(objects.get(position)[5]);
-                holder.personPosition.setText(objects.get(position)[4]);
+
+                if(!objects.get(position)[5].equals("null"))
+                    holder.personMob.setText(objects.get(position)[5]);
+                else holder.personMob.setText("");
+
+                if(!objects.get(position)[4].equals("null"))
+                    holder.personPosition.setText(objects.get(position)[4]);
+                else
+                    holder.personPosition.setText("");
+
                 if(!objects.get(position)[3].equals("null")){
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
