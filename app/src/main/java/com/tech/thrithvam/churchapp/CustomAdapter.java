@@ -382,20 +382,31 @@ public class CustomAdapter extends BaseAdapter {
                 //Label loading--------------------
                 holder.nearbyChurchName.setText(objects.get(position)[1]);
                 holder.nearbyChurchName.setTypeface(typeQuicksand);
-                holder.nearbyChurchAddress.setText(objects.get(position)[2]);
+
+                if(!objects.get(position)[2].equals("null"))
+                    holder.nearbyChurchAddress.setText(objects.get(position)[2]);
+                else holder.nearbyChurchAddress.setText("");
                 holder.nearbyChurchAddress.setTypeface(typeSegoe);
 
-                holder.nearbyViewMap.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        try {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + (objects.get(fPos)[3])+"("+ objects.get(fPos)[1]+")"));
-                            adapterContext.startActivity(intent);
-                        } catch (Exception e) {
-                            Toast.makeText(adapterContext, e.toString(), Toast.LENGTH_LONG).show();
+                if(!objects.get(position)[3].equals("null,null")){
+                    holder.nearbyViewMap.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            try {
+                                Intent intent = new Intent(Intent.ACTION_VIEW,
+                                        Uri.parse("geo:0,0?q=" + (objects.get(fPos)[3])+"("+ objects.get(fPos)[1]+")"));
+                                adapterContext.startActivity(intent);
+                            } catch (Exception e) {
+                                Toast.makeText(adapterContext, e.toString(), Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
-                });
+                    });
+                    holder.nearbyViewMap.setVisibility(View.VISIBLE);
+                }
+                else {
+                    holder.nearbyViewMap.setVisibility(View.INVISIBLE);
+                }
+
                 holder.distance.setText(objects.get(position)[4]);
                 holder.distance.setTypeface(typeQuicksand);
                 holder.distance.setOnClickListener(new View.OnClickListener() {
