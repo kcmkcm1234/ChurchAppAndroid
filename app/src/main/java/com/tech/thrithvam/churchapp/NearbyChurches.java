@@ -74,6 +74,7 @@ public class NearbyChurches extends AppCompatActivity {
                 } else {
                     // permission denied
                     Toast.makeText(NearbyChurches.this,R.string.loc_permission_denied,Toast.LENGTH_LONG).show();
+                    finish();
                 }
             }
         }
