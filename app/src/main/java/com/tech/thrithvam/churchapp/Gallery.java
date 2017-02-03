@@ -48,6 +48,11 @@ public class Gallery extends AppCompatActivity {
             getGalleryAlbums=new GetGalleryAlbums().execute();
         } else {
             Toast.makeText(Gallery.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            Intent noItemsIntent=new Intent(Gallery.this,NothingToDisplay.class);
+            noItemsIntent.putExtra("msg",getResources().getString(R.string.network_off_alert));
+            noItemsIntent.putExtra("activityHead","Gallery");
+            startActivity(noItemsIntent);
+            finish();
         }
     }
     //--------------------------------Async Tasks-----------------------------------

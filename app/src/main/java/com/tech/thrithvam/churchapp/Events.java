@@ -59,6 +59,11 @@ public class Events extends AppCompatActivity {
             getEvents=new GetEvents().execute();
         } else {
             Toast.makeText(Events.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            Intent noItemsIntent=new Intent(Events.this,NothingToDisplay.class);
+            noItemsIntent.putExtra("msg",getResources().getString(R.string.network_off_alert));
+            noItemsIntent.putExtra("activityHead","Events");
+            startActivity(noItemsIntent);
+            finish();
         }
     }
     //-----------------------------Async Tasks----------------------------------------

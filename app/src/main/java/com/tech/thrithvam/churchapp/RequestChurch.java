@@ -120,9 +120,6 @@ public class RequestChurch extends AppCompatActivity {
             else if(email.getText().toString().equals("")){
                 email.setError("Please enter your email address");
             }
-            else if(remarks.getText().toString().equals("")){
-                remarks.setError("Please enter something about your request");
-            }
             else {
                 FileInputStream fStream= null;
                 try {

@@ -75,6 +75,11 @@ public class FamilyUnitsDetails extends AppCompatActivity {
             getFamilyList = new  GetFamilyList().execute();
         } else {
             Toast.makeText(FamilyUnitsDetails.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            Intent noItemsIntent=new Intent(FamilyUnitsDetails.this,NothingToDisplay.class);
+            noItemsIntent.putExtra("msg",getResources().getString(R.string.network_off_alert));
+            noItemsIntent.putExtra("activityHead","Family Units");
+            startActivity(noItemsIntent);
+            finish();
         }
 
 
@@ -82,14 +87,13 @@ public class FamilyUnitsDetails extends AppCompatActivity {
         btnOpenPopup.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View arg0) {
+                if (isOnline()) {
                 LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 popupView = layoutInflater.inflate(R.layout.item_popup_family, null);
                 popupWindow = new PopupWindow(popupView,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-                if (isOnline()) {
+
                     getFamilyExecutiveList = new  GetFamilyExecutiveList().execute();
-                } else {
-                    Toast.makeText(FamilyUnitsDetails.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
-                }
+
                 floatingActionMenu.close(true);
                 ImageButton btnDismiss = (ImageButton)popupView.findViewById(R.id.ib_close);
                 btnDismiss.setOnClickListener(new Button.OnClickListener(){
@@ -98,6 +102,9 @@ public class FamilyUnitsDetails extends AppCompatActivity {
                         popupWindow.dismiss();
                     }});
                 popupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER,0,0);
+                } else {
+                    Toast.makeText(FamilyUnitsDetails.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+                }
             }
         });
 

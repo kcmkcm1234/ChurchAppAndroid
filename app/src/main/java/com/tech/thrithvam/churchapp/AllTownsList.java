@@ -42,6 +42,11 @@ public class AllTownsList extends AppCompatActivity {
             getTowns=new GetAllTowns().execute();
         } else {
             Toast.makeText(AllTownsList.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            Intent noItemsIntent=new Intent(AllTownsList.this,NothingToDisplay.class);
+            noItemsIntent.putExtra("msg",getResources().getString(R.string.network_off_alert));
+            noItemsIntent.putExtra("activityHead","Towns");
+            startActivity(noItemsIntent);
+            finish();
         }
     }
     //--------------------Async Tasks----------------------------

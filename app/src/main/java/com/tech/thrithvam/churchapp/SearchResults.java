@@ -46,6 +46,11 @@ public class SearchResults extends AppCompatActivity {
             searching=new ChurchTownSearchResults().execute();
         } else {
             Toast.makeText(SearchResults.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            Intent noItemsIntent=new Intent(SearchResults.this,NothingToDisplay.class);
+            noItemsIntent.putExtra("msg",getResources().getString(R.string.network_off_alert));
+            noItemsIntent.putExtra("activityHead","Searching");
+            startActivity(noItemsIntent);
+            finish();
         }
         //Search Text box--------------
         Typeface typeCopperplateGothic = Typeface.createFromAsset(getAssets(),"fonts/copperplate-gothic.ttf");

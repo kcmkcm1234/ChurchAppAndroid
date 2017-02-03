@@ -43,6 +43,11 @@ public class Novenas extends AppCompatActivity {
             getPatrons=new GetPatrons().execute();
         } else {
             Toast.makeText(Novenas.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            Intent noItemsIntent=new Intent(Novenas.this,NothingToDisplay.class);
+            noItemsIntent.putExtra("msg",getResources().getString(R.string.network_off_alert));
+            noItemsIntent.putExtra("activityHead","Novena");
+            startActivity(noItemsIntent);
+            finish();
         }
     }
     //--------------------------------Async Tasks-----------------------------------

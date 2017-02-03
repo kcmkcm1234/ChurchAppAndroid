@@ -51,6 +51,11 @@ public class GalleryItems extends AppCompatActivity {
             getGalleryItems=new GetGalleryItems().execute();
         } else {
             Toast.makeText(GalleryItems.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            Intent noItemsIntent=new Intent(GalleryItems.this,NothingToDisplay.class);
+            noItemsIntent.putExtra("msg",getResources().getString(R.string.network_off_alert));
+            noItemsIntent.putExtra("activityHead","Gallery");
+            startActivity(noItemsIntent);
+            finish();
         }
     }
     public class GetGalleryItems extends AsyncTask<Void , Void, Void> {

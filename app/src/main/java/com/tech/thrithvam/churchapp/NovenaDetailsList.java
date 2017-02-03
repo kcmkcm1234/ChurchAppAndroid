@@ -60,6 +60,11 @@ public class NovenaDetailsList extends AppCompatActivity {
             getNovenaChurchList=new GetNovenaChurchList().execute();
         } else {
             Toast.makeText(NovenaDetailsList.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            Intent noItemsIntent=new Intent(NovenaDetailsList.this,NothingToDisplay.class);
+            noItemsIntent.putExtra("msg",getResources().getString(R.string.network_off_alert));
+            noItemsIntent.putExtra("activityHead","Novena");
+            startActivity(noItemsIntent);
+            finish();
         }
     }
     //Async tasks---------------------------------

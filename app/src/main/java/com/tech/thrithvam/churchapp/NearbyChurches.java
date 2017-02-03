@@ -114,6 +114,11 @@ public class NearbyChurches extends AppCompatActivity {
                 getNearbyChurchList=new GetNearbyChurchList().execute();
             } else {
                 Toast.makeText(NearbyChurches.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+                Intent noItemsIntent=new Intent(NearbyChurches.this,NothingToDisplay.class);
+                noItemsIntent.putExtra("msg",getResources().getString(R.string.network_off_alert));
+                noItemsIntent.putExtra("activityHead","Nearby Churches");
+                startActivity(noItemsIntent);
+                finish();
             }
         }
         else
