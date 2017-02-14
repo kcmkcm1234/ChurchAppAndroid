@@ -427,22 +427,7 @@ public class CustomAdapter extends BaseAdapter {
                     Glide.with(adapterContext)
                             .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[5].substring((objects.get(position)[5]).indexOf("img")))
                             .thumbnail(0.1f)
-                            .listener(new RequestListener<String, GlideDrawable>() {
-                                @Override
-                                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                                    holder.nearChurchImg.setPadding(15,15,15,15);
-                                    holder.nearChurchImg.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                                    Glide.with(adapterContext)
-                                            .load(R.drawable.church)
-                                            .into(holder.nearChurchImg);
-                                    return true;
-                                }
-                                @Override
-                                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource)
-                                {
-                                    return true;
-                                }
-                            })
+                            .fitCenter()
                             .into(holder.nearChurchImg)
                     ;
                     holder.nearChurchImg.setPadding(0,0,0,0);
