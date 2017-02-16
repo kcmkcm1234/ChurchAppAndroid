@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -29,7 +30,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             db.InsertNotificationIDs(remoteMessage.getMessageId(),
                     title,
                     description,
-                    Long.toString(remoteMessage.getSentTime()));
+                    Long.toString(java.util.Calendar.getInstance().getTimeInMillis()));
 
             //Notification----------------------
             NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
