@@ -35,7 +35,7 @@
         android:maxHeight="200dp"
         android:id="@+id/new_image"
         android:src="@drawable/add_church"
-        android:scaleType="center"
+        android:scaleType="fitCenter"
         android:adjustViewBounds="true"/>
     <TextView
         android:text="@string/upload_church_image"
