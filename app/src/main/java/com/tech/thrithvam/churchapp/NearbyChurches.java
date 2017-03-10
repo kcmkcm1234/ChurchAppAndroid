@@ -223,7 +223,7 @@ public class NearbyChurches extends AppCompatActivity {
                 if(active){//show only if activity is active
                     Intent noItemsIntent=new Intent(NearbyChurches.this,NothingToDisplay.class);
                     noItemsIntent.putExtra("msg",msg);
-                    noItemsIntent.putExtra("activityHead","Institutions");
+                    noItemsIntent.putExtra("activityHead","NearBy Churches");
                     startActivity(noItemsIntent);
                     finish();
                 }
