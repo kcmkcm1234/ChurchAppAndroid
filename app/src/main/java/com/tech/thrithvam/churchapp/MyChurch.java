@@ -133,9 +133,9 @@ public class MyChurch extends AppCompatActivity {
         startActivity(intent);
     }
     public void edu_forum_click (View view){
-       /* Intent intent=new Intent(MyChurch.this,Gallery.class);
+        Intent intent=new Intent(MyChurch.this,EducationForumRegistration.class);
         intent.putExtra("ChurchID",churchID);
-        startActivity(intent);*/
+        startActivity(intent);
     }
     public void change_my_church_click (View view){
         Intent intent=new Intent(MyChurch.this,MyChurchWizard.class);

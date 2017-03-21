@@ -872,6 +872,8 @@ public class ChurchDetails extends AppCompatActivity {
             FirebaseMessaging.getInstance().unsubscribeFromTopic(db.GetMyChurch("ChurchID"));
         FirebaseMessaging.getInstance().subscribeToTopic(ChurchID);
         db.SetMyChurch(ChurchID,churchNameStringGlobal,townNameStringGlobal,addressStringGlobal,churchImageGlobal,denominationGlobal);
+        FloatingActionButton setMychurch=(FloatingActionButton)findViewById(R.id.material_design_floating_action_menu_item0);
+        setMychurch.setVisibility(View.GONE);
         Toast.makeText(ChurchDetails.this,getResources().getString(R.string.mychurch_set_notification,churchName.getText().toString()),Toast.LENGTH_LONG).show();
         floatingActionMenu.close(true);
     }

@@ -34,8 +34,10 @@ dependencies {
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
     compile 'ch.acra:acra:4.9.2'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta1'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 apply plugin: 'com.google.gms.google-services'
