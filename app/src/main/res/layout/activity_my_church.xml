@@ -99,7 +99,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/notices"
+                    android:id="@+id/gallery"
                     android:textSize="16sp"
                     android:textColor="#795548"
                     android:layout_centerVertical="true"
@@ -211,20 +211,21 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="5dp"
-                        android:src="@drawable/logo_navdarshan"
+                        android:src="@drawable/edu_forum"
+                        android:tint="#673AB7"
                         android:layout_centerVertical="true"
-                        android:id="@+id/imagenavadarshan" />
+                        android:id="@+id/image_edu_forum" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/gallery"
+                    android:id="@+id/text_edu_forum"
                     android:gravity="center"
                     android:textSize="16sp"
                     android:textColor="#673AB7"
                     android:layout_centerVertical="true"
-                    android:text="@string/navadarsan"
-                    android:layout_toRightOf="@+id/imagenavadarshan"
-                    android:layout_toEndOf="@+id/imagenavadarshan" />
+                    android:text="@string/education_forum"
+                    android:layout_toRightOf="@+id/image_edu_forum"
+                    android:layout_toEndOf="@+id/image_edu_forum" />
                     </RelativeLayout>
             </RelativeLayout>
             </android.support.v7.widget.CardView>
@@ -365,6 +366,39 @@
             android:layout_height="wrap_content"
             android:src="@drawable/noticewhite"
             fab:fab_label="@string/notices"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="#8d62d8"
+            fab:fab_colorPressed="#2e2248"
+            android:onClick="notice_click"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gallerywhite"
+            fab:fab_label="@string/gallery"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="#8d62d8"
+            fab:fab_colorPressed="#2e2248"
+            android:onClick="notice_click"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/eventswhite"
+            fab:fab_label="@string/events"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="#8d62d8"
+            fab:fab_colorPressed="#2e2248"
+            android:onClick="notice_click"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/familywhite"
+            fab:fab_label="@string/family_units"
             fab:fab_size="mini"
             fab:fab_colorNormal="#8d62d8"
             fab:fab_colorPressed="#2e2248"

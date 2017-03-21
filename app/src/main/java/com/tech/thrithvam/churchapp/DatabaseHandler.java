@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     // All Static variables
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     // Database Name
     private static final String DATABASE_NAME = "ChurchApp.db";
     private SQLiteDatabase db;
@@ -34,7 +34,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //---------------Tables----------------------------------
-        String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS MyChurch (ChurchID TEXT PRIMARY KEY,ChurchName TEXT, Town TEXT, Address TEXT);";
+        String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS MyChurch (ChurchID TEXT PRIMARY KEY,ChurchName TEXT, Town TEXT, Address TEXT,Image TEXT,Denomination TEXT);";
         db.execSQL(CREATE_USER_ACCOUNTS_TABLE);
 
         String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS Notifications (NotificationIDs TEXT,Title TEXT,Description TEXT, NotDate TEXT);";
@@ -50,15 +50,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //        db.execSQL("DROP TABLE IF EXISTS " + DATABASE_NAME );
         String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS Notifications (NotificationIDs TEXT,Title TEXT,Description TEXT, NotDate TEXT);";
         db.execSQL(CREATE_NOTIFICATIONS_TABLE);
+        String DROP_USER_ACCOUNTS_TABLE = "DROP TABLE IF EXISTS MyChurch;";
+        db.execSQL(DROP_USER_ACCOUNTS_TABLE);
+        String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS MyChurch (ChurchID TEXT PRIMARY KEY,ChurchName TEXT, Town TEXT, Address TEXT,Image TEXT,Denomination TEXT);";
+        db.execSQL(CREATE_USER_ACCOUNTS_TABLE);
         // Create tables again
         onCreate(db);
     }
     //--------------------------My Church-----------------------------
-    public void SetMyChurch(String ChurchID, String ChurchName,String Town,String Address)
+    public void SetMyChurch(String ChurchID, String ChurchName,String Town,String Address,String Image,String Denomination)
     {
         db=this.getWritableDatabase();
         ClearMyChurch();
-        db.execSQL("INSERT INTO MyChurch (ChurchID,ChurchName,Town,Address) VALUES ('"+ChurchID+"',"+DatabaseUtils.sqlEscapeString(ChurchName)+","+DatabaseUtils.sqlEscapeString(Town)+","+ DatabaseUtils.sqlEscapeString(Address)+");");
+        db.execSQL("INSERT INTO MyChurch (ChurchID,ChurchName,Town,Address,Image,Denomination) VALUES ('"+ChurchID+"',"+DatabaseUtils.sqlEscapeString(ChurchName)+","+DatabaseUtils.sqlEscapeString(Town)+","+ DatabaseUtils.sqlEscapeString(Address)+","+ DatabaseUtils.sqlEscapeString(Image)+","+ DatabaseUtils.sqlEscapeString(Denomination)+");");
     }
     private void ClearMyChurch()
     {
@@ -67,7 +71,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     public String GetMyChurch(String detail)
     {db=this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT ChurchID,ChurchName,Town,Address FROM MyChurch;",null);
+        Cursor cursor = db.rawQuery("SELECT ChurchID,ChurchName,Town,Address,Image,Denomination FROM MyChurch;",null);
         if (cursor.getCount()>0)
         {cursor.moveToFirst();
             String result=cursor.getString(cursor.getColumnIndex(detail));

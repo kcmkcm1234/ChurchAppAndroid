@@ -48,7 +48,7 @@ import java.util.logging.Logger;
 
 public class ChurchDetails extends AppCompatActivity {
     Bundle extras;
-    String ChurchID,aboutGlobal,churchImageGlobal;
+    String ChurchID,aboutGlobal,churchImageGlobal,denominationGlobal;
     AsyncTask getChurchDetails=null,getMassTimings=null,getExtraDetails=null;
     Typeface typeQuicksand,typeSegoe,typeBLKCHCRY;
     RelativeLayout viewMap;
@@ -303,6 +303,7 @@ public class ChurchDetails extends AppCompatActivity {
                     priestMobileString=jsonObject.optString("PriestMobile");
                     dateOrdinationString=jsonObject.optString("DateOrdination").replace("/Date(", "").replace(")/", "");
                     priestURLStringString=jsonObject.optString("PriestURL");
+                    denominationGlobal=jsonObject.optString("DenominationCode");
                 }
             } catch (Exception ex) {
                 msg=ex.getMessage();
@@ -870,7 +871,7 @@ public class ChurchDetails extends AppCompatActivity {
         if(db.GetMyChurch("ChurchID")!=null)
             FirebaseMessaging.getInstance().unsubscribeFromTopic(db.GetMyChurch("ChurchID"));
         FirebaseMessaging.getInstance().subscribeToTopic(ChurchID);
-        db.SetMyChurch(ChurchID,churchNameStringGlobal,townNameStringGlobal,addressStringGlobal);
+        db.SetMyChurch(ChurchID,churchNameStringGlobal,townNameStringGlobal,addressStringGlobal,churchImageGlobal,denominationGlobal);
         Toast.makeText(ChurchDetails.this,getResources().getString(R.string.mychurch_set_notification,churchName.getText().toString()),Toast.LENGTH_LONG).show();
         floatingActionMenu.close(true);
     }

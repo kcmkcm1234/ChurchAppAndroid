@@ -7,8 +7,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.github.clans.fab.FloatingActionMenu;
 
 public class MyChurch extends AppCompatActivity {
@@ -46,19 +52,58 @@ public class MyChurch extends AppCompatActivity {
         TextView change_my_church=(TextView)findViewById(R.id.change_mychurch);
         change_my_church.setTypeface(typeSegoe);
 
-        TextView notices=(TextView)findViewById(R.id.notices);
+        TextView eduForum=(TextView)findViewById(R.id.text_edu_forum);
         TextView events=(TextView)findViewById(R.id.events);
         TextView familyUnits=(TextView)findViewById(R.id.family_units);
         TextView gallery=(TextView)findViewById(R.id.gallery);
         TextView timings=(TextView)findViewById(R.id.timings);
         TextView about=(TextView)findViewById(R.id.about);
 
-        notices.setTypeface(typeSegoe);
+        eduForum.setTypeface(typeSegoe);
         events.setTypeface(typeSegoe);
         familyUnits.setTypeface(typeSegoe);
         gallery.setTypeface(typeSegoe);
         timings.setTypeface(typeSegoe);
         about.setTypeface(typeSegoe);
+
+        //Eduforum----------
+        if(db.GetMyChurch("Denomination").equals("LC"))
+        {
+            eduForum.setText(R.string.navadarsan);
+            ImageView eduForumIcon=(ImageView)findViewById(R.id.image_edu_forum);
+            Glide.with(MyChurch.this)
+                    .load(R.drawable.logo_navdarshan)
+                    .dontTransform()
+                    .into(eduForumIcon)
+            ;
+        }
+
+        //Church image--------------
+        final ImageView myChurchImage=(ImageView)findViewById(R.id.my_church_image);
+        String imageURLString=db.GetMyChurch("Image");
+        if(imageURLString!=null && !imageURLString.equals("null")){
+        Glide.with(MyChurch.this)
+                .load(getResources().getString(R.string.url) +imageURLString.substring((imageURLString).indexOf("img")))
+                .thumbnail(0.1f)
+                .dontTransform()
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        Glide.with(MyChurch.this)
+                                .load(R.drawable.my_church_sample)
+                                .centerCrop()
+                                .into(myChurchImage)
+                        ;
+                        return true;
+                    }
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        return false;
+                    }
+                })
+                .into(myChurchImage)
+        ;
+        }
 
         //Data on labels------
         churchName.setText(db.GetMyChurch("ChurchName"));

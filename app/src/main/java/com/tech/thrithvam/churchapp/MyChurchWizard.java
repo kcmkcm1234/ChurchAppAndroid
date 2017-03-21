@@ -254,12 +254,13 @@ public class MyChurchWizard extends AppCompatActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     msg=jsonObject.optString("Message");
                     pass=jsonObject.optBoolean("Flag",true);
-                    String[] data=new String[5];
+                    String[] data=new String[6];
                     data[0]=jsonObject.optString("ID");
                     data[1]=jsonObject.optString("ChurchName");
                     data[2]=jsonObject.optString("Town");
                     data[3]=jsonObject.optString("ImageURL");
                     data[4]=jsonObject.optString("Address");
+                    data[5]=jsonObject.optString("DenominationCode");
                     churchItems.add(data);
                 }
             } catch (Exception ex) {
@@ -302,7 +303,9 @@ public class MyChurchWizard extends AppCompatActivity {
             db.SetMyChurch(churchItems.get(selectedChurchPosition)[0],
                     churchItems.get(selectedChurchPosition)[1],
                     churchItems.get(selectedChurchPosition)[2],
-                    churchItems.get(selectedChurchPosition)[4]
+                    churchItems.get(selectedChurchPosition)[4],
+                    churchItems.get(selectedChurchPosition)[3],
+                    churchItems.get(selectedChurchPosition)[5]
                     );
             Intent intent=new Intent(MyChurchWizard.this,MyChurch.class);
             startActivity(intent);
