@@ -132,6 +132,11 @@ public class MyChurch extends AppCompatActivity {
         intent.putExtra("ChurchName",db.GetMyChurch("ChurchName"));
         startActivity(intent);
     }
+    public void edu_forum_click (View view){
+       /* Intent intent=new Intent(MyChurch.this,Gallery.class);
+        intent.putExtra("ChurchID",churchID);
+        startActivity(intent);*/
+    }
     public void change_my_church_click (View view){
         Intent intent=new Intent(MyChurch.this,MyChurchWizard.class);
         startActivity(intent);
