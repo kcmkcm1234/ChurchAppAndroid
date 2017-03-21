@@ -48,19 +48,21 @@
         <ImageView
         android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/church"
+        android:src="@drawable/search"
+        android:tint="@color/colorAccent"
         android:id="@+id/searchImage"
         android:layout_alignTop="@+id/searchViewText"
         android:layout_alignRight="@+id/searchViewText"
         android:layout_alignEnd="@+id/searchViewText"
         android:layout_margin="3dp"
+        android:padding="2dp"
         android:layout_alignBottom="@+id/searchViewText"
         />
     </RelativeLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search your church &amp;\nset it as 'MyChurch'"
+        android:text="@string/search_your_church_nset_it_as_mychurch"
         android:textColor="@android:color/white"
         android:id="@+id/instruction1"
         android:layout_marginTop="40dp"

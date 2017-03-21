@@ -101,13 +101,14 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/church"
+            android:src="@drawable/search"
+            android:tint="@color/colorAccent"
             android:id="@+id/searchImage"
             android:layout_alignTop="@+id/searchView"
             android:layout_alignRight="@+id/searchView"
             android:layout_alignEnd="@+id/searchView"
             android:layout_margin="5dp"
-            android:padding="5dp"
+            android:padding="9dp"
             android:layout_alignBottom="@+id/searchView" />
     </RelativeLayout>
     <LinearLayout

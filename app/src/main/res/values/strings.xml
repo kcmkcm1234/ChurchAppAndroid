@@ -81,4 +81,6 @@
     <string name="old_events">Old events</string>
     <string name="set_reminder">Set reminder ⏰</string>
     <string name="notifications">Notifications</string>
+    <string name="search_your_church_nset_it_as_mychurch">Search your church &amp;\n set it as \'MyChurch\'</string>
+    <string name="navadarsan">Navadarsan</string>
 </resources>

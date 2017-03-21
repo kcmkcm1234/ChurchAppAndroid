@@ -93,7 +93,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="5dp"
-                    android:src="@drawable/notices"
+                    android:src="@drawable/gallery"
                     android:layout_centerVertical="true"
                     android:id="@+id/imageView" />
                 <TextView
@@ -101,9 +101,9 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/notices"
                     android:textSize="16sp"
-                    android:textColor="#673AB7"
+                    android:textColor="#795548"
                     android:layout_centerVertical="true"
-                    android:text="@string/notices"
+                    android:text="@string/gallery"
                     android:layout_toRightOf="@+id/imageView"
                     android:layout_toEndOf="@+id/imageView" />
                 </RelativeLayout>
@@ -211,20 +211,20 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="5dp"
-                        android:src="@drawable/gallery"
+                        android:src="@drawable/logo_navdarshan"
                         android:layout_centerVertical="true"
-                        android:id="@+id/imagegallery" />
+                        android:id="@+id/imagenavadarshan" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/gallery"
                     android:gravity="center"
                     android:textSize="16sp"
-                    android:textColor="#795548"
+                    android:textColor="#673AB7"
                     android:layout_centerVertical="true"
-                    android:text="@string/gallery"
-                    android:layout_toRightOf="@+id/imagegallery"
-                    android:layout_toEndOf="@+id/imagegallery" />
+                    android:text="@string/navadarsan"
+                    android:layout_toRightOf="@+id/imagenavadarshan"
+                    android:layout_toEndOf="@+id/imagenavadarshan" />
                     </RelativeLayout>
             </RelativeLayout>
             </android.support.v7.widget.CardView>
@@ -265,7 +265,7 @@
                     android:textSize="16sp"
                     android:layout_centerVertical="true"
                     android:textColor="#8BC34A"
-                    android:text="@string/timings"
+                    android:text="@string/mass_timings"
                     android:layout_toRightOf="@+id/imagetiming"
                     android:layout_toEndOf="@+id/imagetiming" />
                     </RelativeLayout>
@@ -359,7 +359,16 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
-
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/noticewhite"
+            fab:fab_label="@string/notices"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="#8d62d8"
+            fab:fab_colorPressed="#2e2248"
+            android:onClick="notice_click"/>
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/material_design_floating_action_menu_item0"
@@ -395,6 +404,7 @@
             fab:fab_colorNormal="#8d62d8"
             fab:fab_colorPressed="#2e2248"
             android:onClick="novenas_click"/>
+
 
     </com.github.clans.fab.FloatingActionMenu>
 
