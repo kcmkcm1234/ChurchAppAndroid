@@ -33,7 +33,7 @@ public class MyChurch extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
+else {
         Typeface typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
         Typeface typeBLKCHCRY = Typeface.createFromAsset(getAssets(),"fonts/blackchancery.ttf");
         Typeface typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
@@ -76,6 +76,7 @@ public class MyChurch extends AppCompatActivity {
                     .dontTransform()
                     .into(eduForumIcon)
             ;
+            eduForumIcon.clearColorFilter();
         }
 
         //Church image--------------
@@ -109,6 +110,7 @@ public class MyChurch extends AppCompatActivity {
         churchName.setText(db.GetMyChurch("ChurchName"));
         churchDetail1.setText(db.GetMyChurch("Town"));
         churchDetail2.setText(db.GetMyChurch("Address"));
+    }
     }
 
     public void family_units_click(View view){

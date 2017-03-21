@@ -84,4 +84,6 @@
     <string name="search_your_church_nset_it_as_mychurch">Search your church &amp;\n set it as \'MyChurch\'</string>
     <string name="navadarsan">Navadarsan</string>
     <string name="education_forum">Education Forum</string>
+    <string name="register_as_a_parent">Register as a parent</string>
+    <string name="register_as_a_student">Register as a student</string>
 </resources>
