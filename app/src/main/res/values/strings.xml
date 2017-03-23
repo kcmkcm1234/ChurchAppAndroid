@@ -86,4 +86,16 @@
     <string name="education_forum">Education Forum</string>
     <string name="register_as_a_parent">Register as a parent</string>
     <string name="register_as_a_student">Register as a student</string>
+    <string name="already_registered_note">Select either of the above even if you have already registered</string>
+    <string name="verify_number">Verify Number</string>
+    <string name="enter_otp">Please enter OTP sent to your mobile</string>
+    <string name="tyr_again">Please try again</string>
+    <string name="family_unit">Family Unit</string>
+    <string name="add_another_child">＋ another child</string>
+    <string name="add_child">Add child</string>
+    <string name="name_of_parent">Name of parent</string>
+    <string name="_class">Class</string>
+    <string name="school">School</string>
+    <string name="age">Age</string>
+    <string name="child_name_label">Child Name</string>
 </resources>

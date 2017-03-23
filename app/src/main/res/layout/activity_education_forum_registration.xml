@@ -40,7 +40,7 @@
         android:layout_alignParentRight="true"
         android:layout_margin="5dp"
         android:id="@+id/edu_forum_image" />
-
+<!--About Education forum-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,7 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_margin="7dp">
+            android:layout_margin="7dp"
+            android:background="@drawable/white_transparent_card">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -58,10 +59,9 @@
                     android:text="About"
                     android:id="@+id/about"
                     android:textColor="@color/primary_text"
-                    android:layout_margin="2dp"
+                    android:layout_margin="5dp"
                     android:padding="10dp"
-                    android:textSize="15sp"
-                    android:background="@drawable/white_transparent_card"/>
+                    android:textSize="15sp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,10 +73,15 @@
                     android:text="@string/register_as_a_parent"
                     android:gravity="center"
                     android:id="@+id/register_p"
-                    android:textColor="@color/colorAccent"
-                    android:padding="10dp"
-                    android:background="@drawable/white_transparent_card"
-                    android:layout_margin="2dp"
+                    android:textColor="@android:color/white"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:background="@color/colorAccent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="4dp"
                     android:textSize="15sp"/>
                 <TextView
                     android:layout_width="0dp"
@@ -85,13 +90,213 @@
                     android:text="@string/register_as_a_student"
                     android:gravity="center"
                     android:id="@+id/register_s"
-                    android:textColor="@color/colorAccent"
-                    android:padding="10dp"
-                    android:background="@drawable/white_transparent_card"
-                    android:layout_margin="2dp"
+                    android:textColor="@android:color/white"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:background="@color/colorAccent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="4dp"
                     android:textSize="15sp"/>
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondary_text"
+                android:text="@string/already_registered_note"
+                android:textSize="10sp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="10dp"/>
         </LinearLayout>
     </ScrollView>
-
+<!--OTP verification-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="7dp"
+        android:background="@drawable/white_transparent_card"
+        android:id="@+id/otp_verification_card"
+        android:layout_centerVertical="true"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please enter contact mobile number"
+            android:textColor="@color/primary_text"
+            android:layout_margin="5dp"
+            android:padding="10dp"
+            android:textSize="15sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:inputType="phone"
+            android:id="@+id/contact_mobile_input"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/verify_number"
+            android:gravity="center"
+            android:id="@+id/verify_mobile"
+            android:textColor="@android:color/white"
+            android:layout_gravity="right"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@color/colorAccent"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="15sp"/>
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/itemsLoading2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            app:indicator="BallTrianglePath"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginBottom="15dp"
+            app:indicator_color="@color/white_patch"
+            android:layout_gravity="right" />
+        </LinearLayout>
+<!--Registration for parent-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/activity_head"
+        android:id="@+id/registration_parent_edu_forum_scrollview"
+        android:visibility="gone">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="7dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/white_transparent_card">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/name_of_parent"
+            android:textColor="@color/primary_text"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="15sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:inputType="textPersonName"
+            android:id="@+id/name_of_parent"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/family_unit"
+            android:textColor="@color/primary_text"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="15sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:inputType="textPersonName"
+            android:id="@+id/family_unit"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/your_contact_number"
+            android:textColor="@color/primary_text"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="15sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:inputType="none"
+            android:enabled="false"
+            android:id="@+id/contact_number"/>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/child_details"
+           />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_child"
+            android:gravity="center"
+            android:id="@+id/add_child"
+            android:textColor="@android:color/white"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@color/colorAccent"
+            android:textSize="15sp"
+            android:layout_alignBottom="@+id/child_details"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"/>
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/submit"
+            android:gravity="center"
+            android:id="@+id/submit_p"
+            android:textColor="@android:color/white"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@color/colorAccent"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:visibility="gone"/>
+        </LinearLayout>
+    </ScrollView>
     </RelativeLayout>
