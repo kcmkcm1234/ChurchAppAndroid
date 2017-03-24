@@ -439,6 +439,58 @@ public class EducationForumRegistration extends AppCompatActivity {
                 }
             });
         }
+        else if (registerAs==STUDENT){
+            final ScrollView scrollView=(ScrollView)findViewById(R.id.registration_student_edu_forum_scrollview);
+            scrollView.setVisibility(View.VISIBLE);
+            EditText contactNumber=(EditText)findViewById(R.id.contact_number_s);
+            contactNumber.setText(contactMobileInput.getText().toString());
+            TextView submitButton=(TextView)findViewById(R.id.submit_s);
+            submitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String studentName,_class,school,dob,email;
+                    studentName=((TextView)findViewById(R.id.name_of_student)).getText().toString().trim();
+                    _class= ((TextView)findViewById(R.id.child_class)).getText().toString().trim();
+                    school=((TextView)findViewById(R.id.school)).getText().toString().trim();
+                    dob=((TextView)findViewById(R.id.dob)).getText().toString().trim();
+                    if(studentName.length()==0){
+                        ((TextView)findViewById(R.id.name_of_student)).setError(getResources().getString(R.string.give_valid_info));
+                        return;
+                    }
+                    else if(_class.length()==0){
+                        ((TextView)findViewById(R.id.child_class)).setError(getResources().getString(R.string.give_valid_info));
+                        return;
+                    }
+                    else if(school.length()==0){
+                        ((TextView)findViewById(R.id.school)).setError(getResources().getString(R.string.give_valid_info));
+                        return;
+                    }
+                    else if(dob.length()==0){
+                        ((TextView)findViewById(R.id.dob)).setError(getResources().getString(R.string.give_valid_info));
+                        return;
+                    }
+                    else {
+                        email=((TextView)findViewById(R.id.email_s)).getText().toString().trim();
+                        String childJson="[{\"Name\":\""+studentName+"\",\"Class\":\""+_class+"\",\"School\":\""+school+"\",\"DOB\":\""+dob+"\"}]";
+                        //Parent details
+                        String parentName,familyUnit;
+                        parentName=((TextView)findViewById(R.id.name_of_parent_s)).getText().toString().trim();
+                        familyUnit=((TextView)findViewById(R.id.family_unit_s)).getText().toString().trim();
+                        if(parentName.length()==0){
+                            ((TextView)findViewById(R.id.name_of_parent_s)).setError(getResources().getString(R.string.give_valid_info));
+                            return;
+                        }
+                        else if(familyUnit.length()==0){
+                            ((TextView)findViewById(R.id.family_unit_s)).setError(getResources().getString(R.string.give_valid_info));
+                            return;
+                        }
+                        else {
+                            new RegisterMember(parentName,familyUnit,email,childJson).execute();
+                        }
+                    }
+                }
+            });
+        }
     }
     private class RegisterMember extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
@@ -458,6 +510,7 @@ public class EducationForumRegistration extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog.setMessage(getResources().getString(R.string.wait));
+            pDialog.show();
             mobileNumberString=contactMobileInput.getText().toString().trim();
             //----------encrypting ---------------------------
             // usernameString=cryptography.Encrypt(usernameString);

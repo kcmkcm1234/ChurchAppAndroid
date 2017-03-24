@@ -100,4 +100,5 @@
     <string name="child_name_label">Child Name</string>
     <string name="email_optional">Email (optional)</string>
     <string name="give_valid_info">Please give valid information</string>
+    <string name="student_name">Student Name</string>
 </resources>
