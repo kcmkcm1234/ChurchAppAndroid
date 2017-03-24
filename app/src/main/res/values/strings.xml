@@ -98,4 +98,6 @@
     <string name="school">School</string>
     <string name="age">Age</string>
     <string name="child_name_label">Child Name</string>
+    <string name="email_optional">Email (optional)</string>
+    <string name="give_valid_info">Please give valid information</string>
 </resources>

@@ -34,7 +34,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //---------------Tables----------------------------------
-        String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS MyChurch (ChurchID TEXT PRIMARY KEY,ChurchName TEXT, Town TEXT, Address TEXT,Image TEXT,Denomination TEXT,EduForumMemberID TEXT);";
+        String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS MyChurch (ChurchID TEXT PRIMARY KEY,ChurchName TEXT, Town TEXT, Address TEXT,Image TEXT,Denomination TEXT,eduForumMemberRegistrationID TEXT);";
         db.execSQL(CREATE_USER_ACCOUNTS_TABLE);
 
         String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS Notifications (NotificationIDs TEXT,Title TEXT,Description TEXT, NotDate TEXT);";
@@ -52,7 +52,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_NOTIFICATIONS_TABLE);
         String DROP_USER_ACCOUNTS_TABLE = "DROP TABLE IF EXISTS MyChurch;";
         db.execSQL(DROP_USER_ACCOUNTS_TABLE);
-        String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS MyChurch (ChurchID TEXT PRIMARY KEY,ChurchName TEXT, Town TEXT, Address TEXT,Image TEXT,Denomination TEXT,EduForumMemberID TEXT);";
+        String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS MyChurch (ChurchID TEXT PRIMARY KEY,ChurchName TEXT, Town TEXT, Address TEXT,Image TEXT,Denomination TEXT,eduForumMemberRegistrationID TEXT);";
         db.execSQL(CREATE_USER_ACCOUNTS_TABLE);
         // Create tables again
         onCreate(db);
@@ -71,7 +71,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     String GetMyChurch(String detail)
     {db=this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT ChurchID,ChurchName,Town,Address,Image,Denomination,EduForumMemberID FROM MyChurch;",null);
+        Cursor cursor = db.rawQuery("SELECT ChurchID,ChurchName,Town,Address,Image,Denomination,eduForumMemberRegistrationID FROM MyChurch;",null);
         if (cursor.getCount()>0)
         {cursor.moveToFirst();
             String result=cursor.getString(cursor.getColumnIndex(detail));
@@ -83,9 +83,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return null;
         }
     }
-    void InsertEduForumMemberID(String eduForumMemberID){
+    void InsertEduForumMemberID(String eduForumMemberRegistrationID){
         db=this.getWritableDatabase();
-        db.execSQL("UPDATE MyChurch SET EduForumMemberID='"+eduForumMemberID+"';");
+        db.execSQL("UPDATE MyChurch SET eduForumMemberRegistrationID='"+eduForumMemberRegistrationID+"';");
     }
     //------------------------Notifications table------------------------------
     void InsertNotificationIDs(String notificationIDs, String title, String description, String notDate)

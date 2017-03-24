@@ -33,7 +33,9 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:inputType="textPersonName"
-            android:id="@+id/name_of_child"/>
+            android:id="@+id/name_of_child"
+            android:maxLines="1"
+            android:maxLength="100"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +56,9 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:inputType="textPersonName"
-            android:id="@+id/child_class"/>
+            android:id="@+id/child_class"
+            android:maxLines="1"
+            android:maxLength="50"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,7 +79,9 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:inputType="textPersonName"
-            android:id="@+id/school"/>
+            android:id="@+id/school"
+            android:maxLines="1"
+            android:maxLength="250"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,6 +101,6 @@
             android:layout_marginRight="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:inputType="number"
-            android:id="@+id/age"/>
+            android:id="@+id/dob"
+            android:maxLines="1"/>
 </LinearLayout>

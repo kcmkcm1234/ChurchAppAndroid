@@ -15,6 +15,6 @@ public class EducationForumEvents extends AppCompatActivity {
         db=DatabaseHandler.getInstance(this);
         typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
-        Toast.makeText(this, db.GetMyChurch("EduForumMemberID"), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, db.GetMyChurch("eduForumMemberRegistrationID"), Toast.LENGTH_SHORT).show();
     }
 }
