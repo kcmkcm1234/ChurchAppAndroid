@@ -55,6 +55,11 @@ public class EducationForumRegistration extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+        else if(db.GetMyChurch("eduForumMemberRegistrationID")!=null){
+            Intent intent=new Intent(EducationForumRegistration.this,EducationForumEvents.class);
+            startActivity(intent);
+            finish();
+        }
         typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
         aboutEduForumScrollView=(ScrollView)findViewById(R.id.about_edu_forum_scrollview);

@@ -2,11 +2,30 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_my_church"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.tech.thrithvam.churchapp.MyChurch"
     android:background="@drawable/sky_bg_full">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/edu_forum"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="5dp"
+        android:id="@+id/edu_forum_image" />
+    <TextView
+        android:text="@string/education_forum"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/activity_head"
+        android:textSize="22sp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_toRightOf="@+id/edu_forum_image"/>
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/itemsLoading"
         android:layout_width="50dp"
@@ -17,19 +36,58 @@
         android:layout_gravity="center"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
-    <TextView
-        android:text="@string/education_forum"
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarStyle="outsideOverlay"
+        android:id="@+id/edu_events_list"
+        android:layout_below="@+id/activity_head"
+        android:divider="@null"/>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/material_design_android_floating_action_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        fab:menu_animationDelayPerItem="55"
+        fab:menu_backgroundColor="@android:color/transparent"
+        fab:menu_buttonSpacing="0dp"
+        fab:menu_colorNormal="@color/colorAccent"
+        fab:menu_colorPressed="#543b7d"
+        fab:menu_colorRipple="#ffffff"
+        fab:menu_fab_label=""
+        fab:menu_fab_size="mini"
+        fab:menu_icon="@drawable/left_arrow"
+        fab:menu_labels_colorNormal="#fff"
+        fab:menu_labels_colorPressed="#2e2248"
+        fab:menu_labels_colorRipple="#ffffff"
+        fab:menu_labels_cornerRadius="3dp"
+        fab:menu_labels_ellipsize="none"
+        fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+        fab:menu_labels_margin="0dp"
+        fab:menu_labels_maxLines="-1"
+        fab:menu_labels_padding="8dp"
+        fab:menu_labels_position="left"
+        fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        fab:menu_labels_showShadow="true"
+        fab:menu_labels_singleLine="false"
+        fab:menu_labels_textColor="#8d62d8"
+        fab:menu_labels_textSize="15sp"
+        fab:menu_openDirection="down"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/activity_head"
-        android:textSize="22sp"
-        android:textColor="@android:color/white"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_toLeftOf="@+id/edu_forum_image"
-        android:layout_toStartOf="@+id/edu_forum_image" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/material_design_floating_action_menu_item0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/edu_forum_white"
+            fab:fab_label="@string/old_events"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="#8d62d8"
+            fab:fab_colorPressed="#2e2248"
+            android:onClick="old_events"
+            />
+
+    </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>
