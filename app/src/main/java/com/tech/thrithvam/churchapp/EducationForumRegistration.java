@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -331,6 +332,7 @@ public class EducationForumRegistration extends AppCompatActivity {
                     else if(otpInput.getText().toString().equals(OTP)){
                         if(isMember){
                             Toast.makeText(EducationForumRegistration.this,"already a member",Toast.LENGTH_LONG).show();
+                            FirebaseMessaging.getInstance().subscribeToTopic(churchID+"eduForum");
                             db.InsertEduForumMemberID(memberRegistrationID);
                             Intent intentUser = new Intent(EducationForumRegistration.this, EducationForumEvents.class);
                             finish();
@@ -598,6 +600,8 @@ public class EducationForumRegistration extends AppCompatActivity {
                 //finish();
             }
             else {
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(churchID+"eduForum");
+                FirebaseMessaging.getInstance().subscribeToTopic(churchID+"eduForum");
                 db.InsertEduForumMemberID(registrationID);
                 Intent intentUser = new Intent(EducationForumRegistration.this, EducationForumEvents.class);
                 finish();

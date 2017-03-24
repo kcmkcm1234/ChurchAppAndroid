@@ -9,13 +9,12 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:paddingBottom="10dp">
+        android:layout_marginBottom="2dp">
         <ImageView
             android:layout_width="65dp"
             android:layout_height="60dp"
             android:layout_margin="11dp"
-            android:src="@drawable/events"
+            android:src="@drawable/church"
             android:id="@+id/events_image"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"/>
@@ -41,13 +40,13 @@
             android:id="@+id/events_date"
             android:textSize="14sp"
             android:textColor="@color/primary_text"
-            android:layout_below="@+id/events_head"
             android:layout_toRightOf="@+id/events_image"
             android:gravity="right"
             android:paddingTop="5dp"
             android:layout_margin="5dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:maxLines="1"
             android:ellipsize="end"/>
     </RelativeLayout>

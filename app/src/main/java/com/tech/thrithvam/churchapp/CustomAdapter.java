@@ -557,7 +557,7 @@ public class CustomAdapter extends BaseAdapter {
                 else{
                     holder.eventImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                     Glide.with(adapterContext)
-                            .load(R.drawable.events)
+                            .load(R.drawable.church)
                             .into(holder.eventImage)
                     ;
                 }

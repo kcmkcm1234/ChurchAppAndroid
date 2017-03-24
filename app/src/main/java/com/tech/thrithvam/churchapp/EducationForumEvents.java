@@ -200,7 +200,7 @@ public class EducationForumEvents extends AppCompatActivity {
                         intent.putExtra("Description", eduForumEventsListItems.get(position)[2]);
                         intent.putExtra("URL", eduForumEventsListItems.get(position)[3]);
                         intent.putExtra("StartDateInMillis", eduForumEventsListItems.get(position)[0]);
-                      //  intent.putExtra("ChurchName",extras.getString("ChurchName"));
+                        intent.putExtra("ChurchName",db.GetMyChurch("ChurchName"));
                         startActivity(intent);
                     }
                 });
