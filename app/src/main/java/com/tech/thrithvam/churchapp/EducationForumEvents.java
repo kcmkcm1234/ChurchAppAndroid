@@ -105,7 +105,7 @@ public class EducationForumEvents extends AppCompatActivity {
             String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetAllEduForumEventsbyChurchID";
             HttpURLConnection c = null;
             try {
-                postData =  "{\"ChurchID\":\"" + ChurchID+"\",\"isOld\":\"" + !latestEvents+ "\"}";
+                postData =  "{\"churchID\":\"" + ChurchID +"\",\"isOld\":\"" + !latestEvents +"\",\"registrationID\":\"" + db.GetMyChurch("eduForumMemberRegistrationID") + "\"}";
                 URL u = new URL(url);
                 c = (HttpURLConnection) u.openConnection();
                 c.setRequestMethod("POST");
@@ -157,11 +157,12 @@ public class EducationForumEvents extends AppCompatActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     msg=jsonObject.optString("Message");
                     pass=jsonObject.optBoolean("Flag",true);
-                    String[] data=new String[4];
+                    String[] data=new String[5];
                     data[0]=jsonObject.optString("StartDate").replace("/Date(", "").replace(")/", "");
                     data[1]=jsonObject.optString("EventName");
                     data[2]=jsonObject.optString("Description");
                     data[3]=jsonObject.optString("URL");
+                    data[4]=jsonObject.optString("ResponseCode");
                     eduForumEventsListItems.add(data);
                 }
             } catch (Exception ex) {
@@ -188,19 +189,20 @@ public class EducationForumEvents extends AppCompatActivity {
                 }
             }
             else {
-                CustomAdapter adapter=new CustomAdapter(EducationForumEvents.this, eduForumEventsListItems,"ChurchEvents");
+                CustomAdapter adapter=new CustomAdapter(EducationForumEvents.this, eduForumEventsListItems,"EduForumEvents");
                 ListView eventsList=(ListView) findViewById(R.id.edu_events_list);
                 eventsList.setAdapter(adapter);
                 eventsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(EducationForumEvents.this,EventDetails.class);
+                        Intent intent=new Intent(EducationForumEvents.this,EducationForumEventsDetails.class);
                         intent.putExtra("StartDate", eduForumEventsListItems.get(position)[0]);
                         intent.putExtra("EventName", eduForumEventsListItems.get(position)[1]);
                         intent.putExtra("Description", eduForumEventsListItems.get(position)[2]);
                         intent.putExtra("URL", eduForumEventsListItems.get(position)[3]);
                         intent.putExtra("StartDateInMillis", eduForumEventsListItems.get(position)[0]);
                         intent.putExtra("ChurchName",db.GetMyChurch("ChurchName"));
+                        intent.putExtra("ResponseCode",eduForumEventsListItems.get(position)[4]);
                         startActivity(intent);
                     }
                 });

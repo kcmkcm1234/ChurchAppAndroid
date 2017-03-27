@@ -90,7 +90,7 @@ public class CustomAdapter extends BaseAdapter {
         TextView institutionName, institutionAddress;
         ImageView institutionImage;
             //Events-------------------------------
-        TextView eventsHead, eventsDate;
+        TextView eventsHead, eventsDate,response;
         ImageView eventImage;
             //Towns--------------------------------
         TextView townHead;
@@ -986,6 +986,66 @@ public class CustomAdapter extends BaseAdapter {
                 holder.notTitle.setTypeface(typeQuicksand);
                 holder.notDesc.setTypeface(typeSegoe);
                 holder.notDate.setTypeface(typeSegoe);
+                break;
+            //------------------Educational Forum Events list---------------------------
+            case "EduForumEvents":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_edu_forum_event, null);
+                    holder.eventImage =(ImageView)convertView.findViewById(R.id.events_image);
+                    holder.eventsHead = (TextView) convertView.findViewById(R.id.events_head );
+                    holder.eventsDate =(TextView)convertView.findViewById(R.id.events_date);
+                    holder.response=(TextView)convertView.findViewById(R.id.response);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //----------------Label loading--------------------
+                holder.eventsHead.setText(objects.get(position)[1]);
+                holder.eventsHead.setTypeface(typeSegoe);
+                holder.eventsDate.setTypeface(typeSegoe);
+                holder.response.setTypeface(typeSegoe);
+
+                if(!objects.get(position)[0].equals("null")){
+                    cal.setTimeInMillis(Long.parseLong(objects.get(position)[0]));
+                    String startDate=formatted.format(cal.getTime());
+                    holder.eventsDate.setText(startDate);
+                }
+                else {
+                    holder.eventsDate.setText("");
+                }
+                if(!objects.get(position)[3].equals("null")){
+                    Glide.with(adapterContext)
+                            .load(adapterContext.getResources().getString(R.string.url) +objects.get(position)[3].substring((objects.get(position)[3]).indexOf("img")))
+                            .thumbnail(0.1f)
+                            .into(holder.eventImage);
+                }
+                else{
+                    holder.eventImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    Glide.with(adapterContext)
+                            .load(R.drawable.church)
+                            .into(holder.eventImage)
+                    ;
+                }
+                if(!objects.get(position)[4].equals("null")){
+                    holder.response.setVisibility(View.VISIBLE);
+                    switch (Integer.parseInt(objects.get(position)[4])){
+                        case 1:holder.response.setText(adapterContext.getResources().getString(R.string.event_response_1));
+                            break;
+                        case 2:holder.response.setText(adapterContext.getResources().getString(R.string.event_response_2));
+                            break;
+                        case 3:holder.response.setText(adapterContext.getResources().getString(R.string.event_response_3));
+                            break;
+                    }
+                }
+                else {
+                    holder.response.setVisibility(View.GONE);
+                }
+                if(position>lastPosition){
+                    animation = AnimationUtils.loadAnimation(adapterContext, R.anim.up_from_bottom);
+                    convertView.startAnimation(animation);
+                }
+                lastPosition = position;
                 break;
             default:
                 break;
