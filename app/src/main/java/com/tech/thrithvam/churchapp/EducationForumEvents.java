@@ -157,12 +157,13 @@ public class EducationForumEvents extends AppCompatActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     msg=jsonObject.optString("Message");
                     pass=jsonObject.optBoolean("Flag",true);
-                    String[] data=new String[5];
+                    String[] data=new String[6];
                     data[0]=jsonObject.optString("StartDate").replace("/Date(", "").replace(")/", "");
                     data[1]=jsonObject.optString("EventName");
                     data[2]=jsonObject.optString("Description");
                     data[3]=jsonObject.optString("URL");
                     data[4]=jsonObject.optString("ResponseCode");
+                    data[5]=jsonObject.optString("ID");
                     eduForumEventsListItems.add(data);
                 }
             } catch (Exception ex) {
@@ -203,6 +204,7 @@ public class EducationForumEvents extends AppCompatActivity {
                         intent.putExtra("StartDateInMillis", eduForumEventsListItems.get(position)[0]);
                         intent.putExtra("ChurchName",db.GetMyChurch("ChurchName"));
                         intent.putExtra("ResponseCode",eduForumEventsListItems.get(position)[4]);
+                        intent.putExtra("EventID",eduForumEventsListItems.get(position)[5]);
                         startActivity(intent);
                     }
                 });
