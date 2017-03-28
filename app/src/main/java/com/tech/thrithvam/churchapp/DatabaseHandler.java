@@ -36,6 +36,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //---------------Tables----------------------------------
         String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS MyChurch (ChurchID TEXT PRIMARY KEY,ChurchName TEXT, Town TEXT, Address TEXT,Image TEXT,Denomination TEXT,eduForumMemberRegistrationID TEXT);";
         db.execSQL(CREATE_USER_ACCOUNTS_TABLE);
+        String CREATE_EDU_FORUM_MEMBERS_TABLE = "CREATE TABLE IF NOT EXISTS EduForum (MemberID TEXT PRIMARY KEY,Name TEXT, Class TEXT,School TEXT,DOB TEXT);";
+        db.execSQL(CREATE_EDU_FORUM_MEMBERS_TABLE);
 
         String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS Notifications (NotificationIDs TEXT,Title TEXT,Description TEXT, NotDate TEXT);";
         db.execSQL(CREATE_NOTIFICATIONS_TABLE);
@@ -54,6 +56,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(DROP_USER_ACCOUNTS_TABLE);
         String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS MyChurch (ChurchID TEXT PRIMARY KEY,ChurchName TEXT, Town TEXT, Address TEXT,Image TEXT,Denomination TEXT,eduForumMemberRegistrationID TEXT);";
         db.execSQL(CREATE_USER_ACCOUNTS_TABLE);
+        String CREATE_EDU_FORUM_MEMBERS_TABLE = "CREATE TABLE IF NOT EXISTS EduForum (MemberID TEXT PRIMARY KEY,Name TEXT, Class TEXT,School TEXT,DOB TEXT);";
+        db.execSQL(CREATE_EDU_FORUM_MEMBERS_TABLE);
         // Create tables again
         onCreate(db);
     }
@@ -68,6 +72,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     {
         db=this.getWritableDatabase();
         db.execSQL("DELETE FROM MyChurch;");
+        ClearEduForumTable();
     }
     String GetMyChurch(String detail)
     {db=this.getReadableDatabase();
@@ -83,9 +88,45 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return null;
         }
     }
-    void InsertEduForumMemberID(String eduForumMemberRegistrationID){
+    //Education Forum Logic-------------------------------
+    void InsertEduForumMemberRegistrationID(String eduForumMemberRegistrationID){
         db=this.getWritableDatabase();
         db.execSQL("UPDATE MyChurch SET eduForumMemberRegistrationID='"+eduForumMemberRegistrationID+"';");
+    }
+    void InsertEduForumMembers(String MemberID,String Name,String Class,String School,String DOB)
+    {
+        db=this.getWritableDatabase();
+        db.execSQL("INSERT INTO EduForum (MemberID,Name,Class,School,DOB) VALUES ('"+MemberID+"',"+DatabaseUtils.sqlEscapeString(Name)+","+DatabaseUtils.sqlEscapeString(Class)+","+ DatabaseUtils.sqlEscapeString(School)+","+ DatabaseUtils.sqlEscapeString(DOB)+");");
+    }
+    ArrayList<String[]> GetEduForumMembers()
+    {
+        db=this.getReadableDatabase();
+        ArrayList<String[]> nots=new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT MemberID,Name,Class,School,DOB FROM EduForum",null);
+        if (cursor.getCount()>0)
+        {cursor.moveToFirst();
+            do {
+                String[] data = new String[5];
+                data[0] = cursor.getString(cursor.getColumnIndex("MemberID"));
+                data[1] = cursor.getString(cursor.getColumnIndex("Name"));
+                data[2] = cursor.getString(cursor.getColumnIndex("Class"));
+                data[3] = cursor.getString(cursor.getColumnIndex("School"));
+                data[4] = cursor.getString(cursor.getColumnIndex("DOB"));
+                nots.add(data);
+            }while (cursor.moveToNext());
+            cursor.close();
+            return nots;
+        }
+        else
+        {
+            cursor.close();
+            return nots;
+        }
+    }
+    void ClearEduForumTable()
+    {
+        db=this.getWritableDatabase();
+        db.execSQL("DELETE FROM EduForum;");
     }
     //------------------------Notifications table------------------------------
     void InsertNotificationIDs(String notificationIDs, String title, String description, String notDate)

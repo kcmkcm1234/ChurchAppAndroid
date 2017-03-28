@@ -23,6 +23,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -228,6 +229,7 @@ public class EducationForumRegistration extends AppCompatActivity {
         String OTP, memberRegistrationID;
         Boolean isMember;
         boolean pass=false;
+        JSONArray memberIDsFromServer;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -296,6 +298,7 @@ public class EducationForumRegistration extends AppCompatActivity {
                     OTP=jsonObject.optString("OTP");
                     isMember=jsonObject.optBoolean("IsMember");
                     memberRegistrationID =jsonObject.optString("RegistrationID");
+                    memberIDsFromServer = jsonObject.optJSONArray("MemberIDs");
                 }
             } catch (Exception ex) {
                 msg=ex.getMessage();
@@ -333,7 +336,21 @@ public class EducationForumRegistration extends AppCompatActivity {
                         if(isMember){
                             Toast.makeText(EducationForumRegistration.this,"already a member",Toast.LENGTH_LONG).show();
                             FirebaseMessaging.getInstance().subscribeToTopic(churchID+"eduForum");
-                            db.InsertEduForumMemberID(memberRegistrationID);
+                            db.InsertEduForumMemberRegistrationID(memberRegistrationID);
+                            try {
+                            if(memberIDsFromServer!=null){
+                            for (int i = 0; i < memberIDsFromServer.length(); i++) {
+                                 JSONObject jsonObject = memberIDsFromServer.getJSONObject(i);
+                                 db.InsertEduForumMembers(jsonObject.getString("MemberID"),
+                                                            jsonObject.getString("Name"),
+                                                             jsonObject.getString("Class"),
+                                                             jsonObject.getString("School"),
+                                                             jsonObject.getString("DOB"));
+                            }
+                            }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             Intent intentUser = new Intent(EducationForumRegistration.this, EducationForumEvents.class);
                             finish();
                             startActivity(intentUser);
@@ -507,6 +524,7 @@ public class EducationForumRegistration extends AppCompatActivity {
         boolean pass=false;
         String parentName,familyUnit,email,childJson,mobileNumberString, registrationID;
         ProgressDialog pDialog=new ProgressDialog(EducationForumRegistration.this);
+        JSONArray memberIDsFromServer;
         RegisterMember( String parentName,String familyUnit,String email,String childJson){
             this.parentName=parentName;
             this.familyUnit=familyUnit;
@@ -556,7 +574,7 @@ public class EducationForumRegistration extends AppCompatActivity {
                         int b=sb.lastIndexOf("]");
                         strJson=sb.substring(a, b + 1);
                         //   strJson=cryptography.Decrypt(strJson);
-                        strJson="{\"JSON\":" + strJson.replace("\\\"","\"").replace("\\\\","\\") + "}";
+                        strJson="{\"JSON\":" + strJson.replace("\\\"","\"").replace("\\\\","\\").replace("\\\"","\"").replace("\"[","[").replace("]\"","]") + "}";
                 }
             } catch (Exception ex) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
@@ -580,6 +598,7 @@ public class EducationForumRegistration extends AppCompatActivity {
                     msg=jsonObject.optString("Message");
                     pass=jsonObject.optBoolean("Flag",true);
                     registrationID =jsonObject.optString("RegistrationID");
+                    memberIDsFromServer = jsonObject.optJSONArray("MemberIDs");
                 }
             } catch (Exception ex) {
                 msg=ex.getMessage();
@@ -602,7 +621,21 @@ public class EducationForumRegistration extends AppCompatActivity {
             else {
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(churchID+"eduForum");
                 FirebaseMessaging.getInstance().subscribeToTopic(churchID+"eduForum");
-                db.InsertEduForumMemberID(registrationID);
+                db.InsertEduForumMemberRegistrationID(registrationID);
+                try {
+                    if(memberIDsFromServer!=null){
+                        for (int i = 0; i < memberIDsFromServer.length(); i++) {
+                            JSONObject jsonObject = memberIDsFromServer.getJSONObject(i);
+                            db.InsertEduForumMembers(jsonObject.getString("MemberID"),
+                                    jsonObject.getString("Name"),
+                                    jsonObject.getString("Class"),
+                                    jsonObject.getString("School"),
+                                    jsonObject.getString("DOB"));
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 Intent intentUser = new Intent(EducationForumRegistration.this, EducationForumEvents.class);
                 finish();
                 startActivity(intentUser);
