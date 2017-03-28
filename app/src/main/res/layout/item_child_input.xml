@@ -102,5 +102,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:id="@+id/dob"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:focusable="false"
+            android:onClick="getDOB"/>
 </LinearLayout>

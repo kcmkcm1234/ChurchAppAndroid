@@ -1,5 +1,6 @@
 package com.tech.thrithvam.churchapp;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,7 +33,10 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -515,6 +520,30 @@ public class EducationForumRegistration extends AppCompatActivity {
                 }
             });
         }
+    }
+    public void getDOB(View view){
+        final TextView DOBfield=(TextView)view;
+        DOBfield.setError(null);
+        final Calendar today = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar selectedDate=Calendar.getInstance();
+                selectedDate.set(Calendar.YEAR, year);
+                selectedDate.set(Calendar.MONTH, monthOfYear);
+                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                //Validation--------------
+                if(selectedDate.after(today)){
+                    Toast.makeText(EducationForumRegistration.this, R.string.give_valid_info, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //Setting display text-------
+                SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+                DOBfield.setText(formatted.format(selectedDate.getTime()));
+            }
+        };
+        new DatePickerDialog(EducationForumRegistration.this, dateSetListener, today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)).show();
     }
     private class RegisterMember extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
