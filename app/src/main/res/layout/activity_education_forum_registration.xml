@@ -291,6 +291,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/child_details"
+            android:animateLayoutChanges="true"
            />
         <TextView
             android:layout_width="wrap_content"
