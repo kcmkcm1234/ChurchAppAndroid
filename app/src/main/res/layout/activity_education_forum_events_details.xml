@@ -58,7 +58,8 @@
                 android:layout_below="@+id/event_date"
                 android:layout_margin="7dp"
                 android:background="@drawable/white_transparent_card"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:animateLayoutChanges="true">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -111,6 +112,15 @@
                         android:layout_margin="5dp"
                         app:buttonTint="@color/colorAccent"/>
                 </RadioGroup>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/response_sent"
+                    android:textColor="@color/secondary_text"
+                    android:layout_below="@id/response"
+                    android:gravity="center"
+                    android:id="@+id/response_sent_text"
+                    android:visibility="gone"/>
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

@@ -335,7 +335,8 @@ public class EducationForumEventsDetails extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                Toast.makeText(EducationForumEventsDetails.this, msg, Toast.LENGTH_SHORT).show();
+                TextView responseSentText=(TextView)findViewById(R.id.response_sent_text);
+                responseSentText.setVisibility(View.VISIBLE);
             }
         }
     }

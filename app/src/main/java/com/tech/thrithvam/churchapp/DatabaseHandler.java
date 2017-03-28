@@ -111,7 +111,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 data[1] = cursor.getString(cursor.getColumnIndex("Name"));
                 data[2] = cursor.getString(cursor.getColumnIndex("Class"));
                 data[3] = cursor.getString(cursor.getColumnIndex("School"));
-                data[4] = cursor.getString(cursor.getColumnIndex("DOB"));
+                data[4] = cursor.getString(cursor.getColumnIndex("DOB"));//Date format is not checked. may be DATE() or actual format in different situations
                 nots.add(data);
             }while (cursor.moveToNext());
             cursor.close();

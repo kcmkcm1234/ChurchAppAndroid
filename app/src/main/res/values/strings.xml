@@ -106,4 +106,5 @@
     <string name="event_response_3">Not Attending</string>
     <string name="who_is_going">Who is/are going?</string>
     <string name="pl_select_who_are_going">Please select who are attending</string>
+    <string name="response_sent">Response sent ✓</string>
 </resources>
