@@ -3,15 +3,18 @@ package com.tech.thrithvam.churchapp;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.provider.CalendarContract;
 import android.support.annotation.IdRes;
+import android.support.v4.print.PrintHelper;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +31,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -128,7 +133,11 @@ public class EducationForumEventsDetails extends AppCompatActivity {
         }
 
         //Response------------------------
+        createResponseButtons();
+    }
+    void createResponseButtons(){
         RadioGroup responseRadioGroup=(RadioGroup)findViewById(R.id.response);
+        responseRadioGroup.setOnCheckedChangeListener(null);
         if(!extras.getString("ResponseCode").equals("null")){
             switch (Integer.parseInt(extras.getString("ResponseCode"))){
                 case 1:responseRadioGroup.check(R.id.response_1);
@@ -139,12 +148,90 @@ public class EducationForumEventsDetails extends AppCompatActivity {
                     break;
             }
         }
-        responseRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                new SendResponse().execute();
+        if(extras.getBoolean("isOld")){
+            for (int i=0;i<responseRadioGroup.getChildCount();i++){
+                responseRadioGroup.getChildAt(i).setEnabled(false);
+                ((TextView)responseRadioGroup.getChildAt(i)).setTextColor(Color.GRAY);
             }
-        });
+        }else {
+            responseRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                    final ArrayList<String[]> eduForumMembers=db.GetEduForumMembers();
+                    if(checkedId==R.id.response_1) {//Attending. So ask who is going
+                        if(eduForumMembers.size()>1){//Multiple member
+                        final ArrayList<String> memberNames = new ArrayList<>();
+                        for (int i = 0; i < eduForumMembers.size(); i++) {
+                            memberNames.add(eduForumMembers.get(i)[1]);
+                        }
+                        final boolean[] lookingForItemsSelectedIndex = new boolean[memberNames.size()];
+                        Arrays.fill(lookingForItemsSelectedIndex, Boolean.FALSE);//initialize
+                        AlertDialog dialog = new AlertDialog.Builder(EducationForumEventsDetails.this)
+                                .setTitle(R.string.who_is_going)
+                                .setMultiChoiceItems(memberNames.toArray(new CharSequence[memberNames.size()]),
+                                        lookingForItemsSelectedIndex,
+                                        new DialogInterface.OnMultiChoiceClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
+                                                lookingForItemsSelectedIndex[indexSelected] = isChecked;
+                                            }
+                                        }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        String memberResponseJson = "[";
+                                        Boolean isValidSelection = false;
+                                        for (int i = 0; i < memberNames.size(); i++) {
+                                            memberResponseJson += "{\"MemberID\":\"" + eduForumMembers.get(i)[0] + "\",\"ResponseCode\":\"";
+                                            if (lookingForItemsSelectedIndex[i]) {
+                                                memberResponseJson += "1\"},";
+                                                isValidSelection = true;
+                                            } else {
+                                                memberResponseJson += "3\"},";
+                                            }
+                                        }
+                                        memberResponseJson = memberResponseJson.substring(0, memberResponseJson.lastIndexOf(",")) + "]";
+                                        if (isValidSelection) {
+                                            new SendResponse(memberResponseJson).execute();
+                                        } else {
+                                            createResponseButtons();
+                                            Toast.makeText(EducationForumEventsDetails.this, R.string.pl_select_who_are_going, Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                }).setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                    @Override
+                                    public void onCancel(DialogInterface dialog) {
+                                        createResponseButtons();
+                                    }
+                                })
+                                .create();
+                        dialog.show();
+                        }
+                        else {//Single member: Student
+                            String memberResponseJson="[";
+                            for(int i=0;i<eduForumMembers.size();i++){
+                                memberResponseJson+="{\"MemberID\":\""+eduForumMembers.get(i)[0]+"\",\"ResponseCode\":\"1\"},";
+                            }
+                            memberResponseJson=memberResponseJson.substring(0,memberResponseJson.lastIndexOf(","))+"]";
+                            new SendResponse(memberResponseJson).execute();
+                        }
+                    }
+                    else {
+                        String memberResponseJson="[";
+                        for(int i=0;i<eduForumMembers.size();i++){
+                            memberResponseJson+="{\"MemberID\":\""+eduForumMembers.get(i)[0]+"\",\"ResponseCode\":\"";
+                            if(checkedId==R.id.response_2){
+                                memberResponseJson+="2\"},";
+                            }
+                            else {
+                                memberResponseJson+="3\"},";
+                            }
+                        }
+                        memberResponseJson=memberResponseJson.substring(0,memberResponseJson.lastIndexOf(","))+"]";
+                        new SendResponse(memberResponseJson).execute();
+                    }
+                }
+            });
+        }
     }
     private class SendResponse extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
@@ -153,7 +240,9 @@ public class EducationForumEventsDetails extends AppCompatActivity {
         String msg;
         boolean pass=false;
         ProgressDialog pDialog=new ProgressDialog(EducationForumEventsDetails.this);
-        SendResponse( ){
+        String memberResponseJson;
+        SendResponse(String memberResponseJson){
+            this.memberResponseJson=memberResponseJson;
         }
         @Override
         protected void onPreExecute() {
@@ -171,7 +260,7 @@ public class EducationForumEventsDetails extends AppCompatActivity {
                 postData =  "{\"churchID\":\""+ db.GetMyChurch("ChurchID")
                         +"\",\"registrationID\":\"" +  db.GetMyChurch("eduForumMemberRegistrationID")
                         +"\",\"eventID\":\"" + extras.getString("EventID")
-                        +"\",\"memberResponseJson\":"+"[{\"MemberID\":\"a8e7326c-3f82-48eb-9629-556a0aa6f029\",\"ResponseCode\":\"50\"}]"+ "}";
+                        +"\",\"memberResponseJson\":"+memberResponseJson+ "}";
                 java.net.URL u = new URL(url);
                 c = (HttpURLConnection) u.openConnection();
                 c.setRequestMethod("POST");
@@ -249,5 +338,11 @@ public class EducationForumEventsDetails extends AppCompatActivity {
                 Toast.makeText(EducationForumEventsDetails.this, msg, Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(EducationForumEventsDetails.this, EducationForumEvents.class);
+        finish();
+        startActivity(intent);
     }
 }
