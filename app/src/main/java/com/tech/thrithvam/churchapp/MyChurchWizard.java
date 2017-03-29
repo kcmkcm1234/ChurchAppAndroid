@@ -8,7 +8,9 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -71,6 +73,24 @@ public class MyChurchWizard extends AppCompatActivity {
                         imm.hideSoftInputFromWindow(views.getWindowToken(), 0);
                     }
                 }
+            }
+        });
+        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    searchText.setText(searchText.getText().toString().trim());
+                    if(!searchText.getText().toString().equals("")) {
+                        searching=new ChurchTownSearchResults().execute();
+                        View views = MyChurchWizard.this.getCurrentFocus();
+                        if (views != null) {
+                            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(views.getWindowToken(), 0);
+                        }
+                    }
+                    return true;
+                }
+                return false;
             }
         });
     }

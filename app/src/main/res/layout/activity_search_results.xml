@@ -30,7 +30,8 @@
         android:textColor="@color/edit_text"
         android:singleLine="true"
         android:maxLines="1"
-        android:selectAllOnFocus="true"/>
+        android:selectAllOnFocus="true"
+        android:imeOptions="actionSearch"/>
 </RelativeLayout>
     <ImageView
         android:layout_width="40dp"

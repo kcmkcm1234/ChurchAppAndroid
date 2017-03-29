@@ -8,7 +8,9 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -71,7 +73,23 @@ public class SearchResults extends AppCompatActivity {
                 }
             }
         });
-
+        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    searchText.setText(searchText.getText().toString().trim());
+                    if(!searchText.getText().toString().equals("")) {
+                        Intent intent=new Intent(SearchResults.this,SearchResults.class);
+                        intent.putExtra("searchkey",searchText.getText().toString());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
     //-----------------------------Async Tasks----------------------------------------
     public class ChurchTownSearchResults extends AsyncTask<Void , Void, Void> {

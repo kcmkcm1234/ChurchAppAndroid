@@ -97,7 +97,8 @@
             android:layout_toEndOf="@+id/search_label"
             android:background="@android:color/transparent"
             android:layout_toRightOf="@+id/search_label"
-            android:selectAllOnFocus="true"/>
+            android:selectAllOnFocus="true"
+            android:imeOptions="actionSearch"/>
         <ImageView
             android:layout_width="40dp"
             android:layout_height="wrap_content"

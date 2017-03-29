@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -55,6 +57,21 @@ public class Home extends AppCompatActivity {
                     searchText.setText("");
                     startActivity(intent);
                 }
+            }
+        });
+        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    if(!searchText.getText().toString().equals("")) {
+                        Intent intent = new Intent(Home.this, SearchResults.class);
+                        intent.putExtra("searchkey", searchText.getText().toString());
+                        searchText.setText("");
+                        startActivity(intent);
+                    }
+                    return true;
+                }
+                return false;
             }
         });
         //Getting towns for autocomplete---------
