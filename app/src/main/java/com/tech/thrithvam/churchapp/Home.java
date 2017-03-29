@@ -117,7 +117,7 @@ public class Home extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }
-                        }).setCancelable(false).show();
+                        }).setCancelable(true).show();
             }
         });
     }
