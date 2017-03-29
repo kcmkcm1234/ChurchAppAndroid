@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -333,6 +334,7 @@ public class EducationForumRegistration extends AppCompatActivity {
             final EditText otpInput=new EditText(EducationForumRegistration.this);
             otpInput.setInputType(InputType.TYPE_CLASS_NUMBER);
             otpInput.setGravity(Gravity.CENTER_HORIZONTAL);
+            otpInput.setTextColor(Color.BLACK);
             alert.setView(otpInput);
             alert.setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
