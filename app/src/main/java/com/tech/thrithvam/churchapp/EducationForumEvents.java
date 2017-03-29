@@ -225,6 +225,9 @@ public class EducationForumEvents extends AppCompatActivity {
             Toast.makeText(EducationForumEvents.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
         }
     }
+    public void eduForumAbout(View view){
+
+    }
     @Override
     public boolean dispatchTouchEvent(MotionEvent event){
         if (event.getAction() == MotionEvent.ACTION_DOWN) {

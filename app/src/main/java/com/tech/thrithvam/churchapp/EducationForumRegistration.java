@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
@@ -326,7 +327,8 @@ public class EducationForumRegistration extends AppCompatActivity {
         }
         void UserVerification(){
             Toast.makeText(EducationForumRegistration.this,OTP,Toast.LENGTH_LONG).show();
-            AlertDialog.Builder alert = new AlertDialog.Builder(EducationForumRegistration.this);
+            ContextThemeWrapper themedContext= new ContextThemeWrapper( EducationForumRegistration.this, R.style.popup_theme  );
+            AlertDialog.Builder alert = new AlertDialog.Builder(themedContext);
             alert.setTitle(R.string.enter_otp);
             final EditText otpInput=new EditText(EducationForumRegistration.this);
             otpInput.setInputType(InputType.TYPE_CLASS_NUMBER);

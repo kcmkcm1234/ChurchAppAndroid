@@ -12,6 +12,7 @@ import android.support.v4.print.PrintHelper;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -166,7 +167,8 @@ public class EducationForumEventsDetails extends AppCompatActivity {
                         }
                         final boolean[] lookingForItemsSelectedIndex = new boolean[memberNames.size()];
                         Arrays.fill(lookingForItemsSelectedIndex, Boolean.FALSE);//initialize
-                        AlertDialog dialog = new AlertDialog.Builder(EducationForumEventsDetails.this)
+                        ContextThemeWrapper themedContext= new ContextThemeWrapper( EducationForumEventsDetails.this, R.style.popup_theme  );
+                        AlertDialog dialog = new AlertDialog.Builder(themedContext)
                                 .setTitle(R.string.who_is_going)
                                 .setMultiChoiceItems(memberNames.toArray(new CharSequence[memberNames.size()]),
                                         lookingForItemsSelectedIndex,

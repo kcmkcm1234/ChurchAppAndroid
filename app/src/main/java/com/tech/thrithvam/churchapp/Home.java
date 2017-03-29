@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -109,7 +110,8 @@ public class Home extends AppCompatActivity {
                         startActivity(Intent.createChooser(shareIntent, "Share goChurch app"));
                     }
                 });
-                new AlertDialog.Builder(Home.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
+                ContextThemeWrapper themedContext= new ContextThemeWrapper( Home.this, R.style.popup_theme  );
+                new AlertDialog.Builder(themedContext).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
                         .setView(popupView)
                         .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
