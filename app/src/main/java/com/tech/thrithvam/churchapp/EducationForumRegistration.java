@@ -360,9 +360,9 @@ public class EducationForumRegistration extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            Intent intentUser = new Intent(EducationForumRegistration.this, EducationForumEvents.class);
+                            Intent intent = new Intent(EducationForumRegistration.this, EducationForumEvents.class);
                             finish();
-                            startActivity(intentUser);
+                            startActivity(intent);
                         }
                         else {
                             ProceedRegistration();

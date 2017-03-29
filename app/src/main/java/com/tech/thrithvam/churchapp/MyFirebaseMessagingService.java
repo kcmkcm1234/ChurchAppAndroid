@@ -8,6 +8,7 @@ import android.icu.util.Calendar;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -23,13 +24,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
       //  Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
         String title;
         String description;
+        String type;
         if(remoteMessage.getData()!=null) {
             title = remoteMessage.getData().get("title") == null ? "" : remoteMessage.getData().get("title");
             description = remoteMessage.getData().get("body") == null ? "" : remoteMessage.getData().get("body");
+            type = remoteMessage.getData().get("type") == null ? "" : remoteMessage.getData().get("type");
             DatabaseHandler db = DatabaseHandler.getInstance(this);
             db.InsertNotificationIDs(remoteMessage.getMessageId(),
                     title,
                     description,
+                    type,
                     Long.toString(java.util.Calendar.getInstance().getTimeInMillis()));
 
             //Notification----------------------
