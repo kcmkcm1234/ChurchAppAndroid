@@ -39,16 +39,72 @@ public class PriestDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_priest_details);
         extras=getIntent().getExtras();
-        ChurchID=extras.getString("ChurchID");
 
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
         Priest_head=(TextView)findViewById(R.id.activity_priest_head);
         Priest_head.setTypeface(typeQuicksand);
 
-        if (isOnline()) {
-            getPriestList= new GetPriestList().execute();
-        } else {
-            Toast.makeText(PriestDetails.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+        if(getIntent().hasExtra("from")){
+            if(extras.getString("from").equals("diocese")){
+                (findViewById(R.id.itemsLoading)).setVisibility(View.GONE);
+                Priest_head.setText("Verapoly ArchDiocesan Curia");
+
+                ArrayList<String[]> priestListItems =new ArrayList<>();
+
+                String[] data=new String[3];
+                data[0]="Archbishop";
+                data[1]="The Most Rev. Dr. Joseph Kalathiparambil";
+                data[2]=Integer.toString(R.drawable.dr_joseph_kalathiparambil);
+                priestListItems.add(data);
+
+                String[] data1=new String[3];
+                data1[0]="Vicar General";
+                data1[1]="Very Rev. Msgr. Mathew Kallinkal";
+                data1[2]="null";
+                priestListItems.add(data1);
+
+                String[] data2=new String[3];
+                data2[0]="Vicar General";
+                data2[1]="Very Rev. Msgr. Mathew Elanjimattam";
+                data2[2]="null";
+                priestListItems.add(data2);
+
+                String[] data3=new String[3];
+                data3[0]="Chancellor";
+                data3[1]="Very Rev. Fr. Ebigin Arackal";
+                data3[2]="null";
+                priestListItems.add(data3);
+
+                String[] data4=new String[3];
+                data4[0]="Procurator";
+                data4[1]="Very Rev. Fr. Peter Kochuveettil";
+                data4[2]="null";
+                priestListItems.add(data4);
+
+                String[] data5=new String[3];
+                data5[0]="Asst. Procurator";
+                data5[1]="Rev. Fr. Alex Kurusuveetil";
+                data5[2]="null";
+                priestListItems.add(data5);
+
+                String[] data6=new String[3];
+                data6[0]="Judicial Vicar";
+                data6[1]="Very Rev. Fr. Francis D’Silva";
+                data6[2]="null";
+                priestListItems.add(data6);
+
+                CustomAdapter adapter=new CustomAdapter(PriestDetails.this, priestListItems,"DioceseList");
+                ListView PriestsList=(ListView) findViewById(R.id.priest_list);
+                PriestsList.setAdapter(adapter);
+            }
+        }
+        else {//It is a priest list
+            ChurchID=extras.getString("ChurchID");
+            if (isOnline()) {
+                getPriestList= new GetPriestList().execute();
+            } else {
+                Toast.makeText(PriestDetails.this, R.string.network_off_alert, Toast.LENGTH_LONG).show();
+            }
         }
     }
 

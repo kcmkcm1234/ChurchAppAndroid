@@ -107,4 +107,5 @@
     <string name="who_is_going">Who is/are going?</string>
     <string name="pl_select_who_are_going">Please select who are attending</string>
     <string name="response_sent">Response sent ✓</string>
+    <string name="archbishop">Archbishop</string>
 </resources>

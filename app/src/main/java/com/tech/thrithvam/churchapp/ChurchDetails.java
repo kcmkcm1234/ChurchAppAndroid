@@ -54,7 +54,7 @@ public class ChurchDetails extends AppCompatActivity {
     RelativeLayout viewMap;
     ImageView churchImage,priestImage;
     ScrollView activityScrollView;
-    RelativeLayout priestLayout,aboutLayout,contactLayout,massLayout;
+    RelativeLayout priestLayout,aboutLayout,contactLayout,massLayout,dioceseLayout;
     TextView churchName,town,address,about,priestName,parishName,priestMobile;
     TextView priestAbout,dateOrdination,churchAddress,phone1,phone2, priestViewMore;
     TextView sundayLabel,mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel;
@@ -89,7 +89,9 @@ public class ChurchDetails extends AppCompatActivity {
         contactLayout=(RelativeLayout)findViewById(R.id.contactLayout);
         massLayout=(RelativeLayout) findViewById(R.id.massLayout);
         extraDetails=(LinearLayout) findViewById(R.id.extra_items);
+        dioceseLayout=(RelativeLayout)findViewById(R.id.dioceseLayout);
 
+        dioceseLayout.setVisibility(View.INVISIBLE);
         priestLayout.setVisibility(View.INVISIBLE);
         contactLayout.setVisibility(View.INVISIBLE);
         massLayout.setVisibility(View.GONE);
@@ -98,7 +100,7 @@ public class ChurchDetails extends AppCompatActivity {
         activityScrollView=(ScrollView)findViewById(R.id.activity_scrollview);
         activityScrollView.setVisibility(View.GONE);
 
-        Typeface typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
+        typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
         typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
         typeBLKCHCRY = Typeface.createFromAsset(getAssets(),"fonts/blackchancery.ttf");
 
@@ -222,7 +224,7 @@ public class ChurchDetails extends AppCompatActivity {
         String msg;
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
-        String aboutString,mapCoOrdinatesString,phone1String,phone2String, townCodeString,imageURLString,priestNameString,priestAboutString,parishString,priestMobileString,dateOrdinationString,priestURLStringString;
+        String aboutString,mapCoOrdinatesString,phone1String,phone2String, townCodeString,imageURLString,priestNameString,priestAboutString,parishString,priestMobileString,dateOrdinationString,priestURLStringString,dioceseName;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -304,6 +306,7 @@ public class ChurchDetails extends AppCompatActivity {
                     dateOrdinationString=jsonObject.optString("DateOrdination").replace("/Date(", "").replace(")/", "");
                     priestURLStringString=jsonObject.optString("PriestURL");
                     denominationGlobal=jsonObject.optString("DenominationCode");
+                    dioceseName=jsonObject.optString("DioceseName");
                 }
             } catch (Exception ex) {
                 msg=ex.getMessage();
@@ -511,26 +514,51 @@ public class ChurchDetails extends AppCompatActivity {
                     viewMap.setVisibility(View.GONE);
                 }
                 //Animation-----------------------------------------------------
+                final Animation fromBottom0 = AnimationUtils.loadAnimation(ChurchDetails.this, R.anim.fade_in_from_bottom);
                 final Animation fromBottom = AnimationUtils.loadAnimation(ChurchDetails.this, R.anim.fade_in_from_bottom);
                 final Animation fromBottom2 = AnimationUtils.loadAnimation(ChurchDetails.this, R.anim.fade_in_from_bottom);
                 final Animation fromBottom3 = AnimationUtils.loadAnimation(ChurchDetails.this, R.anim.fade_in_from_bottom);
 
                 Handler handler = new Handler();
                 aboutLayout.startAnimation(fromBottom);
+                if(dioceseName.equals("Verapoly")){
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dioceseLayout.setVisibility(View.VISIBLE);
+                            dioceseLayout.startAnimation(fromBottom0);
+                        }
+                    },500);
+
+                    ((TextView)findViewById(R.id.diocese_title_label)).setTypeface(typeQuicksand);
+                    ((TextView)findViewById(R.id.archbishop_name)).setTypeface(typeSegoe);
+
+                    (findViewById(R.id.diocese_viewmore)).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent dioceseIntent=new Intent(ChurchDetails.this,PriestDetails.class);
+                            dioceseIntent.putExtra("from","diocese");
+                            startActivity(dioceseIntent);
+                        }
+                    });
+                }
+                else {
+                    dioceseLayout.setVisibility(View.GONE);
+                }
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         priestLayout.setVisibility(View.VISIBLE);
                         priestLayout.startAnimation(fromBottom2);
                     }
-                },500);
+                },1000);
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         contactLayout.setVisibility(View.VISIBLE);
                         contactLayout.startAnimation(fromBottom3);
                     }
-                },1000);
+                },1500);
 
                 getMassTimings=new GetMassTimings().execute();
             }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/dioceseLayout"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:background="@drawable/white_transparent_card"
+            android:padding="10dp">
+
+
+                <ImageView
+                    android:id="@+id/diocese_person_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="10dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/priest" />
+
+                <TextView
+                    android:id="@+id/name_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_toEndOf="@+id/diocese_person_image"
+                    android:layout_toRightOf="@+id/diocese_person_image"
+                    android:text="@string/name"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name_label"
+                    android:layout_toEndOf="@+id/diocese_person_image"
+                    android:layout_toRightOf="@+id/diocese_person_image"
+                    android:text="name"
+                    android:textColor="@color/primary_text"
+                    android:textSize="16sp" />
+
+
+        </RelativeLayout>
+
+</LinearLayout>

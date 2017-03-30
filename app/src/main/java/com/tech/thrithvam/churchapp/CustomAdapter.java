@@ -112,6 +112,9 @@ public class CustomAdapter extends BaseAdapter {
         ImageView personImg;
             //Notifications----------------------
         TextView notTitle,notDesc,notDate;
+            //DioceseList------------------------
+        TextView dioceseNameTitle,diocesePersonName;
+        ImageView diocesePersonImage;
     }
 
     @Override
@@ -1046,6 +1049,40 @@ public class CustomAdapter extends BaseAdapter {
                     convertView.startAnimation(animation);
                 }
                 lastPosition = position;
+                break;
+            //------------------------------Diocese Persons List-----------------------------
+            case "DioceseList":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_diocese, null);
+                    holder.diocesePersonImage =(ImageView)convertView.findViewById(R.id.diocese_person_image);
+                    holder.dioceseNameTitle = (TextView) convertView.findViewById(R.id.name_label );
+                    holder.diocesePersonName =(TextView)convertView.findViewById(R.id.name);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //----------------Label loading--------------------
+
+                holder.dioceseNameTitle.setText(objects.get(position)[0]);
+                holder.diocesePersonName.setText(objects.get(position)[1]);
+                holder.dioceseNameTitle.setTypeface(typeQuicksand);
+                holder.diocesePersonName.setTypeface(typeSegoe);
+
+                if(!objects.get(position)[2].equals("null")){
+                    holder.diocesePersonImage.setPadding(0,0,0,0);
+                    Glide.with(adapterContext)
+                            .load(Integer.parseInt(objects.get(position)[2]))
+                            .thumbnail(0.1f)
+                            .into(holder.diocesePersonImage);
+                }
+                else {
+                    holder.diocesePersonImage.setPadding(10,10,10,10);
+                    Glide.with(adapterContext)
+                            .load(R.drawable.priest)
+                            .thumbnail(0.1f)
+                            .into(holder.diocesePersonImage);
+                }
                 break;
             default:
                 break;

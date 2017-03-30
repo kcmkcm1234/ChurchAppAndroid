@@ -133,11 +133,76 @@
             android:textColor="@color/colorAccent"
             android:onClick="view_more_about"/>
     </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dioceseLayout"
+                android:layout_below="@+id/aboutLayout"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/white_transparent_card"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Verapoly ArchDiocesan Curia"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/diocese_title_label"
+                    android:textColor="@color/primary_text"
+                    android:textSize="16sp"/>
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/archbishop_image"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/dr_joseph_kalathiparambil"
+                    android:scaleType="centerCrop"
+                    android:layout_below="@+id/diocese_title_label"
+                    android:adjustViewBounds="true"
+                    android:layout_marginBottom="10dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/archbishop"
+                    android:textSize="12sp"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/secondary_text"
+                    android:layout_toRightOf="@+id/archbishop_image"
+                    android:layout_toEndOf="@+id/archbishop_image"
+                    android:layout_below="@+id/diocese_title_label"
+                    android:id="@+id/archbishop_name_label" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="The Most Rev. Dr. Joseph Kalathiparambil"
+                    android:textSize="14sp"
+                    android:textColor="@color/primary_text"
+                    android:layout_toRightOf="@+id/archbishop_image"
+                    android:layout_toEndOf="@+id/archbishop_image"
+                    android:layout_below="@+id/archbishop_name_label"
+                    android:id="@+id/archbishop_name"
+                    android:maxLines="2"
+                    android:ellipsize="end"/>
+                <TextView
+                    android:text="@string/view_more"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/diocese_viewmore"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_alignParentBottom="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorAccent"/>
+            </RelativeLayout>
     <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/priestLayout"
-                android:layout_below="@+id/aboutLayout"
+                android:layout_below="@+id/dioceseLayout"
                 android:layout_marginLeft="7dp"
                 android:layout_marginRight="7dp"
                 android:layout_marginBottom="7dp"
