@@ -1,8 +1,10 @@
 package com.tech.thrithvam.churchapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.animation.Animation;
@@ -11,7 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SplashScreen extends AppCompatActivity {
-
+    SharedPreferences mPrefs;
+    String welcomeScreenShownPref = "welcomeScreenShown";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +30,25 @@ public class SplashScreen extends AppCompatActivity {
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/oldeng.ttf");
         txtapp.setTypeface(type);
 
-    /*    Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {*/
-                startActivity(new Intent(SplashScreen.this, Home.class));
-                finish();
-    /*        }
-        },3000);*/
+
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
+        if (!welcomeScreenShown) {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(SplashScreen.this, Home.class));
+                    finish();
+                }
+            }, 3500);
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putBoolean(welcomeScreenShownPref, true);
+            editor.apply();
+        }
+        else {
+            startActivity(new Intent(SplashScreen.this, Home.class));
+            finish();
+        }
     }
 }
