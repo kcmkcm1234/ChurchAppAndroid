@@ -27,13 +27,13 @@ public class SplashScreen extends AppCompatActivity {
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/oldeng.ttf");
         txtapp.setTypeface(type);
 
-        Handler handler = new Handler();
+    /*    Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
-            public void run() {
+            public void run() {*/
                 startActivity(new Intent(SplashScreen.this, Home.class));
                 finish();
-            }
-        },3000);
+    /*        }
+        },3000);*/
     }
 }
