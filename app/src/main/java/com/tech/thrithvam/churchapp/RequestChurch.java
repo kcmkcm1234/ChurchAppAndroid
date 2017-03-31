@@ -98,11 +98,11 @@ public class RequestChurch extends AppCompatActivity {
 
     public void Upload(View view){
         if(isOnline()) {
-            if(fileName.getText().toString().equals
+           /* if(fileName.getText().toString().equals
                     (getResources().getString(R.string.upload_church_image))){ //checking whether any image is selected
                 Toast.makeText(RequestChurch.this,"Please upload a church image",Toast.LENGTH_LONG).show();
             }
-            else if(churchName.getText().toString().equals("")){
+            else*/ if(churchName.getText().toString().equals("")){
                 churchName.setError("Please enter church name");
             }
             else if(address.getText().toString().equals("")){
@@ -121,11 +121,13 @@ public class RequestChurch extends AppCompatActivity {
                 email.setError("Please enter your email address");
             }
             else {
-                FileInputStream fStream= null;
-                try {
-                    fStream = new FileInputStream(imageFile);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                FileInputStream fStream = null;
+                if(imageFile!=null) {
+                    try {
+                        fStream = new FileInputStream(imageFile);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
                 FileUpload hfu= new FileUpload(RequestChurch.this,getResources().getString(R.string.url) +"WebServices/WebService.asmx/RequestChurch",fStream,
                         fileName.getText().toString(),

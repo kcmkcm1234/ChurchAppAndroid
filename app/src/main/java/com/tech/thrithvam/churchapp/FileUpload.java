@@ -122,29 +122,29 @@ class FileUpload implements Runnable{
 
             //    Log.e(Tag,"Headers are written");
 
-            // create a buffer of maximum size
-            int bytesAvailable = fileInputStream.available();
+            if(fileInputStream!=null) {
+                // create a buffer of maximum size
+                int bytesAvailable = fileInputStream.available();
 
-            int maxBufferSize = 1024;
-            int bufferSize = Math.min(bytesAvailable, maxBufferSize);
-            byte[ ] buffer = new byte[bufferSize];
+                int maxBufferSize = 1024;
+                int bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                byte[] buffer = new byte[bufferSize];
 
-            // read file and write it into form...
-            int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+                // read file and write it into form...
+                int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 
-            while (bytesRead > 0)
-            {
-                dos.write(buffer, 0, bufferSize);
-                bytesAvailable = fileInputStream.available();
-                bufferSize = Math.min(bytesAvailable,maxBufferSize);
-                bytesRead = fileInputStream.read(buffer, 0,bufferSize);
+                while (bytesRead > 0) {
+                    dos.write(buffer, 0, bufferSize);
+                    bytesAvailable = fileInputStream.available();
+                    bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                    bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+                }
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+                // close streams
+                fileInputStream.close();
             }
-            dos.writeBytes(lineEnd);
-            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-            // close streams
-            fileInputStream.close();
-
             dos.flush();
 
             Log.e(Tag, "File Sent, Response: " + String.valueOf(conn.getResponseCode()));
