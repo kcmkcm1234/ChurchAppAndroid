@@ -188,7 +188,7 @@ public class EducationForumEvents extends AppCompatActivity {
                 else {
                     Intent noItemsIntent=new Intent(EducationForumEvents.this,NothingToDisplay.class);
                     noItemsIntent.putExtra("msg",msg);
-                    noItemsIntent.putExtra("activityHead","Education Forum Events");
+                    noItemsIntent.putExtra("activityHead",eduEventsHead.getText().toString());
                     startActivity(noItemsIntent);
                     finish();
                 }

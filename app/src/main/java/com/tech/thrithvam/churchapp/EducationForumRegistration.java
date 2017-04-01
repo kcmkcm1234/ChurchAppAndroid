@@ -53,6 +53,7 @@ public class EducationForumRegistration extends AppCompatActivity {
     ScrollView aboutEduForumScrollView;
     LinearLayout otpVerificationCard;
     EditText contactMobileInput;
+    TextView activityHead;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +75,7 @@ public class EducationForumRegistration extends AppCompatActivity {
         aboutEduForumScrollView=(ScrollView)findViewById(R.id.about_edu_forum_scrollview);
         otpVerificationCard=(LinearLayout)findViewById(R.id.otp_verification_card);
         //Fonts---------------
-        TextView activityHead=(TextView)findViewById(R.id.activity_head);
+        activityHead=(TextView)findViewById(R.id.activity_head);
         aboutEduForum=(TextView)findViewById(R.id.about);
         activityHead.setTypeface(typeQuicksand);
         aboutEduForum.setTypeface(typeSegoe);
@@ -179,7 +180,7 @@ public class EducationForumRegistration extends AppCompatActivity {
             if(!pass) {
                 Intent noItemsIntent=new Intent(EducationForumRegistration.this,NothingToDisplay.class);
                 noItemsIntent.putExtra("msg",msg);
-                noItemsIntent.putExtra("activityHead","Education Forum");
+                noItemsIntent.putExtra("activityHead",activityHead.getText().toString());
                 startActivity(noItemsIntent);
                 finish();
             }
