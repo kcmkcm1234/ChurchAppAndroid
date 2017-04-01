@@ -319,7 +319,7 @@ public class EducationForumRegistration extends AppCompatActivity {
             super.onPostExecute(result);
             loadingIndicator2.setVisibility(View.GONE);
             if(!pass) {
-                Toast.makeText(EducationForumRegistration.this,R.string.tyr_again,Toast.LENGTH_LONG).show();
+                Toast.makeText(EducationForumRegistration.this,R.string.tyr_again+"\n"+msg,Toast.LENGTH_LONG).show();
                 TextView verifyMobile=(TextView)findViewById(R.id.verify_mobile);
                 verifyMobile.setVisibility(View.VISIBLE);
             }
@@ -328,7 +328,7 @@ public class EducationForumRegistration extends AppCompatActivity {
             }
         }
         void UserVerification(){
-            Toast.makeText(EducationForumRegistration.this,OTP,Toast.LENGTH_LONG).show();
+//            Toast.makeText(EducationForumRegistration.this,OTP,Toast.LENGTH_LONG).show();
             ContextThemeWrapper themedContext= new ContextThemeWrapper( EducationForumRegistration.this, R.style.popup_theme  );
             AlertDialog.Builder alert = new AlertDialog.Builder(themedContext);
             alert.setTitle(R.string.enter_otp);

@@ -4,6 +4,7 @@ package com.tech.thrithvam.churchapp;
 import android.app.Application;
 import android.content.Context;
 
+import org.acra.ACRA;
 import org.acra.ReportField;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
@@ -28,6 +29,6 @@ public class MyApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         // The following line triggers the initialization of ACRA
-//        ACRA.init(this);
+        ACRA.init(this);
     }
 }
