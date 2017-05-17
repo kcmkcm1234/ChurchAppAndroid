@@ -7,7 +7,7 @@ android {
         applicationId "com.tech.thrithvam.churchapp"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 9
+        versionCode 10
         versionName '1.6'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
