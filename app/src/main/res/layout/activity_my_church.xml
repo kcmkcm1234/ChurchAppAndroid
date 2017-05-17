@@ -380,7 +380,7 @@
             fab:fab_size="mini"
             fab:fab_colorNormal="#8d62d8"
             fab:fab_colorPressed="#2e2248"
-            android:onClick="notice_click"/>
+            android:onClick="gallery_click"/>
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/material_design_floating_action_menu_item6"
@@ -391,7 +391,7 @@
             fab:fab_size="mini"
             fab:fab_colorNormal="#8d62d8"
             fab:fab_colorPressed="#2e2248"
-            android:onClick="notice_click"/>
+            android:onClick="events_click"/>
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/material_design_floating_action_menu_item5"
@@ -402,7 +402,7 @@
             fab:fab_size="mini"
             fab:fab_colorNormal="#8d62d8"
             fab:fab_colorPressed="#2e2248"
-            android:onClick="notice_click"/>
+            android:onClick="family_units_click"/>
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/material_design_floating_action_menu_item0"
