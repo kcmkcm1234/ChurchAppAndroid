@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/sky_bg_full"
-    tools:context="com.tech.thrithvam.churchapp.NoticeDetails">
+    tools:context="com.tech.thrithvam.churchapp.NoticeDetails"
+    android:animateLayoutChanges="true">
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/itemsLoading"
         android:layout_width="50dp"
@@ -26,7 +27,7 @@
         android:paddingStart="6dp"
         android:textSize="12sp"/>
     <TextView
-        android:text="@string/notices"
+        android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

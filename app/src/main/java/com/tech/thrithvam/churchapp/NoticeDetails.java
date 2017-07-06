@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -99,10 +100,12 @@ public class NoticeDetails extends AppCompatActivity {
         boolean pass=false;
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
         String noticeName="",description="",imageURL="";
+        ScrollView activityScrollview=(ScrollView)findViewById(R.id.activity_scrollview);
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             loadingIndicator.setVisibility(View.VISIBLE);
+            activityScrollview.setVisibility(View.GONE);
             //----------encrypting ---------------------------
             // usernameString=cryptography.Encrypt(usernameString);
         }
@@ -220,6 +223,7 @@ public class NoticeDetails extends AppCompatActivity {
                 } else {
                     noticeImage.setVisibility(View.GONE);
                 }
+                activityScrollview.setVisibility(View.VISIBLE);
             }
         }
     }

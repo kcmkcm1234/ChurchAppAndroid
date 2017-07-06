@@ -45,17 +45,17 @@ public class Notifications extends AppCompatActivity {
         notificationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*if(notifications.get(position)[3].equals("EduForum")){
-                    Intent intent = new Intent(Notifications.this, EducationForumEvents.class);
-                    startActivity(intent);
-                }*/
                 try {
-                    Toast.makeText(Notifications.this,notifications.get(position)[3]+"\n"+notifications.get(position)[4],Toast.LENGTH_LONG).show();
                     switch(notifications.get(position)[3]){
                         case "Notices":
                             Intent noticeIntent=new Intent(Notifications.this,NoticeDetails.class);
                             noticeIntent.putExtra("NoticeID",notifications.get(position)[4]);
                             startActivity(noticeIntent);
+                            break;
+                        case "Event":
+                            Intent eventIntent=new Intent(Notifications.this,EventDetails.class);
+                            eventIntent.putExtra("EventID",notifications.get(position)[4]);
+                            startActivity(eventIntent);
                             break;
                         default:
                     }

@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_event_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/sky_bg_full"
-    tools:context="com.tech.thrithvam.churchapp.EventDetails">
+    tools:context="com.tech.thrithvam.churchapp.EventDetails"
+    android:animateLayoutChanges="true">
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/itemsLoading"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="gone"
+        app:indicator="BallTrianglePath"
+        app:indicator_color="@color/white_patch"
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +27,7 @@
         android:paddingStart="6dp"
         android:textSize="12sp"/>
     <TextView
-        android:text="@string/events"
+        android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
