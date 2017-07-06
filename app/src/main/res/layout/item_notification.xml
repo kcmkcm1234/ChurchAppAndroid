@@ -8,7 +8,7 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginBottom="5dp"
-    android:padding="7dp"
+    android:padding="10dp"
     android:background="@drawable/white_transparent_card">
     <TextView
         android:layout_width="match_parent"
@@ -17,8 +17,8 @@
         android:textSize="18sp"
         android:textColor="@color/primary_text"
         android:id="@+id/title"
-        android:layout_toLeftOf="@+id/linearLayout"
-        android:layout_toStartOf="@+id/linearLayout" />
+        android:layout_toLeftOf="@+id/delete_button"
+        android:layout_toStartOf="@+id/delete_button" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

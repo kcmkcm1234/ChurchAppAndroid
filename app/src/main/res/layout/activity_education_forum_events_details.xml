@@ -7,7 +7,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/sky_bg_full"
     tools:context="com.tech.thrithvam.churchapp.EducationForumEventsDetails">
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/events"
+        android:layout_margin="4dp"
+        android:paddingLeft="6dp"
+        android:paddingStart="6dp"
+        android:textSize="12sp"/>
     <TextView
         android:text="@string/events"
         android:layout_width="match_parent"

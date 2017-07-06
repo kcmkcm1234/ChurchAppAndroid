@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,12 +45,20 @@ public class Notifications extends AppCompatActivity {
         notificationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(notifications.get(position)[3].equals("EduForum")){
+                /*if(notifications.get(position)[3].equals("EduForum")){
                     Intent intent = new Intent(Notifications.this, EducationForumEvents.class);
                     startActivity(intent);
-                }
+                }*/
                 try {
                     Toast.makeText(Notifications.this,notifications.get(position)[3]+"\n"+notifications.get(position)[4],Toast.LENGTH_LONG).show();
+                    switch(notifications.get(position)[3]){
+                        case "Notices":
+                            Intent noticeIntent=new Intent(Notifications.this,NoticeDetails.class);
+                            noticeIntent.putExtra("NoticeID",notifications.get(position)[4]);
+                            startActivity(noticeIntent);
+                            break;
+                        default:
+                    }
                 }
                 catch (Exception e){
 
