@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     // All Static variables
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     // Database Name
     private static final String DATABASE_NAME = "ChurchApp.db";
     private SQLiteDatabase db;
@@ -39,7 +39,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_EDU_FORUM_MEMBERS_TABLE = "CREATE TABLE IF NOT EXISTS EduForum (MemberID TEXT PRIMARY KEY,Name TEXT, Class TEXT,School TEXT,DOB TEXT);";
         db.execSQL(CREATE_EDU_FORUM_MEMBERS_TABLE);
 
-        String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS Notifications (NotificationIDs TEXT,Title TEXT,Description TEXT,Type TEXT, NotDate TEXT);";
+        String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS Notifications (NotificationIDs TEXT,Title TEXT,Description TEXT,Type TEXT,LinkID TEXT ,NotDate TEXT);";
         db.execSQL(CREATE_NOTIFICATIONS_TABLE);
       /*  //Locally storing Requests and responses----
         String CREATE_LOCALRESPONSE_TABLE = "CREATE TABLE IF NOT EXISTS Responses (URL TEXT,Request TEXT, Response TEXT, RequestIdentifier TEXT NULL,UsedFlag TEXT NULL, PRIMARY KEY (URL, Request));";
@@ -50,7 +50,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
 //        db.execSQL("DROP TABLE IF EXISTS " + DATABASE_NAME );
-        String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS Notifications (NotificationIDs TEXT,Title TEXT,Description TEXT,Type TEXT, NotDate TEXT);";
+        String DROP_NOTIFICATIONS_TABLE = "DROP TABLE IF EXISTS Notifications;";
+        db.execSQL(DROP_NOTIFICATIONS_TABLE);
+        String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS Notifications (NotificationIDs TEXT,Title TEXT,Description TEXT,Type TEXT,LinkID TEXT , NotDate TEXT);";
         db.execSQL(CREATE_NOTIFICATIONS_TABLE);
         String DROP_USER_ACCOUNTS_TABLE = "DROP TABLE IF EXISTS MyChurch;";
         db.execSQL(DROP_USER_ACCOUNTS_TABLE);
@@ -129,25 +131,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM EduForum;");
     }
     //------------------------Notifications table------------------------------
-    void InsertNotificationIDs(String notificationIDs, String title, String description,String type, String notDate)
+    void InsertNotificationIDs(String notificationIDs, String title, String description,String type, String linkID,String notDate)
     {
         db=this.getWritableDatabase();
-        db.execSQL("INSERT INTO Notifications (NotificationIDs, Title,Description,Type, NotDate) VALUES ('"+notificationIDs+"',"+DatabaseUtils.sqlEscapeString(title)+","+DatabaseUtils.sqlEscapeString(description)+",'"+type+"','"+notDate+"');");
+        db.execSQL("INSERT INTO Notifications (NotificationIDs, Title,Description,Type,LinkID, NotDate) VALUES ('"+notificationIDs+"',"+DatabaseUtils.sqlEscapeString(title)+","+DatabaseUtils.sqlEscapeString(description)+",'"+type+"','"+linkID+"','"+notDate+"');");
         //db.close();
     }
     ArrayList<String[]> GetNotifications()
     {
         db=this.getReadableDatabase();
         ArrayList<String[]> nots=new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT Title,Description,Type,NotDate FROM Notifications ORDER BY NotDate DESC;",null);
+        Cursor cursor = db.rawQuery("SELECT Title,Description,Type,LinkID,NotDate FROM Notifications ORDER BY NotDate DESC;",null);
         if (cursor.getCount()>0)
         {cursor.moveToFirst();
             do {
-                String[] data = new String[4];
+                String[] data = new String[5];
                 data[0] = cursor.getString(cursor.getColumnIndex("Title"));
                 data[1] = cursor.getString(cursor.getColumnIndex("Description"));
                 data[2] = cursor.getString(cursor.getColumnIndex("NotDate"));
                 data[3] = cursor.getString(cursor.getColumnIndex("Type"));
+                data[4] = cursor.getString(cursor.getColumnIndex("LinkID"));
                 nots.add(data);
             }while (cursor.moveToNext());
             cursor.close();
@@ -164,8 +167,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void flushNotifications()
     {
         db=this.getWritableDatabase();
-        long time= System.currentTimeMillis();
-        db.execSQL("DELETE FROM Notifications WHERE ExpiryDate<"+time+";");
+       // long time= System.currentTimeMillis();
+        db.execSQL("DELETE FROM Notifications;");// WHERE ExpiryDate<"+time+";");
         //db.close;
     }
    /* //------------------------------Chat table---------------------------------------

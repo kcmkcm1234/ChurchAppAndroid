@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -14,7 +15,6 @@ import com.google.firebase.messaging.RemoteMessage;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // TODO(developer): Handle FCM messages here.
         // If the application is in the foreground handle both data and notification messages here.
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
@@ -23,15 +23,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String title;
         String description;
         String type;
+        String linkID;
         if(remoteMessage.getData()!=null) {
-            title = remoteMessage.getData().get("title") == null ? "" : remoteMessage.getData().get("title");
-            description = remoteMessage.getData().get("body") == null ? "" : remoteMessage.getData().get("body");
-            type = remoteMessage.getData().get("type") == null ? "" : remoteMessage.getData().get("type");
+            title = (remoteMessage.getData().get("title") == null || remoteMessage.getData().get("title").equals("")) ? "null" : remoteMessage.getData().get("title");
+            description = (remoteMessage.getData().get("body") == null || remoteMessage.getData().get("body").equals("")) ? "null" : remoteMessage.getData().get("body");
+            type = (remoteMessage.getData().get("type") == null || remoteMessage.getData().get("type").equals("")) ? "null" : remoteMessage.getData().get("type");
+            linkID = (remoteMessage.getData().get("linkid") == null || remoteMessage.getData().get("linkid").equals(""))? "null" : remoteMessage.getData().get("linkid");
             DatabaseHandler db = DatabaseHandler.getInstance(this);
             db.InsertNotificationIDs(remoteMessage.getMessageId(),
                     title,
                     description,
                     type,
+                    linkID,
                     Long.toString(java.util.Calendar.getInstance().getTimeInMillis()));
 
             //Notification----------------------

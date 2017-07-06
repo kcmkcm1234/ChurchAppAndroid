@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">goChurch</string>
-    <!--<string name="url" translatable="false">http://192.168.1.109:55/</string>-->
-    <string name="url" translatable="false">http://jdadmin-001-site4.itempurl.com/</string>
+    <string name="url" translatable="false">http://192.168.1.109:55/</string>
+    <!--<string name="url" translatable="false">http://jdadmin-001-site4.itempurl.com/</string>-->
     <string name="network_off_alert">Please turn on internet</string>
     <string name="ok_button">OK</string>
     <string name="church_name">Church Name</string>
@@ -108,4 +108,7 @@
     <string name="pl_select_who_are_going">Please select who are attending</string>
     <string name="response_sent">Response sent ✓</string>
     <string name="archbishop">Archbishop</string>
+    <string name="delete_notifications">Delete all notifications?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -979,10 +979,15 @@ public class CustomAdapter extends BaseAdapter {
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
-                holder.notTitle.setText(objects.get(position)[0]);
-                holder.notDesc.setText(objects.get(position)[1]);
-                cal.setTimeInMillis(Long.parseLong(objects.get(position)[2]));
-                holder.notDate.setText(formatted.format(cal.getTime()));
+                holder.notTitle.setText(objects.get(position)[0].equals("null")?"-":objects.get(position)[0]);
+                holder.notDesc.setText(objects.get(position)[1].equals("null")?"-":objects.get(position)[1]);
+                if(!objects.get(position)[2].equals("null")) {
+                    cal.setTimeInMillis(Long.parseLong(objects.get(position)[2]));
+                    holder.notDate.setText(formatted.format(cal.getTime()));
+                }
+                else {
+                    holder.notDate.setText("");
+                }
                 holder.notTitle.setTypeface(typeQuicksand);
                 holder.notDesc.setTypeface(typeSegoe);
                 holder.notDate.setTypeface(typeSegoe);
