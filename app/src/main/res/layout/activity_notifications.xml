@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.tech.thrithvam.churchapp.Notifications"
-    android:background="@drawable/sky_bg_full">
+    android:background="@drawable/sky_bg_full"
+    android:animateLayoutChanges="true">
     <TextView
         android:text="@string/notifications"
         android:layout_width="wrap_content"
@@ -17,22 +18,12 @@
         android:layout_margin="15dp"
         android:textSize="22sp"
         android:textColor="@android:color/white"/>
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginEnd="7dp"
-        android:padding="3dp"
-        android:src="@drawable/delete"
-        android:onClick="flushNotifications"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbarStyle="outsideOverlay"
         android:id="@+id/notification_list"
         android:layout_below="@+id/activity_head"
-        android:divider="@null"/>
+        android:divider="@null"
+        android:animateLayoutChanges="true"/>
 </RelativeLayout>

@@ -26,6 +26,9 @@ public class Notifications extends AppCompatActivity {
         activity_head =(TextView)findViewById(R.id.activity_head);
         activity_head.setTypeface(typeQuicksand);
          db=DatabaseHandler.getInstance(this);
+        loadNotifications();
+    }
+    void loadNotifications(){
         final ArrayList<String[]> notifications=db.GetNotifications();
         if(notifications.size()==0)
         {
@@ -54,15 +57,8 @@ public class Notifications extends AppCompatActivity {
             }
         });
     }
-    public void flushNotifications(View view){
-        new AlertDialog.Builder(Notifications.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle(R.string.exit)
-                .setMessage(R.string.delete_notifications)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                       db.flushNotifications();
-                        finish();
-                    }
-                }).setNegativeButton(R.string.cancel, null).show();
+    public void flushNotification(final View view){
+                db.flushNotifications(view.getTag().toString());
+                loadNotifications();
     }
 }

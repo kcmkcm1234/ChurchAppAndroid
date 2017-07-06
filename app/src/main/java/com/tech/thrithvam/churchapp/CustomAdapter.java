@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -109,6 +110,7 @@ public class CustomAdapter extends BaseAdapter {
         ImageView personImg;
             //Notifications----------------------
         TextView notTitle,notDesc,notDate;
+        LinearLayout delete;
             //DioceseList------------------------
         TextView dioceseNameTitle,diocesePersonName;
         ImageView diocesePersonImage;
@@ -975,10 +977,12 @@ public class CustomAdapter extends BaseAdapter {
                     holder.notTitle = (TextView) convertView.findViewById(R.id.title);
                     holder.notDesc =(TextView) convertView.findViewById(R.id.description );
                     holder.notDate =(TextView) convertView.findViewById(R.id.date );
+                    holder.delete =(LinearLayout) convertView.findViewById(R.id.delete_button);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
+                holder.delete.setTag(objects.get(position)[5]);
                 holder.notTitle.setText(objects.get(position)[0].equals("null")?"-":objects.get(position)[0]);
                 holder.notDesc.setText(objects.get(position)[1].equals("null")?"-":objects.get(position)[1]);
                 if(!objects.get(position)[2].equals("null")) {

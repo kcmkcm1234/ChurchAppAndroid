@@ -141,16 +141,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     {
         db=this.getReadableDatabase();
         ArrayList<String[]> nots=new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT Title,Description,Type,LinkID,NotDate FROM Notifications ORDER BY NotDate DESC;",null);
+        Cursor cursor = db.rawQuery("SELECT Title,Description,Type,LinkID,NotDate,NotificationIDs FROM Notifications ORDER BY NotDate DESC;",null);
         if (cursor.getCount()>0)
         {cursor.moveToFirst();
             do {
-                String[] data = new String[5];
+                String[] data = new String[6];
                 data[0] = cursor.getString(cursor.getColumnIndex("Title"));
                 data[1] = cursor.getString(cursor.getColumnIndex("Description"));
                 data[2] = cursor.getString(cursor.getColumnIndex("NotDate"));
                 data[3] = cursor.getString(cursor.getColumnIndex("Type"));
                 data[4] = cursor.getString(cursor.getColumnIndex("LinkID"));
+                data[5] = cursor.getString(cursor.getColumnIndex("NotificationIDs"));
                 nots.add(data);
             }while (cursor.moveToNext());
             cursor.close();
@@ -164,11 +165,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return nots;//empty array list to avoid exception in custom adapter
         }
     }
-    public void flushNotifications()
+    public void flushNotifications(String ID)
     {
         db=this.getWritableDatabase();
        // long time= System.currentTimeMillis();
-        db.execSQL("DELETE FROM Notifications;");// WHERE ExpiryDate<"+time+";");
+        db.execSQL("DELETE FROM Notifications WHERE NotificationIDs='"+ID+"';");// WHERE ExpiryDate<"+time+";");
         //db.close;
     }
    /* //------------------------------Chat table---------------------------------------

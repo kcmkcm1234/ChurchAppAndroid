@@ -16,7 +16,9 @@
         android:text="title"
         android:textSize="18sp"
         android:textColor="@color/primary_text"
-        android:id="@+id/title"/>
+        android:id="@+id/title"
+        android:layout_toLeftOf="@+id/linearLayout"
+        android:layout_toStartOf="@+id/linearLayout" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,5 +35,25 @@
         android:layout_alignParentRight="true"
         android:id="@+id/date"
         android:textColor="@color/secondary_text"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/delete_button"
+        android:paddingLeft="3dp"
+        android:paddingStart="3dp"
+        android:onClick="flushNotification">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clear"
+            android:textColor="@color/secondary_text"/>
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/close"/>
+    </LinearLayout>
 </RelativeLayout>
 </LinearLayout>
