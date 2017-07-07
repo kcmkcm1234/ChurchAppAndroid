@@ -238,6 +238,7 @@ public class EventDetails extends AppCompatActivity {
                     cal.set(Calendar.HOUR, 5);
                     final String startDate = formatted.format(cal.getTime());
                     Date.setText(startDate);
+                    final DatabaseHandler db=DatabaseHandler.getInstance(EventDetails.this);
                     Date.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -246,10 +247,10 @@ public class EventDetails extends AppCompatActivity {
                             intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis());
                             intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
 //                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, cal.getTimeInMillis()+60*60*1000);
-                            intent.putExtra(CalendarContract.Events.TITLE, extras.getString("EventName"));
+                            intent.putExtra(CalendarContract.Events.TITLE, eventName);
                             intent.putExtra(CalendarContract.Events.DESCRIPTION, "Reminder set from goChurch app");
                             if (getIntent().hasExtra("ChurchName")) {
-                                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, startDate);
+                                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, db.GetMyChurch("ChurchName")==null?"":db.GetMyChurch("ChurchName"));
                             }
                             intent.putExtra(CalendarContract.Events.HAS_ALARM, true);
                             startActivity(intent);
@@ -263,10 +264,10 @@ public class EventDetails extends AppCompatActivity {
                             intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis());
                             intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
 //                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, cal.getTimeInMillis()+60*60*1000);
-                            intent.putExtra(CalendarContract.Events.TITLE, extras.getString("EventName"));
+                            intent.putExtra(CalendarContract.Events.TITLE, eventName);
                             intent.putExtra(CalendarContract.Events.DESCRIPTION, "Reminder set from goChurch app");
                             if (getIntent().hasExtra("ChurchName")) {
-                                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, startDate);
+                                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, db.GetMyChurch("ChurchName")==null?"":db.GetMyChurch("ChurchName"));
                             }
                             intent.putExtra(CalendarContract.Events.HAS_ALARM, true);
                             startActivity(intent);
