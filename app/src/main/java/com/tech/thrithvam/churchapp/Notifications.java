@@ -57,6 +57,11 @@ public class Notifications extends AppCompatActivity {
                             eventIntent.putExtra("EventID",notifications.get(position)[4]);
                             startActivity(eventIntent);
                             break;
+                        case "Education Event":
+                            Intent eduEventIntent=new Intent(Notifications.this,EducationForumEventsDetails.class);
+                            eduEventIntent.putExtra("EduForumEventID",notifications.get(position)[4]);
+                            startActivity(eduEventIntent);
+                            break;
                         default:
                     }
                 }

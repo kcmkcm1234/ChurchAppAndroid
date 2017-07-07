@@ -15,10 +15,12 @@ import android.support.v7.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,12 +45,14 @@ public class EducationForumEventsDetails extends AppCompatActivity {
     TextView Date, eventsHead, eventsContent,setReminder;
     ImageView eventsImage;
     Typeface typeQuicksand,typeSegoe;
+    AsyncTask getEventDetails;
+    String EVENTID="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_education_forum_events_details);    extras=getIntent().getExtras();
+        setContentView(R.layout.activity_education_forum_events_details);
+        extras=getIntent().getExtras();
         db=DatabaseHandler.getInstance(this);
-        URL=extras.getString("URL");
         typeQuicksand = Typeface.createFromAsset(getAssets(),"fonts/quicksandbold.otf");
         typeSegoe = Typeface.createFromAsset(getAssets(),"fonts/segoeui.ttf");
         eventsHead =(TextView)findViewById(R.id.activity_event_head);
@@ -60,176 +64,391 @@ public class EducationForumEventsDetails extends AppCompatActivity {
         setReminder.setTypeface(typeSegoe);
         eventsContent.setTypeface(typeSegoe);
 
-
-        if(getIntent().hasExtra("EventName")){
-            eventsHead.setText(extras.getString("EventName"));
-        }
-        if(getIntent().hasExtra("StartDateInMillis")){
-            final Calendar cal=Calendar.getInstance();
-            SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
-            cal.setTimeInMillis(Long.parseLong(extras.getString("StartDateInMillis")));
-            cal.set(Calendar.HOUR,5);
-            String startDate=formatted.format(cal.getTime());
-            Date.setText(startDate);
-            Date.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Intent.ACTION_EDIT);
-                    intent.setType("vnd.android.cursor.item/event");
-                    intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis());
-                    intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
-//                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, cal.getTimeInMillis()+60*60*1000);
-                    intent.putExtra(CalendarContract.Events.TITLE,extras.getString("EventName"));
-                    intent.putExtra(CalendarContract.Events.DESCRIPTION,"Reminder set from goChurch app");
-                    if(getIntent().hasExtra("ChurchName")){
-                        intent.putExtra(CalendarContract.Events.EVENT_LOCATION,extras.getString("ChurchName"));
-                    }
-                    intent.putExtra(CalendarContract.Events.HAS_ALARM,true);
-                    startActivity(intent);
-                }
-            });
-            setReminder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Intent.ACTION_EDIT);
-                    intent.setType("vnd.android.cursor.item/event");
-                    intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis());
-                    intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
-//                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, cal.getTimeInMillis()+60*60*1000);
-                    intent.putExtra(CalendarContract.Events.TITLE,extras.getString("EventName"));
-                    intent.putExtra(CalendarContract.Events.DESCRIPTION,"Reminder set from goChurch app");
-                    if(getIntent().hasExtra("ChurchName")){
-                        intent.putExtra(CalendarContract.Events.EVENT_LOCATION,extras.getString("ChurchName"));
-                    }
-                    intent.putExtra(CalendarContract.Events.HAS_ALARM,true);
-                    startActivity(intent);
-                }
-            });
-        }
-        if(getIntent().hasExtra("Description")){
-            eventsContent.setText(extras.getString("Description"));
-        }
-        //image loading using url
-        if(!URL.equals("null")){
-            Glide.with(EducationForumEventsDetails.this)
-                    .load(getResources().getString(R.string.url) +URL.substring((URL).indexOf("img")))
-                    .dontTransform()
-                    .thumbnail(0.1f)
-                    .into(eventsImage)
-            ;
-            eventsImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent photoIntent=new Intent(EducationForumEventsDetails.this,ImageViewerActivity.class);
-                    photoIntent.putExtra("URL",URL);
-                    startActivity(photoIntent);
-                }
-            });
+        if(getIntent().hasExtra("EduForumEventID")){
+            if(db.GetMyChurch("eduForumMemberRegistrationID")==null){
+                finish();
+                return;
+            }
+            EVENTID=getIntent().getExtras().getString("EduForumEventID");
+                getEventDetails=new GetEvent().execute();
         }
         else {
-            eventsImage.setVisibility(View.GONE);
-        }
+            EVENTID=extras.getString("EventID");
+            URL = extras.getString("URL");
 
-        //Response------------------------
-        createResponseButtons();
+            if (getIntent().hasExtra("EventName")) {
+                eventsHead.setText(extras.getString("EventName"));
+            }
+            if (getIntent().hasExtra("StartDateInMillis")) {
+                final Calendar cal = Calendar.getInstance();
+                SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+                cal.setTimeInMillis(Long.parseLong(extras.getString("StartDateInMillis")));
+                cal.set(Calendar.HOUR, 5);
+                String startDate = formatted.format(cal.getTime());
+                Date.setText(startDate);
+                Date.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_EDIT);
+                        intent.setType("vnd.android.cursor.item/event");
+                        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis());
+                        intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+//                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, cal.getTimeInMillis()+60*60*1000);
+                        intent.putExtra(CalendarContract.Events.TITLE, extras.getString("EventName"));
+                        intent.putExtra(CalendarContract.Events.DESCRIPTION, "Reminder set from goChurch app");
+                        if (getIntent().hasExtra("ChurchName")) {
+                            intent.putExtra(CalendarContract.Events.EVENT_LOCATION, extras.getString("ChurchName"));
+                        }
+                        intent.putExtra(CalendarContract.Events.HAS_ALARM, true);
+                        startActivity(intent);
+                    }
+                });
+                setReminder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_EDIT);
+                        intent.setType("vnd.android.cursor.item/event");
+                        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis());
+                        intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+//                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, cal.getTimeInMillis()+60*60*1000);
+                        intent.putExtra(CalendarContract.Events.TITLE, extras.getString("EventName"));
+                        intent.putExtra(CalendarContract.Events.DESCRIPTION, "Reminder set from goChurch app");
+                        if (getIntent().hasExtra("ChurchName")) {
+                            intent.putExtra(CalendarContract.Events.EVENT_LOCATION, extras.getString("ChurchName"));
+                        }
+                        intent.putExtra(CalendarContract.Events.HAS_ALARM, true);
+                        startActivity(intent);
+                    }
+                });
+            }
+            if (getIntent().hasExtra("Description")) {
+                eventsContent.setText(extras.getString("Description"));
+            }
+            //image loading using url
+            if (!URL.equals("null")) {
+                Glide.with(EducationForumEventsDetails.this)
+                        .load(getResources().getString(R.string.url) + URL.substring((URL).indexOf("img")))
+                        .dontTransform()
+                        .thumbnail(0.1f)
+                        .into(eventsImage)
+                ;
+                eventsImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent photoIntent = new Intent(EducationForumEventsDetails.this, ImageViewerActivity.class);
+                        photoIntent.putExtra("URL", URL);
+                        startActivity(photoIntent);
+                    }
+                });
+            } else {
+                eventsImage.setVisibility(View.GONE);
+            }
+
+            //Response------------------------
+            createResponseButtons(0);
+        }
     }
-    void createResponseButtons(){
+    void createResponseButtons(int responseCode){
         RadioGroup responseRadioGroup=(RadioGroup)findViewById(R.id.response);
         responseRadioGroup.setOnCheckedChangeListener(null);
-        if(!extras.getString("ResponseCode").equals("null")){
-            switch (Integer.parseInt(extras.getString("ResponseCode"))){
-                case 1:responseRadioGroup.check(R.id.response_1);
+        if(getIntent().hasExtra("ResponseCode")) {
+            if (!extras.getString("ResponseCode").equals("null")) {
+                switch (Integer.parseInt(extras.getString("ResponseCode"))) {
+                    case 1:
+                        responseRadioGroup.check(R.id.response_1);
+                        break;
+                    case 2:
+                        responseRadioGroup.check(R.id.response_2);
+                        break;
+                    case 3:
+                        responseRadioGroup.check(R.id.response_3);
+                        break;
+                }
+            }
+        }
+        else {
+            switch (responseCode) {
+                case 1:
+                    responseRadioGroup.check(R.id.response_1);
                     break;
-                case 2:responseRadioGroup.check(R.id.response_2);
+                case 2:
+                    responseRadioGroup.check(R.id.response_2);
                     break;
-                case 3:responseRadioGroup.check(R.id.response_3);
+                case 3:
+                    responseRadioGroup.check(R.id.response_3);
                     break;
             }
         }
-        if(extras.getBoolean("isOld")){
-            for (int i=0;i<responseRadioGroup.getChildCount();i++){
-                responseRadioGroup.getChildAt(i).setEnabled(false);
-                ((TextView)responseRadioGroup.getChildAt(i)).setTextColor(Color.GRAY);
+        if(getIntent().hasExtra("isOld")) {
+            if (extras.getBoolean("isOld")) {
+                for (int i = 0; i < responseRadioGroup.getChildCount(); i++) {
+                    responseRadioGroup.getChildAt(i).setEnabled(false);
+                    ((TextView) responseRadioGroup.getChildAt(i)).setTextColor(Color.GRAY);
+                }
+                return;
             }
-        }else {
+        }
             responseRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                    final ArrayList<String[]> eduForumMembers=db.GetEduForumMembers();
-                    if(checkedId==R.id.response_1) {//Attending. So ask who is going
-                        if(eduForumMembers.size()>1){//Multiple member
-                        final ArrayList<String> memberNames = new ArrayList<>();
-                        for (int i = 0; i < eduForumMembers.size(); i++) {
-                            memberNames.add(eduForumMembers.get(i)[1]);
-                        }
-                        final boolean[] lookingForItemsSelectedIndex = new boolean[memberNames.size()];
-                        Arrays.fill(lookingForItemsSelectedIndex, Boolean.FALSE);//initialize
-                        ContextThemeWrapper themedContext= new ContextThemeWrapper( EducationForumEventsDetails.this, R.style.popup_theme  );
-                        AlertDialog dialog = new AlertDialog.Builder(themedContext)
-                                .setTitle(R.string.who_is_going)
-                                .setMultiChoiceItems(memberNames.toArray(new CharSequence[memberNames.size()]),
-                                        lookingForItemsSelectedIndex,
-                                        new DialogInterface.OnMultiChoiceClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
-                                                lookingForItemsSelectedIndex[indexSelected] = isChecked;
-                                            }
-                                        }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+            final ArrayList<String[]> eduForumMembers=db.GetEduForumMembers();
+            if(checkedId==R.id.response_1) {//Attending. So ask who is going
+                if(eduForumMembers.size()>1){//Multiple member
+                final ArrayList<String> memberNames = new ArrayList<>();
+                for (int i = 0; i < eduForumMembers.size(); i++) {
+                    memberNames.add(eduForumMembers.get(i)[1]);
+                }
+                final boolean[] lookingForItemsSelectedIndex = new boolean[memberNames.size()];
+                Arrays.fill(lookingForItemsSelectedIndex, Boolean.FALSE);//initialize
+                ContextThemeWrapper themedContext= new ContextThemeWrapper( EducationForumEventsDetails.this, R.style.popup_theme  );
+                AlertDialog dialog = new AlertDialog.Builder(themedContext)
+                        .setTitle(R.string.who_is_going)
+                        .setMultiChoiceItems(memberNames.toArray(new CharSequence[memberNames.size()]),
+                                lookingForItemsSelectedIndex,
+                                new DialogInterface.OnMultiChoiceClickListener() {
                                     @Override
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        String memberResponseJson = "[";
-                                        Boolean isValidSelection = false;
-                                        for (int i = 0; i < memberNames.size(); i++) {
-                                            memberResponseJson += "{\"MemberID\":\"" + eduForumMembers.get(i)[0] + "\",\"ResponseCode\":\"";
-                                            if (lookingForItemsSelectedIndex[i]) {
-                                                memberResponseJson += "1\"},";
-                                                isValidSelection = true;
-                                            } else {
-                                                memberResponseJson += "3\"},";
-                                            }
-                                        }
-                                        memberResponseJson = memberResponseJson.substring(0, memberResponseJson.lastIndexOf(",")) + "]";
-                                        if (isValidSelection) {
-                                            new SendResponse(memberResponseJson).execute();
-                                        } else {
-                                            createResponseButtons();
-                                            Toast.makeText(EducationForumEventsDetails.this, R.string.pl_select_who_are_going, Toast.LENGTH_LONG).show();
-                                        }
+                                    public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
+                                        lookingForItemsSelectedIndex[indexSelected] = isChecked;
                                     }
-                                }).setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                    @Override
-                                    public void onCancel(DialogInterface dialog) {
-                                        createResponseButtons();
+                                }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                String memberResponseJson = "[";
+                                Boolean isValidSelection = false;
+                                for (int i = 0; i < memberNames.size(); i++) {
+                                    memberResponseJson += "{\"MemberID\":\"" + eduForumMembers.get(i)[0] + "\",\"ResponseCode\":\"";
+                                    if (lookingForItemsSelectedIndex[i]) {
+                                        memberResponseJson += "1\"},";
+                                        isValidSelection = true;
+                                    } else {
+                                        memberResponseJson += "3\"},";
                                     }
-                                })
-                                .create();
-                        dialog.show();
-                        }
-                        else {//Single member: Student
-                            String memberResponseJson="[";
-                            for(int i=0;i<eduForumMembers.size();i++){
-                                memberResponseJson+="{\"MemberID\":\""+eduForumMembers.get(i)[0]+"\",\"ResponseCode\":\"1\"},";
+                                }
+                                memberResponseJson = memberResponseJson.substring(0, memberResponseJson.lastIndexOf(",")) + "]";
+                                if (isValidSelection) {
+                                    new SendResponse(memberResponseJson).execute();
+                                } else {
+                                    createResponseButtons(0);
+                                    Toast.makeText(EducationForumEventsDetails.this, R.string.pl_select_who_are_going, Toast.LENGTH_LONG).show();
+                                }
                             }
-                            memberResponseJson=memberResponseJson.substring(0,memberResponseJson.lastIndexOf(","))+"]";
-                            new SendResponse(memberResponseJson).execute();
-                        }
+                        }).setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                createResponseButtons(0);
+                            }
+                        })
+                        .create();
+                dialog.show();
+                }
+                else {//Single member: Student
+                    String memberResponseJson="[";
+                    for(int i=0;i<eduForumMembers.size();i++){
+                        memberResponseJson+="{\"MemberID\":\""+eduForumMembers.get(i)[0]+"\",\"ResponseCode\":\"1\"},";
+                    }
+                    memberResponseJson=memberResponseJson.substring(0,memberResponseJson.lastIndexOf(","))+"]";
+                    new SendResponse(memberResponseJson).execute();
+                }
+            }
+            else {
+                String memberResponseJson="[";
+                for(int i=0;i<eduForumMembers.size();i++){
+                    memberResponseJson+="{\"MemberID\":\""+eduForumMembers.get(i)[0]+"\",\"ResponseCode\":\"";
+                    if(checkedId==R.id.response_2){
+                        memberResponseJson+="2\"},";
                     }
                     else {
-                        String memberResponseJson="[";
-                        for(int i=0;i<eduForumMembers.size();i++){
-                            memberResponseJson+="{\"MemberID\":\""+eduForumMembers.get(i)[0]+"\",\"ResponseCode\":\"";
-                            if(checkedId==R.id.response_2){
-                                memberResponseJson+="2\"},";
-                            }
-                            else {
-                                memberResponseJson+="3\"},";
-                            }
-                        }
-                        memberResponseJson=memberResponseJson.substring(0,memberResponseJson.lastIndexOf(","))+"]";
-                        new SendResponse(memberResponseJson).execute();
+                        memberResponseJson+="3\"},";
                     }
                 }
+                memberResponseJson=memberResponseJson.substring(0,memberResponseJson.lastIndexOf(","))+"]";
+                new SendResponse(memberResponseJson).execute();
+            }
+             }
             });
+
+    }
+    //---------------------------------Async Tasks--------------------------------------
+    public class GetEvent extends AsyncTask<Void , Void, Void> {
+        int status;StringBuilder sb;
+        String strJson, postData;
+        JSONArray jsonArray;
+        String msg;
+        boolean pass=false;
+        AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView)findViewById(R.id.itemsLoading);
+        String eventName="",description="",imageURL="",startDate="",response="";
+        ScrollView activityScrollview=(ScrollView)findViewById(R.id.activity_scrollview);
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            loadingIndicator.setVisibility(View.VISIBLE);
+            activityScrollview.setVisibility(View.GONE);
+            //----------encrypting ---------------------------
+            // usernameString=cryptography.Encrypt(usernameString);
+        }
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            String url =getResources().getString(R.string.url) + "WebServices/WebService.asmx/GetEduForumEventbyEventID";
+            HttpURLConnection c = null;
+            try {
+                postData =  "{\"EventID\":\"" + getIntent().getExtras().getString("EduForumEventID")+ "\",\"registrationID\":\"" + db.GetMyChurch("eduForumMemberRegistrationID")+ "\"}";
+                java.net.URL u = new java.net.URL(url);
+                c = (HttpURLConnection) u.openConnection();
+                c.setRequestMethod("POST");
+                c.setRequestProperty("Content-type", "application/json; charset=utf-16");
+                c.setRequestProperty("Content-length", Integer.toString(postData.length()));
+                c.setDoInput(true);
+                c.setDoOutput(true);
+                c.setUseCaches(false);
+                c.setConnectTimeout(10000);
+                c.setReadTimeout(10000);
+                DataOutputStream wr = new DataOutputStream(c.getOutputStream());
+                wr.writeBytes(postData);
+                wr.flush();
+                wr.close();
+                status = c.getResponseCode();
+                switch (status) {
+                    case 200:
+                    case 201: BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                        sb = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line).append("\n");
+                        }
+                        br.close();
+                        int a=sb.indexOf("[");
+                        int b=sb.lastIndexOf("]");
+                        strJson=sb.substring(a, b + 1);
+                        //   strJson=cryptography.Decrypt(strJson);
+                        strJson="{\"JSON\":" + strJson.replace("\\\"","\"").replace("\\\\","\\") + "}";
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                msg=ex.getMessage();
+            } finally {
+                if (c != null) {
+                    try {
+                        c.disconnect();
+                    } catch (Exception ex) {
+                        Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                        msg=ex.getMessage();
+                    }
+                }
+            }
+            if(strJson!=null)
+            {try {
+                JSONObject jsonRootObject = new JSONObject(strJson);
+                jsonArray = jsonRootObject.optJSONArray("JSON");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    msg=jsonObject.optString("Message");
+                    pass=jsonObject.optBoolean("Flag",true);
+                    eventName=jsonObject.optString("EventName");
+                    description=jsonObject.optString("Description");
+                    imageURL=jsonObject.optString("URL");
+                    startDate=jsonObject.getString("StartDate").replace("/Date(", "").replace(")/", "");
+                    response=jsonObject.getString("ResponseCode");
+                }
+            } catch (Exception ex) {
+                msg=ex.getMessage();
+            }}
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            loadingIndicator.setVisibility(View.GONE);
+            if(!pass) {
+                Intent intent=new Intent(EducationForumEventsDetails.this,EducationForumEvents.class);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                URL = imageURL;
+
+                if (!eventName.equals("null")) {
+                    eventsHead.setText(eventName);
+                }
+                else {
+                    eventsHead.setText("");
+                }
+                if (!startDate.equals("null")) {
+                    final Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+                    cal.setTimeInMillis(Long.parseLong(startDate));
+                    cal.set(Calendar.HOUR, 5);
+                    String startDate = formatted.format(cal.getTime());
+                    Date.setText(startDate);
+                    Date.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(Intent.ACTION_EDIT);
+                            intent.setType("vnd.android.cursor.item/event");
+                            intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis());
+                            intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+//                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, cal.getTimeInMillis()+60*60*1000);
+                            intent.putExtra(CalendarContract.Events.TITLE, eventName);
+                            intent.putExtra(CalendarContract.Events.DESCRIPTION, "Reminder set from goChurch app");
+                            if (getIntent().hasExtra("ChurchName")) {
+                                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, db.GetMyChurch("ChurchName")==null?"":db.GetMyChurch("ChurchName"));
+                            }
+                            intent.putExtra(CalendarContract.Events.HAS_ALARM, true);
+                            startActivity(intent);
+                        }
+                    });
+                    setReminder.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(Intent.ACTION_EDIT);
+                            intent.setType("vnd.android.cursor.item/event");
+                            intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis());
+                            intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+//                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, cal.getTimeInMillis()+60*60*1000);
+                            intent.putExtra(CalendarContract.Events.TITLE, eventName);
+                            intent.putExtra(CalendarContract.Events.DESCRIPTION, "Reminder set from goChurch app");
+                            if (getIntent().hasExtra("ChurchName")) {
+                                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, db.GetMyChurch("ChurchName")==null?"":db.GetMyChurch("ChurchName"));
+                            }
+                            intent.putExtra(CalendarContract.Events.HAS_ALARM, true);
+                            startActivity(intent);
+                        }
+                    });
+                }
+                if (!description.equals("null")) {
+                    eventsContent.setText(description);
+                }
+                else {
+                    eventsContent.setText("");
+                }
+                //image loading using url
+                if (!URL.equals("null")) {
+                    Glide.with(EducationForumEventsDetails.this)
+                            .load(getResources().getString(R.string.url) + URL.substring((URL).indexOf("img")))
+                            .dontTransform()
+                            .thumbnail(0.1f)
+                            .into(eventsImage)
+                    ;
+                    eventsImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent photoIntent = new Intent(EducationForumEventsDetails.this, ImageViewerActivity.class);
+                            photoIntent.putExtra("URL", URL);
+                            startActivity(photoIntent);
+                        }
+                    });
+                } else {
+                    eventsImage.setVisibility(View.GONE);
+                }
+
+                //Response------------------------
+                if(!response.equals("null")) {
+                    createResponseButtons(Integer.parseInt(response));
+                }
+                else {
+                    createResponseButtons(0);
+                }
+                activityScrollview.setVisibility(View.VISIBLE);
+            }
         }
     }
     private class SendResponse extends AsyncTask<Void , Void, Void> {
@@ -258,7 +477,7 @@ public class EducationForumEventsDetails extends AppCompatActivity {
             try {
                 postData =  "{\"churchID\":\""+ db.GetMyChurch("ChurchID")
                         +"\",\"registrationID\":\"" +  db.GetMyChurch("eduForumMemberRegistrationID")
-                        +"\",\"eventID\":\"" + extras.getString("EventID")
+                        +"\",\"eventID\":\"" + EVENTID
                         +"\",\"memberResponseJson\":"+memberResponseJson+ "}";
                 java.net.URL u = new URL(url);
                 c = (HttpURLConnection) u.openConnection();
@@ -341,6 +560,7 @@ public class EducationForumEventsDetails extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
+        if(getEventDetails!=null)getEventDetails.cancel(true);
         Intent intent = new Intent(EducationForumEventsDetails.this, EducationForumEvents.class);
         finish();
         startActivity(intent);
