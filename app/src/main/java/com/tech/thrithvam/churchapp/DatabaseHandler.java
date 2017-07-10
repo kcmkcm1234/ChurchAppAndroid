@@ -54,8 +54,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(DROP_NOTIFICATIONS_TABLE);
         String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS Notifications (NotificationIDs TEXT,Title TEXT,Description TEXT,Type TEXT,LinkID TEXT , NotDate TEXT);";
         db.execSQL(CREATE_NOTIFICATIONS_TABLE);
-        String DROP_USER_ACCOUNTS_TABLE = "DROP TABLE IF EXISTS MyChurch;";
-        db.execSQL(DROP_USER_ACCOUNTS_TABLE);
+//        String DROP_USER_ACCOUNTS_TABLE = "DROP TABLE IF EXISTS MyChurch;";
+//        db.execSQL(DROP_USER_ACCOUNTS_TABLE);
         String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS MyChurch (ChurchID TEXT PRIMARY KEY,ChurchName TEXT, Town TEXT, Address TEXT,Image TEXT,Denomination TEXT,eduForumMemberRegistrationID TEXT);";
         db.execSQL(CREATE_USER_ACCOUNTS_TABLE);
         String CREATE_EDU_FORUM_MEMBERS_TABLE = "CREATE TABLE IF NOT EXISTS EduForum (MemberID TEXT PRIMARY KEY,Name TEXT, Class TEXT,School TEXT,DOB TEXT);";
